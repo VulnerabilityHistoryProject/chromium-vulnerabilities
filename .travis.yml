@@ -1,0 +1,5 @@
+language: ruby
+sudo: false # taking advantage of container-based infrastructure
+cache: bundler # cache bundled gems from build to build
+
+# run's just rake by default
