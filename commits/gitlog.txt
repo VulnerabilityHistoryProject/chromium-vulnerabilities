@@ -1,0 +1,86 @@
+:::
+f3e8965444b0b615ed8aabfcacc5840f6684c0c5
+dglazkov@google.com
+dglazkov@google.com@0039d316-1c4b-4281-b951-d872f2087c98
+Mon Mar 9 15:32:34 2009 +0000
+b0c8ef624a09af898a8329338c1d3020f7bdd9f7
+Strip CRs from *.in files to allow building from webkit.org
+R=darin
+
+Review URL: http://codereview.chromium.org/39004
+
+git-svn-id: svn://svn.chromium.org/chrome/trunk/src@11244 0039d316-1c4b-4281-b951-d872f2087c98
+;;;
+ DEPS                            | 2 +-
+ webkit/port/DerivedSources.make | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+:::
+4bab3b214e92e0884af87c4ae9287da3daff5f3d
+dimich@google.com
+dimich@google.com@0039d316-1c4b-4281-b951-d872f2087c98
+Wed Jan 7 21:44:36 2009 +0000
+5bcdb31304d676b38ce605180b7d8816e9a8b745
+WebKit merge 39606:39660 Review URL: http://codereview.chromium.org/17239
+git-svn-id: svn://svn.chromium.org/chrome/trunk/src@7684 0039d316-1c4b-4281-b951-d872f2087c98
+;;;
+DEPS                                                   |  8 ++++----
+WEBKIT_MERGE_REVISION                                  |  2 +-
+webkit/build/JavaScriptCore/JavaScriptCore.vcproj      | 15 +++++++++++++++
+webkit/build/JavaScriptCore/WTF.vcproj                 |  8 ++++++++
+webkit/build/KJSBindings/KJSBindings.vcproj            |  8 --------
+webkit/build/V8Bindings/SConscript                     |  1 -
+webkit/build/V8Bindings/V8Bindings.vcproj              | 12 ++----------
+webkit/build/WebCore/SConscript                        |  3 +--
+webkit/build/WebCore/WebCore.vcproj                    | 24 ++++++++----------------
+webkit/build/port/SConscript                           |  1 -
+webkit/glue/chrome_client_impl.h                       |  1 +
+webkit/glue/webwidget_impl.h                           |  1 +
+webkit/port/DerivedSources.make                        | 38 +++++++++++++++++---------------------
+webkit/port/bindings/scripts/CodeGeneratorV8.pm        |  2 +-
+webkit/port/bindings/v8/v8_custom.cpp                  | 45 ++++++++-------------------------------------
+webkit/port/bindings/v8/v8_custom.h                    |  3 ---
+webkit/port/bindings/v8/v8_index.cpp                   |  1 -
+webkit/port/bindings/v8/v8_index.h                     |  3 +--
+webkit/port/bindings/v8/v8_proxy.cpp                   |  6 ------
+webkit/tools/layout_tests/test_lists/tests_fixable.txt | 33 +++++++++++++++++++++++++++++++++
+webkit/webkit.xcodeproj/project.pbxproj                | 24 ++++++------------------
+21 files changed, 107 insertions(+), 132 deletions(-)
+
+:::
+5bcdb31304d676b38ce605180b7d8816e9a8b745
+tc@google.com
+tc@google.com@0039d316-1c4b-4281-b951-d872f2087c98
+Wed Jan 7 21:43:20 2009 +0000
+c2374c94270d846055463aa1e61f239957f82f09
+Add a UI test to make sure we sanitize the filename of files saved using the "Save page as..." menu item.
+This involves adding a new automation provider method
+for disabling the dialog prompting for a filename.
+
+Review URL: http://codereview.chromium.org/16555
+
+git-svn-id: svn://svn.chromium.org/chrome/trunk/src@7683 0039d316-1c4b-4281-b951-d872f2087c98
+;;;
+chrome/browser/automation/automation_provider.cc      |  7 +++++++
+chrome/browser/automation/automation_provider.h       |  3 +++
+chrome/browser/download/save_package.cc               | 30 +++++++++++++++++++++++++-----
+chrome/browser/download/save_package.h                |  4 ++++
+chrome/browser/download/save_page_uitest.cc           | 56 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+chrome/test/automation/automation_messages_internal.h |  5 +++++
+chrome/test/automation/automation_proxy.cc            |  4 ++++
+chrome/test/automation/automation_proxy.h             |  5 +++++
+chrome/test/data/save_page/c.htm                      |  2 ++
+9 files changed, 111 insertions(+), 5 deletions(-)
+:::
+6fe4e841191055b69f5df33002e78d75bfdcf725
+dglazkov@chromium.org
+dglazkov@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98
+Wed May 27 16:42:12 2009 +0000
+c7bc223397c1eb512609aa0a0c21663dfce5abfd
+Remove empty unused directories from src/webkit.
+R=darin
+BUG=3319
+TEST=none
+
+Review URL: http://codereview.chromium.org/113903
+
+git-svn-id: svn://svn.chromium.org/chrome/trunk/src@16990 0039d316-1c4b-4281-b951-d872f2087c98

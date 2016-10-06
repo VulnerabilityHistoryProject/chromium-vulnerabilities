@@ -11,3 +11,23 @@ end
 def cve_yml(cve)
   File.expand_path "#{File.dirname(__FILE__)}/../cves/#{cve}.yml"
 end
+
+def cve_ymls
+  Dir["#{cve_dir}/**/*.yml"].map
+end
+
+def cve_hash(file)
+  YAML.load(File.open(file))
+end
+
+def git_log
+  File.expand_path "#{File.dirname(__FILE__)}/../commits/gitlog.txt"
+end
+
+def git_log_has?(word)
+  included = false
+  File.open(git_log, 'r').each do |line|
+    included ||= line.include? word
+  end
+  return included
+end
