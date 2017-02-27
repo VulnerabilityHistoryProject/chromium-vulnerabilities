@@ -1,6 +1,10 @@
 # chromium-vulnerabilities
 Data for vulnerabilityhistory.org
 
+# Travis Build [![Build Status](https://travis-ci.org/andymeneely/chromium-vulnerabilities.svg?branch=master)](https://travis-ci.org/andymeneely/chromium-vulnerabilities)
+
+Every push and pull request is run against our integrity checkers on Travis. Click on the above tag to see the status of the build.
+
 # Get the Git Log data
 
 Use this git command to generate the git log:
