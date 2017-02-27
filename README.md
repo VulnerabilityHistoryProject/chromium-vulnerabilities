@@ -14,3 +14,12 @@ git log --pretty=format:":::%n%H%n%an%n%ae%n%ad%n%P%n%s%n%b%n;;;" --stat --stat-
 ```
 
 This gets absolutely everything, so don't commit that file - but cut it down to the commits you need. We're working on automating this.
+
+# Get the Releases data
+
+Release data is scraped from this [Wikipedia article](https://en.wikipedia.org/wiki/Google_Chrome_version_history)
+
+```
+$ cd scripts
+$ ruby get_releases.rb
+```
