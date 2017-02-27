@@ -1046,9 +1046,9 @@
   browser_eng: Blink 537.36
   js_eng: '5.8'
   notes: Current Dev Channel
-58.0.3020:
+59.0.3020:
   date:
-    '2017-02-17': Linux, macOS, Windows
+    '2017-02-27': Linux, macOS, Windows
   browser_eng: Blink 537.36
-  js_eng: 5.8.258
+  js_eng: 5.9.302
   notes: Current Canary Channel
