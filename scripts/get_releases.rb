@@ -56,10 +56,10 @@ def get_releases()
       "date" => dates,
       "browser_eng" => layout_eng,
       "js_eng" => v8_eng,
-      "notes" => col.last.text.strip
+      "changes" => col.last.text.strip
     }
   end
   rels
 end
 
-File.open('../releases.yml', 'w') {|f| f.write get_releases.to_yaml}
+File.open('../releases/releases.yml', 'w') {|f| f.write get_releases.to_yaml}
