@@ -1,0 +1,1054 @@
+---
+0.2.149:
+  date:
+    '2008-09-02': General
+  browser_eng: WebKit 522
+  js_eng: '0.3'
+  changes: First release[r 3]
+0.3.154:
+  date:
+    '2008-10-29': General
+  browser_eng: WebKit 522
+  js_eng: '0.3'
+  changes: |-
+    Improved plugin performance and reliability
+    Spell checking for input fields
+    Improved web proxy performance and reliability
+    Tab and window management updates
+0.4.154:
+  date:
+    '2008-11-24': General
+  browser_eng: WebKit 525
+  js_eng: '0.3'
+  changes: |-
+    Bookmark manager with import and export support
+    Privacy section added to the application options
+    New blocked popup notification
+1.0.154:
+  date:
+    '2008-12-11': General
+  browser_eng: WebKit 528
+  js_eng: '0.3'
+  changes: First stable release
+2.0.172:
+  date:
+    '2009-05-24': General
+  browser_eng: WebKit 530
+  js_eng: '0.4'
+  changes: |-
+    35% faster JavaScript on the SunSpider benchmark
+    Mouse wheel support
+    Full-screen mode
+    Full-page zoom
+    Form auto-fill
+    Sort bookmarks by title
+    Tab docking to browser and desktop edges
+    Basic Greasemonkey support[r 4]
+3.0.195:
+  date:
+    '2009-10-12': General
+  browser_eng: WebKit 532
+  js_eng: '1.2'
+  changes: |-
+    New "new tab" page for improved customization
+    25% faster JavaScript
+    HTML5 video and audio tag support
+    Lightweight theming
+4.0.249:
+  date:
+    '2010-01-25': General
+  browser_eng: WebKit 532.5
+  js_eng: '1.3'
+  changes: |-
+    Extensions
+    Bookmark synchronization
+    Enhanced developer tools
+    Improved HTML5 support
+    Performance improvements
+    Full ACID3 pass
+    HTTP byte range support
+    Experimental new anti-reflected-XSS feature called "XSS Auditor"[r 5]
+4.1.249:
+  date:
+    '2010-03-17': General
+  browser_eng: WebKit 532.5
+  js_eng: '1.3'
+  changes: |-
+    Translate infobar[clarification needed]
+    New privacy features
+    Disabled XSS Auditor[r 6]
+5.0.375:
+  date:
+    '2010-05-21': General
+  browser_eng: WebKit 533
+  js_eng: '2.1'
+  changes: |-
+    Browser preference synchronizing
+    Increased HTML5 support (Geolocation API, App Cache, web sockets, and file drag-and-drop)
+    Revamped bookmark manager
+    Adobe Flash Player integrated[r 7][r 8]
+    First stable releases for macOS, 32 bit Linux, and 64 bit Linux[r 9]
+6.0.472:
+  date:
+    '2010-09-02': General
+  browser_eng: WebKit 534.3
+  js_eng: '2.2'
+  changes: |-
+    Updated and more streamlined UI with simplified Omnibox
+    New tab page
+    Merged menu buttons
+    Form auto-fill
+    Expanded synchronization support to include extensions and auto-fill data
+    Support for WebM videos
+    Built-in PDF support (disabled by default)[r 10]
+7.0.517:
+  date:
+    '2010-10-21': General
+  browser_eng: WebKit 534.7
+  js_eng: 2.3.11
+  changes: |-
+    Implemented HTML5 parsing algorithm
+    File API
+    Directory upload via input tag
+    macOS version gained AppleScript support for UI automation[r 11]
+    Late binding enabled for SSL sockets: high priority SSL requests are now always sent to the server first.
+    New options for managing cookies
+    Updated New Tab page to enable featuring of web applications
+8.0.552:
+  date:
+    '2010-12-02': General
+  browser_eng: WebKit 534.10
+  js_eng: 2.4.9
+  changes: |-
+    Chrome Web Store
+    Built-in PDF viewer that works inside Chrome's sandbox for increased security
+    Expanded synchronization support to include web applications
+    Improved plug-in handling[r 12]
+    This release added "about:flags" to showcase experimental features such as Chrome Instant, side tabs on Windows, tabbed settings, Click to Play,[clarification needed] background web applications, Remoting,[clarification needed] disables outdated plug-ins,[clarification needed] XSS Auditor,[clarification needed] Cloud Print Proxy,[clarification needed] GPU-accelerated compositing, WebGL support for the canvas element, and a "tab overview" mode (like Exposé) for macOS.
+9.0.597:
+  date:
+    '2011-02-03': General
+  browser_eng: WebKit 534.13
+  js_eng: 2.5.9
+  changes: |-
+    WebGL enabled by default
+    Adobe Flash sandboxing on Windows and Chrome Instant (a la Google Instant) option[r 13]
+    WebP support[r 14]
+    New flags: print preview, GPU-accelerated compositing, GPU-accelerated Canvas 2D, Google Native Client, CRX-less Web Apps, Web page prerendering, experimental Extension APIs, disable hyperlink auditing
+10.0.648:
+  date:
+    '2011-03-08': General
+  browser_eng: WebKit 534.16
+  js_eng: 3.0.12
+  changes: |-
+    Google Cloud Print sign-in interface enabled by default
+    Partially implemented sandboxing of the GPU process[r 15][r 16]
+    Faster JavaScript performance due to incorporation of Crankshaft, an improved compiler for V8[r 17]
+    Settings pages that open in a tab, rather than a dialog box
+    Malware reporting and disabling outdated plugins
+    Password sync
+    GPU accelerated video
+    Background WebApps
+    webNavigation extension API[r 18]
+11.0.696:
+  date:
+    '2011-04-27': General
+  browser_eng: WebKit 534.24
+  js_eng: 3.1.8
+  changes: |-
+    HTML5 Speech Input API[r 19]
+    Updated icon[r 20]
+12.0.742:
+  date:
+    '2011-06-07': General
+  browser_eng: WebKit 534.30
+  js_eng: 3.2.10
+  changes: |-
+    Hardware accelerated 3D CSS
+    New Safe Browsing protection against downloading malicious files
+    Ability to delete Flash cookies from inside Chrome[r 21]
+    Launch Apps by name from the Omnibox
+    Integrated Sync into new settings pages
+    Improved screen reader support
+    New warning when hitting Command-Q on Mac[r 21]
+    New flags: P2P API
+    Existing tab on foreground on open
+    Experimental new tab page
+    Add grouping to tab context menu
+    Run PPAPI Flash in the renderer process
+    Multiple profiles
+    Removed Google Gears
+    Print and Save buttons in the PDF viewer[r 22]
+13.0.782:
+  date:
+    '2011-08-02': General
+  browser_eng: WebKit 535.1
+  js_eng: 3.3.10
+  changes: |-
+    Instant Pages (pre-rendering of Web pages)[r 23]
+    Native print interface and preview (Linux and Windows only)
+    Experimental new tab page
+    Experimental Restrict Instant To Search option
+14.0.835:
+  date:
+    '2011-09-16': General
+  browser_eng: WebKit 535.1
+  js_eng: |2+
+
+
+    Native Client (NaCl) enabled for apps in the Chrome Web Store[r 24]
+    Web Audio API
+    Additional macOS Lion feature support
+    Sync Encryption for all data
+    Print preview on Mac
+    Validation of HTTPS sites[r 25]
+    Experimental Web Request extension API
+    Experimental Content Settings extension API[r 26]
+
+  changes: |-
+    Native Client (NaCl) enabled for apps in the Chrome Web Store[r 24]
+    Web Audio API
+    Additional macOS Lion feature support
+    Sync Encryption for all data
+    Print preview on Mac
+    Validation of HTTPS sites[r 25]
+    Experimental Web Request extension API
+    Experimental Content Settings extension API[r 26]
+15.0.874:
+  date:
+    '2011-10-25': General
+  browser_eng: WebKit 535.2
+  js_eng: 3.5.10
+  changes: |-
+    Faster print preview[r 27]
+    Redesigned new tab page on by default[r 27]
+    JavaScript fullscreen API enabled by default[r 27]
+    Inline installation of Chrome Web Store items by verified sites
+    Omnibox History synchronization[r 28]
+    Switched to FFmpeg native VP8 decoder[r 29]
+    Extensions integrated into settings pages
+    GPU Accelerated Canvas 2D disabled
+16.0.912:
+  date:
+    '2011-12-13': General
+  browser_eng: WebKit 535.7
+  js_eng: 3.6.6
+  changes: |-
+    Multiple profiles on by default[r 28]
+    Optional permissions in Chrome extensions, so the user can opt-in or opt-out of the optional permissions at installation time[r 30]
+    Experimental support for side tabs was removed.[r 31]
+17.0.963:
+  date:
+    '2012-02-08': General
+  browser_eng: WebKit 535.11
+  js_eng: 3.7.12
+  changes: |-
+    Updated Omnibox prerendering of pages[r 32]
+    Download scanning protection[r 32]
+    New extensions APIs[r 32]
+    Improved History tab
+    Removal of "+" symbol from the "new tab" button
+    Limited support for changing user agent strings
+    Adjustable margins in print preview[r 33]
+    Search engine synchronization[r 34]
+    Disabled GAIA profile info[r 35]
+18.0.1025:
+  date:
+    '2012-03-28': General
+    '2012-06-27': Android ARM
+    '2012-09-26': 18.0.1026, Android x86
+  browser_eng: WebKit 535.19
+  js_eng: 3.8.9
+  changes: |-
+    Hardware-accelerated Canvas2D graphics[r 36]
+    WebGL without the need of 3D graphics hardware through the software rasterizer SwiftShader[r 36]
+    Brighter "new tab" button[r 37]
+19.0.1084:
+  date:
+    '2012-05-15': General
+    '2012-06-28': iOS
+  browser_eng: WebKit 536.5
+  js_eng: 3.9.24
+  changes: |-
+    Access tabs between devices[r 38]
+    Reorganized and searchable settings interface
+    Better spell check by using the Google search engine spell checker
+    Web Store link to the bottom of New Tab page
+    Experimental JavaScript Harmony (ECMAScript 6) support[r 39]
+    Experimental Web Intents API[r 40]
+20.0.1132:
+  date:
+    '2012-06-26': General
+  browser_eng: WebKit 536.10
+  js_eng: 3.10.6
+  changes: |-
+    Experimental touch friendly user interface adjustments. Context menus have extra vertical padding between items.[r 41]
+    New tab button is bigger and wider
+21.0.1180:
+  date:
+    '2012-07-31': General
+    '2012-08-22': iOS
+  browser_eng: WebKit 537.1
+  js_eng: 3.11.10
+  changes: |-
+    Media Stream API (getUserMedia) enabled by default. (E.g. webcam access via JavaScript.)[r 42]
+    Gamepad API prototype available by default.
+    Support for (pointer) and (hover) CSS media queries so sites can optimize their user interface for touch when touch-screen support is available.
+    HTML5 audio/video and WebAudio now support 24-bit PCM wave files
+22.0.1229:
+  date:
+    '2012-09-25': General
+  browser_eng: WebKit 537.4
+  js_eng: 3.12.19
+  changes: |-
+    New-style packaged apps are enabled by default.
+    New menu icon, replacing the wrench icon
+    Support for TLS 1.1[r 43][r 44]
+    Support for color management ICC v2 profiles by default[r 45]
+23.0.1271:
+  date:
+    '2012-11-06': General
+    '2012-11-28': iOS
+  browser_eng: WebKit 537.11
+  js_eng: 3.13.7
+  changes: |-
+    Do Not Track preference[r 46]
+    Hardware video acceleration with 25% more efficient power consumption in some scenarios
+    Manager for site permission control
+    New icon for Chrome Web Store when opening new tab
+    PPAPI Flash Player (or Pepper-based Flash Player) replaced the NPAPI Flash Player on Mac also[r 47]
+24.0.1312:
+  date:
+    '2013-01-10': General
+  browser_eng: WebKit 537.17
+  js_eng: 3.14.5
+  changes: |-
+    Support for MathML[r 48]
+    The HTML5 datalist element now supports suggesting a date and time[r 48]
+    Experimental support for CSS custom filters[r 48][r 49]
+25.0.1364:
+  date:
+    '2013-02-21': General
+    '2013-02-27': Android
+    '2013-03-04': iOS
+  browser_eng: WebKit 537.22
+  js_eng: 3.15.11
+  changes: |-
+    Support for Opus audio
+    Support for VP9 video[r 50]
+    Silent installs of external extensions are now disabled by default.[r 51]
+    Web Speech API[r 52]
+    Encrypted omnibox search (https)[r 53]
+    Native Client on ARM
+    Disabled MathML support for the time being[r 54]
+
+    Android version (update from 18):
+
+    Newer V8 JavaScript engine
+    Audio now continues to play while Chrome is in the background
+    Support for pausing audio in Chrome when phone is in use
+26.0.1410:
+  date:
+    '2013-03-26': General
+    '2013-04-03': Android
+    '2013-04-09': iOS
+  browser_eng: WebKit 537.31
+  js_eng: 3.16.14
+  changes: |-
+    Improved spell checker (grammar and homonym checking)[r 55]
+    Desktop shortcuts for multiple users (profiles) on Windows[r 55]
+    Asynchronous DNS resolver on Mac and Linux[r 55]
+
+    Android version:[r 56]
+
+    Autofill and password sync
+    Performance and stability improvements
+27.0.1453:
+  date:
+    '2013-05-21': General
+    '2013-05-22': Android
+    '2013-06-03': iOS
+  browser_eng: WebKit 537.36
+  js_eng: 3.17.6
+  changes: |-
+    Resource handling optimized for faster page loads[r 57]
+    Improved Omnibox predictions and spelling correction[r 57]
+    syncFileSystem API for Google Drive data synchronization[r 57]
+    Stop packaging Manifest version 1.0 extensions[r 58]
+
+    Android version:[r 59]
+
+    Fullscreen on phones (scrolling down the page makes the toolbar disappear)
+    Simpler searching (the query stays visible in the omnibox, making it easier to edit)
+    Client-side certificate support
+    Tab history on tablets
+    "A ton of stability and performance fixes"
+28.0.1500:
+  date:
+    '2013-06-17': Linux
+    '2013-07-09': macOS, Windows
+    '2013-07-10': Android
+    '2013-07-17': iOS
+  browser_eng: |-
+    Blink 537.36
+    WebKit 537.36 (on iOS)
+  js_eng: 3.18.5
+  changes: |-
+    Replaced layout engine with Blink, a fork of WebKit[r 60][r 61][r 62] on all platforms besides iOS
+    Faster page loads with the new Blink threaded HTML parser[r 63]
+    Rich Notifications and Notification Center (HTML-based notifications deprecated)[r 64]
+    Major improvements to the asm.js benchmark performances[r 63]
+    Support for the CSS :unresolved pseudoclass for Custom Elements[r 63]
+    Support for the CSS @supports conditional blocks to test for property:value pairs[r 63]
+
+    Android version:
+
+    Fullscreen API support (fullscreen browsing on tablets)[r 63]
+    Experimental WebGL, Web Audio, WebRTC support behind flags[r 63]
+    Built-in translation[r 65]
+
+    iOS version:
+
+    Improved interoperability with many other Google Apps[r 66]
+    Voice Search enhancements[r 66]
+    Fullscreen for iPad[r 66]
+    Data usage savings (rolling out over time)[r 66]
+    Access to browser history[r 66]
+29.0.1547:
+  date:
+    '2013-08-20': Linux, macOS, Windows
+    '2013-08-21': Android
+    '2013-09-12': iOS
+  browser_eng: Blink 537.36
+  js_eng: 3.19.18
+  changes: |-
+    Support for VP9 final
+    Support for TLS 1.2
+    Preliminary QUIC support[r 67]
+    Improved Omnibox suggestions based on the recency of visited sites
+    Ability to reset user profile back to its original state
+    New apps and extensions APIs (such as Native Messaging API for connecting Chrome with native applications installed on the same computer - an alternative to NPAPI[r 68])
+
+    Android version:
+
+    WebRTC support[r 69]
+    WebAudio support[r 69]
+    Improved scrolling responsiveness[r 70] and visual indication when scrolling to the top or bottom of a page[r 69]
+    Startup performance and stability improvements[r 70]
+    New color picker user interface for web forms[r 69]
+    Support for Google's experimental data compression service (comparable to Opera Turbo) that lets Google servers quickly read and optimize a Web page for mobile devices, then transmit it to the smartphone using Google's SPDY network technology.
+    Rudimentary tab groups implemented
+
+    iOS version:
+
+    Get back to Search Results faster
+    Data cost savings enhancements (rolled out incrementally)
+    Voice search pronoun support (e.g. queries like: “Who is the president of the United States?” followed by “Who is his wife?”)
+    Improvements to Single Sign On with other Google Apps[r 71]
+    Support for WebP image format[r 72]
+30.0.1599:
+  date:
+    '2013-09-18': iOS
+    '2013-10-01': Linux, macOS, Windows
+    '2013-10-02': Android
+  browser_eng: Blink 537.36
+  js_eng: 3.20.17
+  changes: |-
+    New image context menu item: "Search Google for this image"
+    New Chrome Apps APIs: webview.request, media gallery write support and downloads[r 73]
+    New platform features (both in desktop and mobile): support for the WebRTC Device Enumeration API, allowing users to change their microphones and/or camera on the fly without having to restart the WebRTC call; DevTools now supports CSS source maps; Chrome will now match the behavior of IE and not honor the Refresh header or tags when the URL to be refreshed to has a javascript: scheme;[r 73]
+
+    Android version:
+
+    New gesture: swipe horizontally across the top toolbar to quickly switch tabs
+    New gesture: drag vertically down from the toolbar to enter into the tab switcher view
+    New gesture: drag down from the menu to open the menu and select wanted item without having to lift finger
+    WebGL is enabled by default on high-end devices[r 73]
+    DeviceMotion (device acceleration and rotation rates) events[r 73]
+    Media Source Extension is enabled on Android 4.1+[r 73]
+    Two new experimental features behind a flag: Web Speech API (recognition) and the Vibration API[r 73]
+
+    iOS version:
+
+    New look and feature enhancements for iOS7
+    Improvements to Fullscreen behavior especially on iPad (iOS7 only)
+    New Settings UI
+    Maps and email links launch the Google Maps and Gmail apps (if installed) automatically. You can change your preference in Settings
+    Stability / security improvements and bug fixes[r 74]
+31.0.1650:
+  date:
+    '2013-11-12': Linux, macOS, Windows
+    '2013-11-14': Android
+    '2013-11-20': iOS
+  browser_eng: Blink 537.36
+  js_eng: 3.21.18
+  changes: |-
+    Payment requestAutocomplete() on Chrome for Android, Windows, Chrome OS
+    PNaCl on desktop versions of Chrome
+    New Chrome Apps APIs: With URL handlers for apps, Chrome App developers can now specify URLs to be handled by a Chrome App. For example, a document link on a website could open a document editor Chrome App. This gives users more seamless entry points into their favorite Chrome Apps.
+    Directory access for Apps allows Chrome Apps to access and write to user-approved folders. This feature can be used to share files between a Chrome App and a native app. For example, a Chrome App code editor could modify files managed by a native Git client.
+    SCTP for WebRTC Data Channel allows P2P data transfers between browsers to be either best effort, reliable, or semi reliable, opening up use cases such as gaming.
+    Alpha channel support for WebM video enables transparency masking (a.k.a. green screen effects) in WebM videos.
+    Speech recognition with the JavaScript Web Speech API is now supported on Chrome for Android.
+    window.devicePixelRatio now takes full-page zoom (but not pinch zoom) into account
+    Support for { alpha: false } in getContext('2d') lets you create an opaque canvas. This is similar to existing WebGL functionality and can improve the rendering performance of your app.
+    The Media Source API has been unprefixed and is now supported on Chrome for Android. It allows JavaScript to generate media streams for playback, addressing use cases like adaptive streaming and time shifting live streams.
+    2D canvas now supports the "ellipse" method.
+    Support for several Mutation Events has been removed. Consider using MutationObserver instead.[r 75]
+
+    iOS version:
+
+    Fast form completion with Autofill
+    Long press on an image to search for related images
+    Stability / security improvements and bug fixes[r 74]
+32.0.1700:
+  date:
+    '2014-01-14': Linux, macOS, Windows
+    '2014-01-15': Android
+    '2014-01-27': iOS
+  browser_eng: Blink 537.36
+  js_eng: 3.22.24
+  changes: |-
+    Tab indicators for sound, webcam and casting
+    A different look for Win8 Metro mode
+    Automatically blocking malware files
+    A number of new apps/extension APIs
+    Various under-the-hood changes for stability and performance
+
+    Android version:
+
+    Add web page shortcuts right to your home screen more easily from the menu
+    Reduce data usage in Chrome up to 50%. Visit Settings > Bandwidth management > Reduce data usage to enable.[r 76]
+
+    iOS version:
+
+    Translate
+
+    When you come across a page written in a language that you don’t understand, just look for the translation bar. One tap and the page is quickly translated for you.
+
+
+    Reduce Data Usage
+
+    Reduce your data usage by up to 50%. Enable this feature and view your savings: Settings > Bandwidth > Reduce Data Usage.
+
+
+    New Tab Page update to make searching faster and easier
+
+    This feature is being rolled out and will be available to all users over time, beginning on iPhone.
+33.0.1750:
+  date:
+    '2014-02-18': iOS
+    '2014-02-20': Linux, macOS, Windows
+    '2014-02-26': Android
+  browser_eng: Blink 537.36
+  js_eng: 3.23.17
+  changes: |-
+    Custom Elements[r 77]
+    Ogg Opus in MSE and <video>[r 77]
+    Page Visibility API[r 77]
+    VTTCue [r 77]
+    Web Speech API (synthesis)[r 77]
+    Font-kerning[r 77]
+    requestAutocomplete()[r 77]
+    Speech Synthesis[r 77]
+
+    Android version:
+
+    Download progress notification for file downloads using the Chrome network stack[r 78]
+    Updated help and feedback UI[r 78]
+    Support for <datalist> tag[r 78]
+
+    iOS version:
+
+    Stability and security updates[r 74]
+34.0.1847:
+  date:
+    '2014-04-02': Android
+    '2014-04-08': Linux, macOS, Windows
+    '2014-04-29': iOS
+  browser_eng: Blink 537.36
+  js_eng: 3.24.35
+  changes: |-
+    Responsive Images and Unprefixed Web Audio
+    Import supervised users onto new computers
+    A different look for Windows 8 Metro mode
+    A number of new apps/extension APIs
+    New scroll bar look
+    Ignores autocomplete="off" on password input fields
+
+    Android version:
+
+    Battery usage optimizations
+
+    iOS version:
+
+    Updated tour when you start Chrome for the first time
+    Support for autocomplete in the omnibox for right to left languages
+35.0.1916:
+  date:
+    '2014-05-20': Linux, macOS, Windows
+    '2014-05-28': iOS
+  browser_eng: Blink 537.36
+  js_eng: 3.25.28
+  changes: |-
+    More developer control over touch input
+    New JavaScript features
+    Unprefixed Shadow DOM v0
+    A number of new apps/extension APIs
+    Opus updated to version v1.1
+
+    Android version:
+
+    Undo Tab Close
+    Fullscreen video with Subtitles and HTML5 controls
+    Support for some multi-window devices
+
+    iOS version:
+
+    Added right-to-left support to the omnibox for Arabic and Hebrew
+    See your search term in the omnibox, instead of the long search query URL
+    Easily refine your search queries and view more results on the search results page
+    Stability improvements and bug fixes[r 74]
+
+    Linux version:
+
+    Switched graphics interface backend from GTK+ to Aura
+36.0.1985:
+  date:
+    '2014-07-15': iOS
+    '2014-07-16': Android
+  browser_eng: Blink 537.36
+  js_eng: 3.26.31
+  changes: |-
+    Rich Notifications Improvements
+    An Updated Incognito / Guest NTP design
+    The addition of a Browser crash recovery bubble
+    Multiple stability and performance improvements[r 79]
+
+    Android version:
+
+    Improved text rendering on non-mobile optimized sites
+    Doodles return to the new tab page[r 80]
+
+    iOS version:
+
+    Allows mobile sites that have added Cast support to work with your Cast-enabled device
+    Stability improvements and bug fixes[r 81]
+
+    Linux version:
+
+    Chrome App Launcher[r 79]
+37.0.2062:
+  date:
+    '2014-08-26': Linux, macOS, Windows
+    '2014-09-03': Android
+    '2014-09-22': iOS
+  browser_eng: Blink 537.36
+  js_eng: 3.27.34
+  changes: |-
+    DirectWrite support on Windows for improved font rendering
+    A number of new apps/extension APIs
+    Multiple stability and performance improvements[r 82]
+    Removal of the showModalDialog API, breaking several enterprise web apps[r 83]
+
+    Android version:
+
+    Signing in to Chrome signs you in to your favorite Google sites
+    Updated look and feel with elements of Material Design
+    Multiple performance improvements and bug fixes[r 84]
+
+    Windows version:
+
+    64-bit Windows support[r 85]
+38.0.2125:
+  date:
+    '2014-10-07': iOS
+    '2014-10-08': Android
+  browser_eng: Blink 537.36
+  js_eng: 3.28.71
+  changes: |-
+    A number of new apps/extension APIs
+    Support for logging into sites using FIDO U2F Security Key (a USB or smartcard security token) as a factor in 2-factor authentication[r 86]
+    Under-the-hood changes for stability and performance[r 87]
+
+    Android version:
+
+    Support for Battery Status and Screen orientation APIs
+    Additional Material Design updates
+    Bug fixes and performance improvements[r 88]
+
+    iOS version:
+
+    Better support for iPhone 6 and 6+
+    Download and open files in Google Drive
+    Stability improvements and bug fixes
+    Security fix[r 89]
+39.0.2171:
+  date:
+    '2014-11-12': Android
+    '2014-11-18': Linux, macOS, Windows
+    '2014-11-24': iOS
+  browser_eng: Blink 537.36
+  js_eng: 3.29.88
+  changes: |-
+    Removes SSL/TLS protocol version fallback to SSLv3
+    64-bit support for Mac
+    A number of new apps/extension APIs
+    Under-the-hood changes for stability and performance[r 90]
+
+    Android version:
+
+    Number of bug fixes and performance improvements[r 91]
+    Experimental Reader Mode[r 92] can be enabled via chrome://flags, is not available for tablets in this version
+40.0.2214:
+  date:
+    '2015-01-20': iOS
+    '2015-01-21': Android
+  browser_eng: Blink 537.36
+  js_eng: 3.30.33
+  changes: |-
+    Disabled SSLv3 support by default
+    The minimum SSL/TLS version can now be set through about:flags
+    Updated info dialog for Chrome app on Windows and Linux
+    A new clock behind/ahead error message[r 93]
+
+    Android version:
+
+    Updated page info and content settings UI
+    Number of bug fixes and performance improvements[r 94]
+
+    iOS version:
+
+    New look with Material Design bringing bold graphics, fluid motion, and tactile surfaces
+    iOS 8 optimizations and support for bigger phones
+    Support handoff from Chrome to your default browser on macOS
+    Stability improvements and bug fixes[r 95]
+41.0.2272:
+  date:
+    '2015-03-03': Linux, macOS, Windows
+    '2015-03-11': Android
+    '2015-03-16': iOS
+  browser_eng: Blink 537.36
+  js_eng: 4.1.0
+  changes: |-
+    A number of new apps/extension APIs
+    Lots of under the hood changes for stability and performance[r 96]
+
+    Android version:
+
+    The ability to pull to reload at the top of most pages
+    A number of bug fixes and performance improvements[r 97]
+42.0.2311:
+  date:
+    '2015-04-14': Linux, macOS, Windows
+    '2015-04-15': Android
+    '2015-04-16': iOS
+  browser_eng: Blink 537.36
+  js_eng: 4.2.77
+  changes: |-
+    Support for NPAPI plugins disabled by default
+    A number of new apps, extension and Web Platform APIs (including the Push API)
+    Lots of under the hood changes for stability and performance[r 98]
+    Add Bookmark is now redesigned.
+
+    Android version:
+
+    Getting the latest updates from sites with notifications
+    Adding your favorite sites to your homescreen is now even easier
+    Bug fixes and speedy performance improvements[r 99]
+43.0.2357:
+  date:
+    '2015-05-19': Linux, macOS, Windows
+    '2015-05-27': Android
+    '2015-06-01': iOS
+  browser_eng: Blink 537.36
+  js_eng: 4.3.61
+  changes: |-
+    Numerous bug fixes and security fixes[r 100]
+
+    Android version:
+
+    Faster Checkout – Quickly and securely complete checkout forms with data from Google Wallet
+    Touch to Search – Learn more about words and phrases by touching them on your screen
+    Bug fixes and speedy performance improvements[r 101]
+    No longer supports Android 4.0 (Ice Cream Sandwich)[r 102][r 103]
+44.0.2403:
+  date:
+    '2015-07-21': Linux, macOS, Windows
+    '2015-07-22': iOS
+    '2015-07-29': Android
+  browser_eng: Blink 537.36
+  js_eng: 4.4.63
+  changes: |-
+    A number of new apps/extension APIs
+    Change in the loading page circle on Chrome tabs
+    Lots of under the hood changes for stability and performance[r 104]
+
+    Android version:
+
+    Fixed a boatload of bugs and performance issues.[r 105]
+
+    iOS version:
+
+    Swipe to navigate: swipe right or left to navigate backwards and forwards
+    Support for accessing Physical Web content from the Today view
+    Stability improvements and bug fixes[r 106]
+45.0.2454:
+  date:
+    '2015-09-01': Android
+    '2015-09-02': iOS
+  browser_eng: Blink 537.36
+  js_eng: 4.5.103
+  changes: |-
+    Support for NPAPI plugins permanently disabled
+    A number of fixes and improvements[r 107]
+
+    Android version:
+
+    A number of fixes for a whole bunch of performance/stability/other issues.[r 108]
+46.0.2490:
+  date:
+    '2015-10-13': Linux, macOS, Windows
+    '2015-10-14': Android
+    '2015-10-22': iOS
+  browser_eng: Blink 537.36
+  js_eng: 4.6.85
+  changes: |-
+    Change in taskbar logo design
+    A number of fixes and improvements.[r 109]
+
+    Android version:
+
+    Under the hood performance and stability tweaks.[r 110]
+47.0.2526:
+  date:
+    '2015-12-01': Linux, macOS, Windows
+    '2015-12-02': Android
+  browser_eng: Blink 537.36
+  js_eng: 4.7.80
+  changes: |-
+    Change in appearance on closing tabs with red x's
+    New PDF viewer design
+    Security fixes[r 111]
+
+    Android version:
+
+    "More than a barge load of performance and stability fixes".[r 112]
+
+    iOS version:
+
+    Added support for more keyboard shortcuts. Now you can do more with your Bluetooth keyboard like opening, closing and changing tabs or conducting a voice search.
+    Support for 3D touch on iPhone 6s/+. Force touch the Chrome icon to quickly open a new tab, a new incognito* tab, or conduct a voice search.[citation needed]
+48.0.2564:
+  date:
+    '2016-01-20': Linux, macOS, Windows
+    '2016-01-27': Android
+  browser_eng: Blink 537.36
+  js_eng: 4.8.271
+  changes: |-
+    "Tab discarding" was enabled by default in chrome://flags
+    Window change in right-clicking an embedded web link
+    The key icon in "Save your password" turns black
+    "Clear browsing history" has been improved
+    A large number of fixes and improvements[r 113]
+
+    Android version:
+
+    Bug fixes and speedy performance improvements.
+
+    iOS version:
+
+    This version uses WKWebView, the latest rendering engine from Apple.
+    The crash rate was reduced by 70% and JavaScript execution is now faster.
+    Redesigned icons on the New Tab page: easier access to more of your frequently-visited sites.
+    Spotlight integration: Drag down or right from the Home screen and search for your Chrome bookmarks.[citation needed]
+49.0.2623:
+  date:
+    '2016-03-02': Linux, macOS, Windows
+    '2016-03-09': Android
+  browser_eng: Blink 537.36
+  js_eng: 4.9.385
+  changes: |-
+    Extension icons now appear near search tab.
+    Changes in bookmark bar appearances.
+    Change in Incognito mode window.
+    Change in scrollbar movement.
+    Changed Downloads page appearance/design.
+    A large number of fixes and improvements[r 114]
+    Last version available for Windows XP and Vista.
+
+    Android version:
+
+    "More than a barge full of performance and stability fixes."[r 115]
+
+    iOS version:
+
+    Bookmarks has a new look: Easily find your favorites!
+    Bug and stability fixes.
+50.0.2661:
+  date:
+    '2016-04-13': Linux, macOS, Windows
+    '2016-04-20': iOS
+    '2016-04-26': Android
+  browser_eng: Blink 537.36
+  js_eng: 5.0.71
+  changes: |-
+    Auto-fill form letters are now highlighted in bold.
+    A number of fixes and improvements.[r 116]
+    No longer supports Windows XP and Vista.
+
+    Android version:
+
+    Bug fixes and speedy performance improvements.
+
+    iOS version:
+
+    Bug and stability fixes.
+51.0.2704:
+  date:
+    '2016-05-25': Linux, macOS, Windows
+    '2016-06-01': Android
+  browser_eng: Blink 537.36
+  js_eng: 5.1.281
+  changes: |-
+    A number of fixes and improvements.[r 117]
+
+    Android version:
+
+    Brought tab switching back into Chrome (Android L+)[r 118]
+    Bug fixes and speedy performance improvements.
+
+    iOS version:
+
+    Bug and stability fixes.
+52.0.2743:
+  date:
+    '2016-07-20': Linux, macOS, Windows
+    '2016-07-27': Android
+  browser_eng: Blink 537.36
+  js_eng: 5.2.361
+  changes: |-
+    It is impossible to disable DirectWrite.
+    Bar on the bottom now shows darker text when hovering your mouse over the link.
+    "A number of fixes and improvements."[r 119]
+
+    Android version:
+
+    Bug fixes and speedy performance improvements[r 120]
+
+    iOS version:
+
+    Accelerated Mobile Pages ("AMP") – news and articles from many of your favorite publishers will now load instantly.
+    Look out for a lightning bolt and "AMP" next to articles in the "Top Stories" section of your search results and enjoy blazing fast web page loading!
+53.0.2785:
+  date:
+    '2016-08-31': Linux, macOS, Windows
+    '2016-09-07': Android
+  browser_eng: Blink 537.36
+  js_eng: 5.3.332
+  changes: |-
+    New browser's inside look, including a new bookmark
+    "A number of fixes and improvements."[r 121]
+    'Simplify page' option removed from 'Save as PDF'.
+    Shadow DOM v1[1]
+
+    Android version:
+
+    Bug fixes and speedy performance improvements[r 122]
+    Muted autoplay for video[r 123]
+
+    iOS version:
+
+    Chrome's History has a new look and it's now easier to review, find, and delete your browsing history.
+    Voice Search has been updated with a fresh look to show that Google is working for you. Try asking contextual questions such as "How tall is the Eiffel Tower?" and then follow up with "When was it built?" Hear Google speak the answers back to you.
+54.0.2840:
+  date:
+    '2016-10-12': Linux, macOS, Windows
+    '2016-10-19': Android
+  browser_eng: Blink 537.36
+  js_eng: 5.4.500
+  changes: |-
+    "Other bookmarks" tab has changed appearance
+    The message "Right-click to play Adobe Flash Player" now appears while pages with Adobe Flash Player are loading.
+    "A number of fixes and improvements."[r 124]
+
+    Android version:
+
+    Bug fixes and speedy performance improvements
+    View article suggestions for you on the new tab page
+    Play media in the background for sites that support it
+    Update saved passwords when you change or reset your password[r 125]
+
+    iOS version:
+
+    No internet connection? Smile and tap the dinosaur
+    Fixed bookmark icons not displaying correctly
+    Fixed phone number detection issues in web pages
+    Stability improvements and bug fixes
+55.0.2883:
+  date:
+    '2016-12-01': Linux, macOS, Windows
+    '2016-12-05': iOS
+    '2016-12-06': Android
+  browser_eng: Blink 537.36
+  js_eng: 5.5.372
+  changes: |-
+    The History page has changed and is no longer in "Settings"
+    Flash Player is now off by default for most sites
+    "A number of fixes and improvements."[r 126]
+    It's impossible to disable Material Design[r 127]
+
+    iOS version:
+
+    You can swipe down or right from the iOS Home screen to search. Searching for "voice" or "incognito" enables you to start Chrome in Voice Search mode or in a new Incognito Tab, respectively. Please note that the appearance of items in Spotlight Search will only work for devices that support Spotlight Actions.
+    By popular request, the folder named "All Bookmarks" has been removed from the Bookmarks view. You can access all your other devices’ Bookmarks by clicking on the other folders.
+
+    Android version:
+
+    Bug fixes and speedy performance improvements
+    Easily download music, videos, and even full web pages for viewing offline
+    View and share your downloads within Chrome
+    See misspelled words highlighted in text fields
+    Improvements to contextual search UI[r 128]
+56.0.2924:
+  date:
+    '2017-01-25': Linux, macOS, Windows
+    '2017-02-01': Android
+  browser_eng: Blink 537.36
+  js_eng: 5.6.326
+  changes: |-
+    HTML5 enabled by default
+    Adobe Flash Player is automatically blocked for most sites that require the plugin
+    Labeling of unsecured HTTP sites
+    "A number of fixes and improvements."[r 129]
+
+    iOS version:
+
+    Scan a QR code or barcode by using 3D Touch on the app logo or searching for "QR" in Spotlight.
+    We've redesigned the tab switcher layout on iPad to make it easier to access your open sites.
+
+    Android version:
+
+    Easily download music, videos, and even full web pages for viewing offline
+    View and share your downloads within Chrome
+    See misspelled words highlighted in text fields
+    Improvements to contextual search UI
+    Bug fixes and significant memory savings[r 130]
+57.0.2987:
+  date:
+    '2017-02-02': Linux, macOS, Windows
+  browser_eng: Blink 537.36
+  js_eng: '5.7'
+  changes: Current Beta Channel
+'58.0':
+  date:
+    '2017-02-03': Linux, macOS, Windows
+  browser_eng: Blink 537.36
+  js_eng: '5.8'
+  changes: Current Dev Channel
+58.0.3026.0:
+  date:
+    '2017-02-28': Linux, macOS, Windows
+  browser_eng: Blink 537.36
+  js_eng: 5.9.302
+  changes: Current Canary Channel
