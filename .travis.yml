@@ -1,6 +1,12 @@
 language: ruby
-sudo: false # taking advantage of container-based infrastructure
+sudo: false
 cache: bundler # cache bundled gems from build to build
 rvm:
-  - 2.4.0
-# run's just rake by default
+  - 2.3.3
+script: bundle exec rake
+deploy:
+  provider: script
+  script: ci/travis-deploy.sh
+  on:
+    tags: true
+  skip_cleanup: true
