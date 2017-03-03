@@ -12,12 +12,7 @@ Broadly, your responsibilities are to:
 
 ## Round 1. Investigate Vulnerabilities
 
-You will be given 2-3 vulnerabilities to research for the first round.
-
-
-You must produce a
-
-Here's what you need to do:
+You will be given 2-3 vulnerabilities to research for the first round. Here's what you need to do:
 
   1. **Set up a GitHub account.** If do not have a GitHub account, you will need to create one. Please notify us via **_this survey_** what your GitHub username is so that we can trace your GitHub username to your RIT username.
   2. **Fork this repository.** You can read about forking [on GitHub's docs.](https://help.github.com/articles/fork-a-repo/)
@@ -28,9 +23,15 @@ Here's what you need to do:
   6. **Research the vulnerability** (This step is the bulk of the project!!). Research the following pieces and contribute them to your CVE YAML files. We have notes in the YAML about precisely what we are looking for. Also, we have a detailed example below that Prof. Meneely did himself.
     * CWE identifier.
     * Fix commits. We should have these for you already, but these may need correcting.
-    * Description. These descriptions are taken from the National Vulnerability Database, and can be kind of jargony. Rewrite this in your own words to be easier to read. We can always pull up the NVD description later.
-    * 
-
+    * Description
+    * Subsystems
+    * Code reviews. We should have these for you already, but these may need correcting.
+    * Bugs. We should have these for you already, but these may need correcting.
+    * Vulnerability Contributing Commits (VCCs). Essentially the original commit that introduced this code. These are the toughest part. See our example below for how to find these.
+    * Unit tested questions
+    * Discovered questions
+    * Linguistic questions
+    * Mistakes questions
 
 ### Round 1 Submission: Pull Request
 
@@ -44,7 +45,6 @@ Grading:
 * 20pts. Build passes on the pull request by the deadline.
 * 30pts. Overall quality of research
 * 30pts. Clear voice in writing.
-
 
 ## Round 2: Reviewing other Pull Requests
 
