@@ -24,7 +24,7 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
   8. **Find the VCC** (Vulnerability-Contributing Commit). Next, we want to dig into the changes to the files that were affected by this change and attempt to find the commit(s) that introduced this vulnerability in the first place. For this, you will need to follow our example below, but it is essentially making use of `git blame`. Record the VCC commit hash in the data. *This is the most important part of the project in terms of its academic contribution*.
   9. **Find the commits between the VCC and fix**. Using `git log`, get the commits between the VCC(s) and fix(es). You do not need to record these - we will be collecting this automatically in the future based on your VCC. But, these will be the basis for the next step.
   10. **Read**. Begin reading the commit messages, bug reports, and code reviews between the VCC(s) and fix(es). Record any observations, such as major events or linguistic notes as you go. Do your best to get a "big picture" of how this development team works during this time, inferring anything you can about their process, expertise, constraints, etc.
-  10. **Record your findings** (This step is the bulk of the project!!). Research the following pieces and contribute them to your CVE YAML files. We have notes in the YAML about precisely what we are looking for. Also, we have a detailed example below that Prof. Meneely did himself.
+  11. **Record your findings** (This step is the bulk of the project!!). Research the following pieces and contribute them to your CVE YAML files. We have notes in the YAML about precisely what we are looking for. Also, we have a detailed example below that Prof. Meneely did himself.
     * CWE identifier.
     * Fix commits. We should have these for you already, but these may need correcting.
     * Description
@@ -37,6 +37,7 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
     * Discovered questions
     * Linguistic questions
     * Mistakes questions
+  12. **Submit Pull Request**. See below.
 
 ### Round 1 Submission: Pull Request
 

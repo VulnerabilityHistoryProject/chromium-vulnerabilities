@@ -38,4 +38,14 @@ namespace :git do
     end
 
   end
+
+  namespace :log do
+
+    desc 'Iterate over code reviews and get fixes'
+    task :reviews_to_fixes do
+      require_relative 'scripts/reviews_to_fixes.rb'
+      ReviewsToFixes.new.run
+    end
+
+  end
 end
