@@ -20,7 +20,11 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
   4. **Open up your CVE files in a good text editor**. For example, `cves/CVE-2011-3092.yml`. You will be editing [YAML](http://yaml.org) for this assignment, which is a human-friendly JSON-like format that we use for structuring our data. It would be helpful if your text editor support syntax highlighting of YAML files so you can avoid syntax errors. My personal favorites are [Atom](http://atom.io) and [SublimeText](https://www.sublimetext.com/3).
   5. **Read the research notes** that are currently there for the vulnerability, including the questions that need to be filled out.
   6. **Download the Chromium source code repository**. You can do your own `git clone` if you like by going [here](https://chromium.googlesource.com/chromium/src/), or you can download our zip file of the Git repository [from here](#). WARNING: this is a large file and takes a long time to download and unzip!!
-  6. **Research the vulnerability** (This step is the bulk of the project!!). Research the following pieces and contribute them to your CVE YAML files. We have notes in the YAML about precisely what we are looking for. Also, we have a detailed example below that Prof. Meneely did himself.
+  7. **Find the vulnerability fix**. Generally speaking we should have these for you, but you may need to correct and fix the data. Go to the Chromium Git repository that you downloaded and find the fix (`git show` is good for this).
+  8. **Find the VCC** (Vulnerability-Contributing Commit). Next, we want to dig into the changes to the files that were affected by this change and attempt to find the commit(s) that introduced this vulnerability in the first place. For this, you will need to follow our example below, but it is essentially making use of `git blame`. Record the VCC commit hash in the data. *This is the most important part of the project in terms of its academic contribution*.
+  9. **Find the commits between the VCC and fix**. Using `git log`, get the commits between the VCC(s) and fix(es). You do not need to record these - we will be collecting this automatically in the future based on your VCC. But, these will be the basis for the next step.
+  10. **Read**. Begin reading the commit messages, bug reports, and code reviews between the VCC(s) and fix(es). Record any observations, such as major events or linguistic notes as you go. Do your best to get a "big picture" of how this development team works during this time, inferring anything you can about their process, expertise, constraints, etc.
+  10. **Record your findings** (This step is the bulk of the project!!). Research the following pieces and contribute them to your CVE YAML files. We have notes in the YAML about precisely what we are looking for. Also, we have a detailed example below that Prof. Meneely did himself.
     * CWE identifier.
     * Fix commits. We should have these for you already, but these may need correcting.
     * Description
@@ -28,6 +32,7 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
     * Code reviews. We should have these for you already, but these may need correcting.
     * Bugs. We should have these for you already, but these may need correcting.
     * Vulnerability Contributing Commits (VCCs). Essentially the original commit that introduced this code. These are the toughest part. See our example below for how to find these.
+    * Major events
     * Unit tested questions
     * Discovered questions
     * Linguistic questions
