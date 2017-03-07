@@ -144,7 +144,7 @@ I went to the code review URL for this commit and took a look at the test case. 
 
 I also updated my CVE yaml file with an answer to the unit testing question - it's clear that this code was tested prior to this vulnerabliity, but it was also not *fully* tested as they had to add a new test case in fix it.
 
-Not that this particular fix was rather difficult to find. Hopefully you won't have to do so much work to find your fix, or that the fix we automatically found for you is correct.
+I should note that this particular fix was rather difficult to find. Hopefully you won't have to do so much work to find your fix, or that the fix we automatically found for you is correct.
 
 ### Finding the Vulnerability-Contributing Commit (VCC)
 
@@ -309,12 +309,16 @@ Here's an abbreviated output for me:
 
 The few lines that are most relevant to us are 298-300. In commit `0adfe842` (short for `0adfe842a515dd206cb0322d17c05f97244c0e72`), we found that someone wrote that original if-statement and did not check the boundary case for our vulnerability. That's our first VCC.
 
+Well... maybe. Sometimes people fix whitespace in one commit. Correct warnings. Rename stuff. Re-order methods. There's lots of refactoring that can initially *look* like a VCC. So I double-checked that this was a *meaningful* commit using `git show 0adfe842` and found that, yes, it was introducing new logic. So, yes, I'm convinced this is our first VCC.
+
 I recorded `0adfe842a515dd206cb0322d17c05f97244c0e72` as a VCC. You'll notice that this commit occurred nearly two years before the fix came. That's pretty average for vulnerabilities. Mistakes last a long time, even in big systems like Chrome and V8.
 
-At this point I go back to my blame output and find the other commits for the other hunks. I found one other VCC. So my VCCs are:
+At this point I go back to my blame output and find the other commits for the other hunks. I found one and double-checked one other VCC. So my VCCs are:
 
   * `0adfe842a515dd206cb0322d17c05f97244c0e72`
   * `498b074bd0db2913cf2c9458407c0d340bbcc05e`
+
+I recorded these in my YAML file.
 
 I think it's interesting that these two VCCs were close to each other in time, and they were committed by the same person. I'm going to record that in my final "mistakes" report.
 
@@ -328,4 +332,24 @@ Here are some VCC Guidelines:
   * VCCs don't exist in obvious refatorings. If your `git blame` shows you a commit that was clearly a refactoring, then run `blame` from *before* your refactor commit and keep going.
   * VCCs are often in the original file that committed to the repository
 
-###
+### Looking between VCC and Fix
+
+Next, we need to do some more research on what happened between our two VCCs and fixes. We've determined that the mistake was in `src/regexp.js`, so let's look at what happened between the 2010 dates and 2012 dates with that file.
+
+The `498b074bd0db2913cf2c9458407c0d340bbcc05e` was the earlier commit, so let's just look at that one:
+
+```
+$ git log --stat  498b074bd0db2913cf2c9458407c0d340bbcc05e..b32ff09a49fe4c76827e717f911e5a0066bdad4b -- src/regexp.js
+```
+Some notes:
+  * Don't forget the `--` between commits and the file name. It's a parsing thing with Git
+  * I used `--stat` again - this will tell me if huge changes hit lots of files at once. Very handy.
+  * I limited to one file. I recommend doing one file at a time for this part.
+
+The output gives me ~20 commits over a two-year period. So there was some work, but not tons of work when you think about how much code churn you've created in projects you've worked on. I perused these commits looking for interesting changes to investigate. Here are some interesting commits with my plain English summary of what happened, that I put directly into my YAML:
+
+  * `1729e3c0ddf0c7a0f912ef38355d38afe284bf04`. They worked on changing the responsibilities between the Javascript side and the native side. This is pertinent because that seemed to be the source of the breakdown of our vulnerability: the Javascript assumed the native code had more checks than it did. Following up and reading the code review, they reference "offline" discussions - so this is probably mostly a co-located team within Google.
+  * `0f682143d9a50441188ae09cbd669f5389e44597`. They worked with some memory management issues on the native code in this commit. No code review for this change, but it was a very large change on the native side, with some changes on the Javascript side.
+  * `e1458503d13cbcc20ae619a1a4d6d0be9cb74bfb`. Tons of code removed for this commit, related to how caching works. No rationale was obvious from the documents, but it was a very significant change code-wise.
+
+With all of this information, I wrote up my final report in the yaml.
