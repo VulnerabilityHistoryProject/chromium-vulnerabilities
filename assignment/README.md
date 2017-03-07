@@ -69,4 +69,212 @@ Grading:
 
 ## Example Vulnerability: CVE-2011-3092
 
-As an example
+Here's an in-depth example done by Prof. Meneely on CVE 2011 3092.
+
+### Understanding the Vulnerability
+
+The first thing I did was to read the [CVE entry](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-3092) for the vulnerability to make sure I understood what it was. I then looked up anything I didn't know.
+
+For example, I learned [from Wikipedia](https://en.wikipedia.org/wiki/V8_(JavaScript_engine)) that Google's V8 engine is their Javascript engine and it's the same engine they've had since the beginning of Chrome. V8 is also used in a bunch of other products, such as NodeJS and Electron.
+
+Next, I followed the links from the CVE entry to bug [122337](https://bugs.chromium.org/p/chromium/issues/detail?id=122337). I read the description and comments. I made some notes on how it was discovered (via LangFuzz), and that everyone involved had Google email addresses. I answered those questions in [my YAML](https://github.com/andymeneely/chromium-vulnerabilities/blob/master/cves/CVE-2011-3092.yml) and made some other notes about how it was found.
+
+I also noted that the bug had "Blink" as its "component", but the description said "v8" as the subsystem. I began looking at the differences between the two, and decided to go with v8 as the subsystem. Blink is a massive rendering engine, so v8 would be more specific.
+
+I also started making more notes for my final "mistakes" question report.
+
+### Correcting the fix commit record
+
+In this situation, we did not have a fix that was linked from the CVE. We had some data here from a prior study that we collected automatically, but it turns out it was wrong. So I had to find the fix myself. I cd'ed into my Chromium source tree and ran the following commands.
+
+First I tried:
+
+```
+$ git log --grep="CVE-2011-3092"
+```
+
+Sometimes you get lucky and they mention the CVE in the commit message. I was not so lucky.
+
+Next I tried searching commit messages for the bug id:
+
+```
+$ git log --grep="122337"
+```
+
+The commits I got mention a *code review* with that number, but no `BUG=` clause that mentions this fix.
+
+Next I tried searching for "invalid write" in the commit log and scrolled through to look around the dates when this was fixed.
+
+```
+$ git log --grep="invalid write"
+```
+
+No such luck.
+
+It was at this point that I realized that V8 is actually a separate project for all kinds of things (as I stated above). It actually has its [own repository](https://chromium.googlesource.com/v8/v8/), which I cloned and began my searching there.
+
+I re-ran the above searches with no luck. But, I did notice that person who patched the bug, Erik Corry, was on several commits. So, I examined commits around the time that the vulnerabliity would have been patched (April 12, 2012).
+
+```
+$ git log --before=2012-04-15 --stat
+```
+
+I used the `--stat` here to show the files that were changed because maybe they would show me some information about what was changed.
+
+Sure enough, I came across this commit:
+
+```
+commit b32ff09a49fe4c76827e717f911e5a0066bdad4b
+Author: erik.corry@gmail.com <erik.corry@gmail.com@ce2b1a6d-e550-0410-aec6-3dcde31c8c00>
+Date:   Fri Apr 13 11:03:22 2012 +0000
+
+    Regexp.rightContext was still not quite right.  Fixed and
+    added more tests.
+    Review URL: https://chromiumcodereview.appspot.com/10008104
+
+    git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@11312 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+ src/macros.py                    |  9 +++++++++
+ src/regexp.js                    | 16 +++++++++-------
+ test/mjsunit/regexp-capture-3.js | 60 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 77 insertions(+), 8 deletions(-)
+```
+
+I went to the code review URL for this commit and took a look at the test case. The test cases in `regexp-capture-3.js` match almost exactly to the ones found by the fuzzer in the bug. We found our fix! I updated my CVE YAML file with the new fix commit hash (`b32ff09a49fe4c76827e717f911e5a0066bdad4b`).
+
+I also updated my CVE yaml file with an answer to the unit testing question - it's clear that this code was tested prior to this vulnerabliity, but it was also not *fully* tested as they had to add a new test case in fix it.
+
+Not that this particular fix was rather difficult to find. Hopefully you won't have to do so much work to find your fix, or that the fix we automatically found for you is correct.
+
+### Finding the Vulnerability-Contributing Commit (VCC)
+
+Next, we need to find our VCC. Looking at our commit, we have three files were impacted:
+
+  * src/macros.py
+  * src/regexp.js
+  * test/mjsunit/regexp-capture-3.js
+
+Given that the third file is clearly a test case, we do not need to trace its history. The vulnerability doesn't *exist* in test cases, only in production code. So we will be tracing our VCCs on the first two files.
+
+Let's take a look at our commit more closely. Using the command line, we can do this:
+
+```
+$ git show b32ff09a49fe4c76827e717f911e5a0066bdad4b
+```
+
+This gives us this output (I'm abbreviating for just the first file...)
+
+```
+commit b32ff09a49fe4c76827e717f911e5a0066bdad4b
+Author: erik.corry@gmail.com <erik.corry@gmail.com@ce2b1a6d-e550-0410-aec6-3dcde31c8c00>
+Date:   Fri Apr 13 11:03:22 2012 +0000
+
+    Regexp.rightContext was still not quite right.  Fixed and
+    added more tests.
+    Review URL: https://chromiumcodereview.appspot.com/10008104
+
+    git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@11312 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+diff --git a/src/macros.py b/src/macros.py
+index 93287ae..699b368 100644
+--- a/src/macros.py
++++ b/src/macros.py
+@@ -204,6 +204,15 @@ macro CAPTURE(index) = (3 + (index));
+ const CAPTURE0 = 3;
+ const CAPTURE1 = 4;
+
++# For the regexp capture override array.  This has the same
++# format as the arguments to a function called from
++# String.prototype.replace.
++macro OVERRIDE_MATCH(override) = ((override)[0]);
++macro OVERRIDE_POS(override) = ((override)[(override).length - 2]);
++macro OVERRIDE_SUBJECT(override) = ((override)[(override).length - 1]);
++# 1-based so index of 1 returns the first capture
++macro OVERRIDE_CAPTURE(override, index) = ((override)[(index)]);
++
+ # PropertyDescriptor return value indices - must match
+ # PropertyDescriptorIndices in runtime.cc.
+ const IS_ACCESSOR_INDEX = 0;
+```
+
+What you see here is a *diff*, or a code difference from before the commit to after the commit. Anywhere you see a `+` sign is code that was added, and `-` means deleted. We have no lines that were deleted in this example.
+
+Now, looking at this code, you can see a few things going on here. First, to fix this vulnerability, we're defining a bunch of new methods. And that's ALL we're doing here. At this point you need to ask yourself: was there a security mistake made here? Or was the mistake made elsewhere and the fix was required to be here? Will we be able to point to a moment in time in the history of this file where a mistake was made?
+
+In this situation, we're going to answer "No". Since the code is effectively a header file, the security mistake was not here. It's really in the logic that needed these extra checks. So we're going to cut off our VCC search for `src/macros.py` and continue to `src/regexp.js`
+
+That being said, header files *can* have vulnerabilities in them. They can have wrong constants, wrong default, poor configuration, and many other problems that are the vulnerability. In fact, we have seen vulnerabilities where the fix was only modifying a constant. So don't ignore header files without looking at your unique situation.
+
+Ok, let's get back to `src/regexp.js`
+
+```
+$ git show b32ff09a49fe4c76827e717f911e5a0066bdad4b
+```
+
+...abbreviating to show you what I'm looking at...
+
+```
+diff --git a/src/regexp.js b/src/regexp.js
+index eb617ea..7bcb612 100644
+--- a/src/regexp.js
++++ b/src/regexp.js
+@@ -296,7 +296,7 @@ function RegExpToString() {
+ // of the last successful match.
+ function RegExpGetLastMatch() {
+   if (lastMatchInfoOverride !== null) {
+-    return lastMatchInfoOverride[0];
++    return OVERRIDE_MATCH(lastMatchInfoOverride);
+   }
+   var regExpSubject = LAST_SUBJECT(lastMatchInfo);
+   return SubString(regExpSubject,
+@@ -334,8 +334,8 @@ function RegExpGetLeftContext() {
+     subject = LAST_SUBJECT(lastMatchInfo);
+   } else {
+     var override = lastMatchInfoOverride;
+-    start_index = override[override.length - 2];
+-    subject = override[override.length - 1];
++    start_index = OVERRIDE_POS(override);
++    subject = OVERRIDE_SUBJECT(override);
+   }
+   return SubString(subject, 0, start_index);
+ }
+@@ -349,9 +349,9 @@ function RegExpGetRightContext() {
+     subject = LAST_SUBJECT(lastMatchInfo);
+   } else {
+     var override = lastMatchInfoOverride;
+-    subject = override[override.length - 1];
+-    var pattern = override[override.length - 3];
+-    start_index = override[override.length - 2] + pattern.length;
++    subject = OVERRIDE_SUBJECT(override);
++    var match = OVERRIDE_MATCH(override);
++    start_index = OVERRIDE_POS(override) + match.length;
+   }
+   return SubString(subject, start_index, subject.length);
+ }
+@@ -363,7 +363,9 @@ function RegExpGetRightContext() {
+ function RegExpMakeCaptureGetter(n) {
+   return function() {
+     if (lastMatchInfoOverride) {
+-      if (n < lastMatchInfoOverride.length - 2) return lastMatchInfoOverride[n];
++      if (n < lastMatchInfoOverride.length - 2) {
++        return OVERRIDE_CAPTURE(lastMatchInfoOverride, n);
++      }
+       return '';
+     }
+     var index = n * 2;
+```
+
+This code looks like we had some faulty logic. Let's figure out what commits contributed this faulty logic. Notice how we have these lines:
+
+```
+@@ -296,7 +296,7 @@ function RegExpToString() {
+...
+@@ -334,8 +334,8 @@ function RegExpGetLeftContext() {
+...
+@@ -349,9 +349,9 @@ function RegExpGetRightContext() {
+...
+@@ -363,7 +363,9 @@ function RegExpGetRightContext() {
+...
+```
+
+These are called *hunks*. The top of each *hunk* tell use where the *diff* begins and ends. In the first hunk, it starts at line 296 on the old file. Now the next four lines are unchanged to show context, so we're really looking for line 300 on that first hunk.
