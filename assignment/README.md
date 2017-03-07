@@ -14,7 +14,8 @@ Broadly, your responsibilities are to:
 
 You will be given 2-3 vulnerabilities to research for the first round. Here's what you need to do:
 
-  1. **Set up a GitHub account.** If do not have a GitHub account, you will need to create one. Please notify us via **_this survey_** what your GitHub username is so that we can trace your GitHub username to your RIT username.
+  1. **Set up a GitHub account.** If do not have a GitHub account, you will need to create one. We recommend using a permanent, professional name as this will likely go on your resume.
+  2. **Give copyright consent and notify us of your GitHub username**. We would like you to contribute your work to a Creative Commons/MIT Licensed repository to be used in academic resarch. Also, please notify us via [this survey](https://goo.gl/forms/tV6pJ2uaCUoHk1GU2) what your GitHub username is so that we can trace your GitHub username to your RIT username. *NOTE: your contribution to open source is voluntary. We will make similar arrangements to submit your report privately if you do not wish to contribute to this research project. Your grade will not be affected.*
   2. **Fork this repository.** You can read about forking [on GitHub's docs.](https://help.github.com/articles/fork-a-repo/)
   3. **Clone this repository locally** using your favorite Git client.
   4. **Open up your CVE files in a good text editor**. For example, `cves/CVE-2011-3092.yml`. You will be editing [YAML](http://yaml.org) for this assignment, which is a human-friendly JSON-like format that we use for structuring our data. It would be helpful if your text editor support syntax highlighting of YAML files so you can avoid syntax errors. My personal favorites are [Atom](http://atom.io) and [SublimeText](https://www.sublimetext.com/3).
@@ -69,7 +70,7 @@ Grading:
 
 ## Example Vulnerability: CVE-2011-3092
 
-Here's an in-depth example done by Prof. Meneely on CVE 2011 3092.
+Here's an in-depth example done by Prof. Meneely on CVE 2011 3092. You can see his [final YAML file](https://github.com/andymeneely/chromium-vulnerabilities/blob/master/cves/CVE-2011-3092.yml).
 
 ### Understanding the Vulnerability
 
