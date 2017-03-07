@@ -205,7 +205,7 @@ In this situation, we're going to answer "No". Since the code is effectively a h
 
 That being said, header files *can* have vulnerabilities in them. They can have wrong constants, wrong default, poor configuration, and many other problems that are the vulnerability. In fact, we have seen vulnerabilities where the fix was only modifying a constant. So don't ignore header files without looking at your unique situation.
 
-Ok, let's get back to `src/regexp.js`
+Ok, let's get back to `src/regexp.js`.
 
 ```
 $ git show b32ff09a49fe4c76827e717f911e5a0066bdad4b
@@ -264,7 +264,7 @@ index eb617ea..7bcb612 100644
      var index = n * 2;
 ```
 
-This code looks like we had some faulty logic. Let's figure out what commits contributed this faulty logic. Notice how we have these lines:
+This code looks like we had some faulty logic. In particuar, there's a base case check at the beginning of the method that needed correction. Let's figure out what commits contributed this faulty logic. Notice how we have these lines:
 
 ```
 @@ -296,7 +296,7 @@ function RegExpToString() {
@@ -277,4 +277,55 @@ This code looks like we had some faulty logic. Let's figure out what commits con
 ...
 ```
 
-These are called *hunks*. The top of each *hunk* tell use where the *diff* begins and ends. In the first hunk, it starts at line 296 on the old file. Now the next four lines are unchanged to show context, so we're really looking for line 300 on that first hunk.
+These are called *hunks*. The top of each *hunk* tell use where the *diff* begins and ends. In the first hunk, it starts at line 296 on the old file. Now the next few lines are unchanged to show context, so we're really looking for line 299 on that first hunk.
+
+Now let's use a Git tool called `blame` (or if you prefer the nicer word `annotate` - same thing). To see what this looks like, take a look [this link](https://chromium.googlesource.com/v8/v8/+blame/b32ff09a49fe4c76827e717f911e5a0066bdad4b/src/regexp.js). It's the `blame` output on the web version of this code. Git `blame` will go through an entire file and show you the last commit that touched a given line. This lets you figure out how a given chunk of code was originally introduced.
+
+Now, it's important that we look at this *historically*, meaning, we don't want to look at this *today* but *at the time of the vulnerability fix*. So that means we need to include our *fix* commit in our command. Furthermore, we need to look at the "commit just before the fix", otherwise we'll just see our own commit fix in the blame. Git uses the `^` symbol to indicate "the commit before". So our Git command look like this:
+
+```
+$ git blame b32ff09a49fe4c76827e717f911e5a0066bdad4b^ -- src/regexp.js
+```
+
+We get a ton of output. Sometimes Git blame can be *very slow*. Like, minutes. If that's the case, you can limit your blaming to just the lines you need. See the [git blame docs for -L](https://git-scm.com/docs/git-blame).
+
+Here's an abbreviated output for me:
+
+```
+43d26ecc src/regexp-delay.js (christian.plesner.hansen 2008-07-03 15:10:15 +0000 293) // Getters for the static properties lastMatch, lastParen, leftContext, and
+43d26ecc src/regexp-delay.js (christian.plesner.hansen 2008-07-03 15:10:15 +0000 294) // rightContext of the RegExp constructor.  The properties are computed based
+43d26ecc src/regexp-delay.js (christian.plesner.hansen 2008-07-03 15:10:15 +0000 295) // on the captures array of the last successful match and the subject string
+43d26ecc src/regexp-delay.js (christian.plesner.hansen 2008-07-03 15:10:15 +0000 296) // of the last successful match.
+43d26ecc src/regexp-delay.js (christian.plesner.hansen 2008-07-03 15:10:15 +0000 297) function RegExpGetLastMatch() {
+0adfe842 src/regexp.js       (lrn@chromium.org         2010-04-21 08:33:04 +0000 298)   if (lastMatchInfoOverride !== null) {
+0adfe842 src/regexp.js       (lrn@chromium.org         2010-04-21 08:33:04 +0000 299)     return lastMatchInfoOverride[0];
+0adfe842 src/regexp.js       (lrn@chromium.org         2010-04-21 08:33:04 +0000 300)   }
+912c8eb0 src/regexp-delay.js (erik.corry@gmail.com     2009-03-11 14:00:55 +0000 301)   var regExpSubject = LAST_SUBJECT(lastMatchInfo);
+912c8eb0 src/regexp-delay.js (erik.corry@gmail.com     2009-03-11 14:00:55 +0000 302)   return SubString(regExpSubject,
+912c8eb0 src/regexp-delay.js (erik.corry@gmail.com     2009-03-11 14:00:55 +0000 303)                    lastMatchInfo[CAPTURE0],
+912c8eb0 src/regexp-delay.js (erik.corry@gmail.com     2009-03-11 14:00:55 +0000 304)                    lastMatchInfo[CAPTURE1]);
+9da356ee src/regexp-delay.js (ager@chromium.org        2008-10-03 07:14:31 +0000 305) }
+```
+
+The few lines that are most relevant to us are 298-300. In commit `0adfe842` (short for `0adfe842a515dd206cb0322d17c05f97244c0e72`), we found that someone wrote that original if-statement and did not check the boundary case for our vulnerability. That's our first VCC.
+
+I recorded `0adfe842a515dd206cb0322d17c05f97244c0e72` as a VCC. You'll notice that this commit occurred nearly two years before the fix came. That's pretty average for vulnerabilities. Mistakes last a long time, even in big systems like Chrome and V8.
+
+At this point I go back to my blame output and find the other commits for the other hunks. I found one other VCC. So my VCCs are:
+
+  * `0adfe842a515dd206cb0322d17c05f97244c0e72`
+  * `498b074bd0db2913cf2c9458407c0d340bbcc05e`
+
+I think it's interesting that these two VCCs were close to each other in time, and they were committed by the same person. I'm going to record that in my final "mistakes" report.
+
+There you go! That's how you find VCCs! It's a tedious process at first, but it speeds up the faster you get at it. Some researchers have [famously automated this process](http://dl.acm.org/citation.cfm?id=1083147), and it's been in [wide use](https://danielcalencar.github.io/journal%20papers/2016/10/07/TSE2016.html)  in the mining software repositories academic research community. The only difference in their approach and ours is that we made some pruning of our search based on our expertise of unit tests, header files, and other coding knowledge we have.
+
+Here are some VCC Guidelines:
+
+  * When in doubt, include the VCC.
+  * VCCs don't exist where a header file is just defining new function names.
+  * VCCs don't exist in automated tests
+  * VCCs don't exist in obvious refatorings. If your `git blame` shows you a commit that was clearly a refactoring, then run `blame` from *before* your refactor commit and keep going.
+  * VCCs are often in the original file that committed to the repository
+
+###
