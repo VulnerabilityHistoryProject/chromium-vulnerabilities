@@ -1,11 +1,12 @@
 require 'yaml'
+require_relative 'script_helpers'
 
 class ReviewsToFixes
 
   # Iterate over the CVE YAMLs and find the commit(s) for every code
   # review fix.
   def run
-    Dir['cves/*.yml'].each do |yml_file|
+    cve_ymls.each do |yml_file|
       dirty = false
       cve = File.open(yml_file) { |f| YAML.load(f) }
       cve['reviews']&.each do |review_id|
