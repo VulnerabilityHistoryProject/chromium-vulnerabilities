@@ -1,4 +1,9 @@
+require 'nokogiri'
+require 'open-uri'
 require 'rspec/core/rake_task'
+require_relative 'scripts/pull_task_handler'
+require 'yaml'
+require 'zlib'
 
 desc 'Run the specs by default'
 task default: :spec
@@ -48,4 +53,29 @@ namespace :git do
     end
 
   end
+end
+
+namespace :pull do
+
+  desc "This task is used to examine .yml files for the absence of CVSS scores. If absences are detected the CVSS scores will be scraped from the relevant NVD XML and put into the yml file."
+  task :cvss do
+    unless Dir.exist?('cves')
+      puts "[ERROR] Chromium CVEs not found in /tmp/checkout/chromium-vulnerabilities as expected. Please clone the chromium repo if you have not already."
+      return
+    end
+
+    puts "Loading CVEs..."
+    loaded_cves = Pull_Task_Handler.load_cves('cves')
+
+    unless Dir.exist?('tmp/xml')
+      puts "Downloading XML Files..."
+      Pull_Task_Handler.download_xml
+    end
+
+    puts "Adding CVSS scores to YML..."
+    Pull_Task_Handler.modify_yml(loaded_cves, 'cvss')
+    puts "Cleaning XML files..."
+    Pull_Task_Handler.clean('tmp')
+  end
+
 end
