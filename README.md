@@ -5,7 +5,7 @@ Data for vulnerabilityhistory.org
 
 Every push and pull request is run against our integrity checkers on Travis. Click on the above tag to see the status of the build.
 
-# Get the Git Log data
+# Get the Git Log data for commits/gitlog.txt
 
 Use this git command to generate the git log:
 
@@ -14,6 +14,22 @@ git log --pretty=format:":::%n%H%n%an%n%ae%n%ad%n%P%n%s%n%b%n;;;" --stat --stat-
 ```
 
 This gets absolutely everything, so don't commit that file - but cut it down to the commits you need. We're working on automating this.
+
+Here's an example of just one commit:
+
+```
+$ cd tmp/v8
+$ git log -1 --pretty=format:":::%n%H%n%an%n%ae%n%ad%n%P%n%s%n%b%n;;;" --stat --stat-width=300 --stat-name-width=300 --ignore-space-change 498b074bd0db2913cf2c9458407c0d340bbcc05e >> ..\..\commits\gitlog.txt
+```
+
+Here's how to get commits between VCC and fix (Windows cmd):
+
+```
+$ cd tmp/v8
+$ git log --pretty=format:"%H" 498b074bd0db2913cf2c9458407c0d340bbcc05e..b32ff09a49fe4c76827e717f911e5a0066bdad4b -- src/regexp.js > ../commit_hashes.txt
+
+```
+
 
 # Get the Releases data
 

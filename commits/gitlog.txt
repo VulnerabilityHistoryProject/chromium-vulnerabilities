@@ -1047,3 +1047,928 @@ git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4269 ce2b1a6d-e5
  src/runtime.h  |   1 +
  src/string.js  | 145 ++++++++++++++++++++++++++++++++--------------------------------
  4 files changed, 699 insertions(+), 122 deletions(-)
+:::
+b32ff09a49fe4c76827e717f911e5a0066bdad4b
+erik.corry@gmail.com
+erik.corry@gmail.com@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Apr 13 11:03:22 2012 +0000
+f0ea13846d9023abb1702b34461954d96202e20f
+Regexp.rightContext was still not quite right.  Fixed and added more tests. Review URL: https://chromiumcodereview.appspot.com/10008104
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@11312 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/macros.py                    |  9 +++++++++
+ src/regexp.js                    | 16 +++++++++-------
+ test/mjsunit/regexp-capture-3.js | 60 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 77 insertions(+), 8 deletions(-)
+:::
+32f16418eae583e77a3c080c95fab1fbb60a7458
+erikcorry
+erikcorry@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Apr 12 12:13:18 2012 +0000
+40895f02501ad82875267e4cd4d4e1b22e5aa57b
+Regexp: Fix rightContext in the lastMatchInfoOverride case. Review URL: http://codereview.chromium.org/10068010
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@11285 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js                    |  3 ++-
+ test/mjsunit/regexp-capture-3.js | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 32 insertions(+), 1 deletion(-)
+:::
+184b7a891535e6e4ddf84700d86238c3a5e5c9d7
+yangguo@chromium.org
+yangguo@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Mar 15 17:21:42 2012 +0000
+863d5fdf4959a953278566a12a95e2c2dca9c00a
+Experimental profiler: split RegExp.test() for better optimization.
+BUG=
+TEST=
+
+Review URL: https://chromiumcodereview.appspot.com/9701064
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@11065 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js          | 33 ++++++++++++++++++---------------
+ test/mjsunit/regexp.js |  6 +++++-
+ 2 files changed, 23 insertions(+), 16 deletions(-)
+:::
+1729e3c0ddf0c7a0f912ef38355d38afe284bf04
+svenpanne@chromium.org
+svenpanne@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Wed Mar 7 13:24:44 2012 +0000
+b732b2e32abbffd3e4b83410708ea529e46471de
+Make the runtime entry for setting/changing accessors "atomic".
+Previously, there were 1 or 2 calls to the runtime when accessors were changed
+or set. This doesn't really work well with property attributes, leading to some
+hacks and complicates things even further when trying to share maps in presence
+of accessors. Therefore, the runtime entry now takes the full triple (getter,
+setter, attributes), where the getter and/or the setter can be null in case they
+shouldn't be changed.
+
+For now, we do basically the same on the native side as we did before on the
+JavaScript side, but this will change in future CLs, the current CL is already
+large enough.
+
+Note that object literals with a getter and a setter for the same property still
+do 2 calls, but this is a little bit more tricky to fix and will be handled in a
+separate CL.
+
+Review URL: https://chromiumcodereview.appspot.com/9616016
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@10956 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/arm/full-codegen-arm.cc            | 10 +++++++---
+ src/ia32/full-codegen-ia32.cc          |  9 ++++++---
+ src/messages.js                        |  5 ++---
+ src/mips/full-codegen-mips.cc          | 10 +++++++---
+ src/objects.h                          |  2 ++
+ src/regexp.js                          | 81 ++++++++++++++++++++++++++++-----------------------------------------------------
+ src/runtime.cc                         | 77 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-----------------------
+ src/v8natives.js                       | 15 ++++-----------
+ src/x64/full-codegen-x64.cc            |  9 ++++++---
+ test/mjsunit/object-define-property.js |  4 ++--
+ 10 files changed, 118 insertions(+), 104 deletions(-)
+:::
+76a201df2fd00d69df161766998286b717e6c746
+svenpanne@chromium.org
+svenpanne@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Tue Feb 21 12:47:27 2012 +0000
+f5c8ac9839bc77b8e1e9d89492c53b16229a1286
+Removed Runtime_DefineAccessor.
+Runtime_DefineOrRedfineAccessorProperty basically does the same, so we have 1
+code path less to worry about.
+
+Review URL: https://chromiumcodereview.appspot.com/9424033
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@10779 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/arm/full-codegen-arm.cc   |  4 +++-
+ src/ia32/full-codegen-ia32.cc |  3 ++-
+ src/mips/full-codegen-mips.cc |  4 +++-
+ src/regexp.js                 | 72 ++++++++++++++++++++++++++++++++++++++++++------------------------------
+ src/runtime.cc                | 24 ------------------------
+ src/runtime.h                 |  1 -
+ src/x64/full-codegen-x64.cc   |  3 ++-
+ 7 files changed, 52 insertions(+), 59 deletions(-)
+:::
+1336b913d0f199285fbeb744146d9324e6804b4f
+rossberg@chromium.org
+rossberg@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Mon Feb 20 13:48:24 2012 +0000
+8ebbd863a5a9fa5ee802a0d7957728f3c8827810
+Make built-ins strict mode conforming, and support a --use-strict flag.
+* Turned all uses of 'const' into 'var'.
+* Turned all uses of local 'function' into 'var'.
+* Added a couple of missing toplevel 'var' declarations.
+
+One consequence is that the properties on the builtin object  are no longer
+non-writable, and I had to adapt one test. Is that a problem?
+
+Unfortunately, we cannot actually switch the library scripts to strict mode
+by default, because that makes observable things like poisoned .caller properties
+for library functions.
+
+Also removed dead flag code in Compiler::Compile.
+
+R=yangguo@chromium.org
+BUG=
+TEST=
+
+Review URL: https://chromiumcodereview.appspot.com/9415010
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@10758 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ include/v8.h              |  2 +-
+ src/apinatives.js         |  4 ++--
+ src/array.js              | 26 +++++++++++++-------------
+ src/collection.js         |  7 ++++---
+ src/compiler.cc           |  8 +-------
+ src/d8.js                 | 24 +++++++++++++-----------
+ src/date.js               |  5 ++---
+ src/debug-debugger.js     |  6 +++---
+ src/flag-definitions.h    |  4 +++-
+ src/math.js               |  8 ++++----
+ src/messages.js           | 27 ++++++++++++++-------------
+ src/mirror-debugger.js    | 74 +++++++++++++++++++++++++++++++++++++-------------------------------------
+ src/proxy.js              |  2 ++
+ src/regexp.js             | 16 ++++++++--------
+ src/runtime.js            | 20 ++++++++++----------
+ src/string.js             |  4 ++--
+ src/uri.js                | 14 +++++++-------
+ src/v8natives.js          | 18 +++++++++---------
+ test/cctest/test-debug.cc | 26 +++++++++++++-------------
+ test/mjsunit/builtins.js  |  5 +----
+ 20 files changed, 149 insertions(+), 151 deletions(-)
+:::
+70da367f6b780aec904b7dd711733f73b0f1a739
+erik.corry@gmail.com
+erik.corry@gmail.com@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Mon Jan 16 12:38:59 2012 +0000
+88d358b3457f3e7f8a277b57603a4cc52f24a869
+More spelling changes. Review URL: http://codereview.chromium.org/9231009
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@10407 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/arm/code-stubs-arm.cc               |  4 ++--
+ src/arm/constants-arm.h                 | 10 +++++-----
+ src/arm/disasm-arm.cc                   |  2 +-
+ src/arm/full-codegen-arm.cc             |  6 +++---
+ src/arm/lithium-codegen-arm.cc          |  2 +-
+ src/arm/macro-assembler-arm.cc          |  2 +-
+ src/arm/macro-assembler-arm.h           | 10 +++++-----
+ src/arm/stub-cache-arm.cc               | 10 +++++-----
+ src/array.js                            |  2 +-
+ src/assembler.h                         |  2 +-
+ src/bignum-dtoa.h                       |  2 +-
+ src/dtoa.h                              |  2 +-
+ src/execution.cc                        |  2 +-
+ src/factory.h                           |  2 +-
+ src/full-codegen.h                      |  4 ++--
+ src/global-handles.cc                   |  2 +-
+ src/heap.cc                             | 12 ++++++------
+ src/heap.h                              |  4 ++--
+ src/ia32/code-stubs-ia32.cc             | 38 +++++++++++++++++++-------------------
+ src/ia32/full-codegen-ia32.cc           |  4 ++--
+ src/ia32/macro-assembler-ia32.cc        |  6 +++---
+ src/ia32/macro-assembler-ia32.h         |  4 ++--
+ src/ia32/regexp-macro-assembler-ia32.cc |  2 +-
+ src/ia32/stub-cache-ia32.cc             |  2 +-
+ src/isolate.cc                          |  2 +-
+ src/isolate.h                           |  6 +++---
+ src/json-parser.h                       |  4 ++--
+ src/jsregexp.cc                         |  2 +-
+ src/jsregexp.h                          |  2 +-
+ src/list.h                              |  2 +-
+ src/liveedit-debugger.js                |  2 +-
+ src/liveobjectlist.cc                   |  2 +-
+ src/macros.py                           |  2 +-
+ src/mark-compact.cc                     |  4 ++--
+ src/mark-compact.h                      |  2 +-
+ src/mips/assembler-mips.h               |  2 +-
+ src/mips/builtins-mips.cc               |  6 +++---
+ src/mips/code-stubs-mips.cc             | 16 ++++++++--------
+ src/mips/constants-mips.cc              |  4 ++--
+ src/mips/constants-mips.h               |  2 +-
+ src/mips/full-codegen-mips.cc           |  6 +++---
+ src/mips/lithium-codegen-mips.cc        |  2 +-
+ src/mips/macro-assembler-mips.cc        |  2 +-
+ src/mips/macro-assembler-mips.h         |  6 +++---
+ src/mips/simulator-mips.cc              |  4 ++--
+ src/mips/stub-cache-mips.cc             |  8 ++++----
+ src/objects-printer.cc                  |  2 +-
+ src/objects.cc                          |  2 +-
+ src/objects.h                           | 16 ++++++++--------
+ src/parser.cc                           |  2 +-
+ src/parser.h                            |  2 +-
+ src/platform-cygwin.cc                  |  2 +-
+ src/platform-freebsd.cc                 |  2 +-
+ src/platform-linux.cc                   |  2 +-
+ src/platform-macos.cc                   |  4 ++--
+ src/platform-openbsd.cc                 |  2 +-
+ src/platform-solaris.cc                 |  2 +-
+ src/platform-win32.cc                   |  4 ++--
+ src/regexp-macro-assembler.cc           |  2 +-
+ src/regexp.js                           |  4 ++--
+ src/runtime.cc                          | 28 ++++++++++++++--------------
+ src/serialize.h                         |  8 ++++----
+ src/spaces-inl.h                        |  2 +-
+ src/spaces.h                            | 12 ++++++------
+ src/unicode.cc                          | 10 +++++-----
+ src/v8threads.cc                        |  2 +-
+ src/v8utils.cc                          |  6 +++---
+ src/x64/code-stubs-x64.cc               | 32 ++++++++++++++++----------------
+ src/x64/full-codegen-x64.cc             |  4 ++--
+ src/x64/macro-assembler-x64.cc          |  6 +++---
+ src/x64/macro-assembler-x64.h           |  6 +++---
+ src/x64/regexp-macro-assembler-x64.cc   |  2 +-
+ src/x64/stub-cache-x64.cc               |  2 +-
+ 73 files changed, 196 insertions(+), 196 deletions(-)
+:::
+c7fccff9afdabdcced29f77426d822d1ccc0730b
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Mon Nov 28 12:11:00 2011 +0000
+ad356bd5ad5e3b2208acb9a462a9f576e9ce0b43
+Clean up JavaScript files to better follow coding standard.
+Multiline conditionals must use braces.
+Semicolons are not optional.
+
+Review URL: http://codereview.chromium.org/8701006
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@10074 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/array.js                 |  17 ++++++++++-------
+ src/d8.js                    | 109 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------------
+ src/date.js                  |  35 +++++++++++++++++++++++------------
+ src/debug-debugger.js        | 147 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------------------------------------------------------
+ src/json.js                  |   2 +-
+ src/liveedit-debugger.js     |  43 ++++++++++++++++++++++---------------------
+ src/messages.js              |  93 ++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------------------------------
+ src/mirror-debugger.js       | 209 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-------------------------------------------------------------------------------------------------------
+ src/regexp.js                |  57 +++++++++++++++++++++++++++++++++++++--------------------
+ src/runtime.js               |   3 ++-
+ src/string.js                |  39 ++++++++++++++++++++++++---------------
+ src/uri.js                   |  10 +++++-----
+ src/v8natives.js             |  55 +++++++++++++++++++++++++++++++++++--------------------
+ test/mjsunit/bugs/bug-618.js |   2 +-
+ 14 files changed, 457 insertions(+), 364 deletions(-)
+:::
+a9edfefa58197a9bac4aca849d6f182cf9e25ad5
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Wed Oct 26 12:51:07 2011 +0000
+405d57fe005cefaa6a9847e62a2f207cdb26c4c7
+Remove special-casing of calls to RegExp test and exec methods with no argument.
+Matches new JSC behavior. Fix issue 75740.
+
+BUG=75740
+TEST=mjsunit/regexp-static
+
+Review URL: http://codereview.chromium.org/6677020
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@9804 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js                 | 15 ---------------
+ test/mjsunit/regexp-static.js | 17 +++++------------
+ test/mozilla/mozilla.status   |  5 +++++
+ test/sputnik/sputnik.status   |  6 ------
+ test/test262/test262.status   |  6 ------
+ 5 files changed, 10 insertions(+), 39 deletions(-)
+:::
+b9d39c48b8f177a8675fc286aad79f84a2af3c86
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Mon Sep 26 08:42:01 2011 +0000
+e6509e77d232dfa418484a5876ef588d98afcece
+Make the RegExp.prototype object be a RegExp object.
+BUG=v8:1217
+TEST=mjsunit/regress/regress-1217
+
+Review URL: http://codereview.chromium.org/8041015
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@9419 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/bootstrapper.cc                  | 20 ++++++++++++++++++++
+ src/regexp.js                        | 11 +++++++----
+ test/es5conform/es5conform.status    | 19 -------------------
+ test/mjsunit/bugs/bug-1217.js        | 32 --------------------------------
+ test/mjsunit/regress/regress-1217.js | 50 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ test/sputnik/sputnik.status          |  3 +++
+ 6 files changed, 80 insertions(+), 55 deletions(-)
+:::
+7ab81a14faac26a88230c14b97a452be5c3bc57b
+yangguo@chromium.org
+yangguo@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Sep 22 15:55:44 2011 +0000
+dfeaa56b9a8ee344fbbb7ac3c8da2365e3b45e6b
+Reverting r9399.
+Review URL: http://codereview.chromium.org/7989007
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@9401 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js                        |  2 +-
+ test/mjsunit/bugs/bug-1217.js        | 32 ++++++++++++++++++++++++++++++++
+ test/mjsunit/regress/regress-1217.js | 32 --------------------------------
+ 3 files changed, 33 insertions(+), 33 deletions(-)
+:::
+dfeaa56b9a8ee344fbbb7ac3c8da2365e3b45e6b
+yangguo@chromium.org
+yangguo@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Sep 22 15:39:22 2011 +0000
+0c6863a1efe6058c3ee1733e43b91a68ea9ee87d
+Fix debug builds broken by r9399.
+Review URL: http://codereview.chromium.org/7996002
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@9400 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+:::
+0c6863a1efe6058c3ee1733e43b91a68ea9ee87d
+yangguo@chromium.org
+yangguo@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Sep 22 15:11:12 2011 +0000
+190d8d671d45041e31413902a53b8c70e8741cf1
+Set RegExp's prototype to RegExp as specified by ES5.
+BUG=v8:1217
+TEST=regress-1217.js
+
+Review URL: http://codereview.chromium.org/7995005
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@9399 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js                        |  2 +-
+ test/mjsunit/regress/regress-1217.js | 32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 33 insertions(+), 1 deletion(-)
+:::
+ffffa716c57d60bc99d40c509e7b999db0c31713
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Mon Sep 5 07:30:35 2011 +0000
+f6c063e1434faa0167aa2657f0484cf32f5f3997
+Lock the prototype of internal classes.
+Prototypes and their properties and methods are locked down to prevent fiddling with their operation, even if the build-in object leaks.
+
+Made some built-in functions only work during bootstrapping.
+
+Review URL: http://codereview.chromium.org/7799027
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@9122 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/array.js             |  31 +++++++++++++------------------
+ src/date.js              |  11 ++++++-----
+ src/json.js              |   5 +++--
+ src/math.js              |  12 ++++++------
+ src/messages.js          | 125 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--------------------------------------
+ src/regexp.js            |   6 +++---
+ src/runtime.cc           |   8 ++++++++
+ src/runtime.h            |   1 +
+ src/string.js            |  34 +++++++++++++++-------------------
+ src/uri.js               |   7 ++++---
+ src/v8natives.js         | 203 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------------------------------------------------------------------------------------
+ src/weakmap.js           |   8 +++-----
+ test/mjsunit/builtins.js |  83 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 13 files changed, 342 insertions(+), 192 deletions(-)
+:::
+d8a123169bd9875efeae89fd898a615655934058
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Aug 19 11:02:41 2011 +0000
+dc917453b39a69807877d62730cc571220e24580
+Make regexp flag parsing stricter.
+BUG=v8:1628
+TEST=mjsunit/regress/regress-219
+
+Review URL: http://codereview.chromium.org/7624045
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@8973 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/messages.js                     |   2 +-
+ src/regexp.js                       |  15 ++++++++++-----
+ test/mjsunit/regress/regress-219.js | 128 ++++++++++++++++++++++++++++++++++++++++++++++++++------------------------------------------------------------------------------
+ test/mjsunit/regress/regress-87.js  |  57 ++++++++++++++++++++++++++-------------------------------
+ test/mozilla/mozilla.status         |   5 ++---
+ test/sputnik/sputnik.status         |   9 ---------
+ 6 files changed, 89 insertions(+), 127 deletions(-)
+:::
+0f682143d9a50441188ae09cbd669f5389e44597
+ricow@chromium.org
+ricow@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Tue Jul 5 06:19:53 2011 +0000
+792a6652ad0f5bb0b31c30182db88e019b9a2150
+Introduce code flushing of RegExp code.
+Due to issues relating mostly to chrome extensions we have lately been
+running into OOMs that are caused by our executable space running
+out. This change introduces flushing of code from regexps if we have
+not used the code for 5 mark sweeps.
+
+The approach is different from the normal function code flusing. Here
+we make a copy of the code inside the data array, and exchange the
+original code with a smi determined by the sweep_generation (a new
+heap variable increased everytime we do mark sweep/compact). If we
+encounter a smi in EnsureCompiled we simply reinstate the code
+object. If, in the marking phase of mark sweep, we find a regexp that
+already have a smi in the code field, and this is more than 5
+generations old we flush the code from the saved index.
+Review URL: http://codereview.chromium.org/7282026
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@8532 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/arm/code-stubs-arm.cc   |  5 ++---
+ src/factory.cc              |  8 +++++---
+ src/heap.cc                 |  7 ++++++-
+ src/heap.h                  |  8 ++++++++
+ src/ia32/code-stubs-ia32.cc |  5 ++---
+ src/jsregexp.cc             | 61 ++++++++++++++++++++++++++++++++++++++++++++++---------------
+ src/mark-compact.cc         | 76 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/objects-debug.cc        | 14 +++++++++++---
+ src/objects-inl.h           | 24 ++++++++++++++++++++++++
+ src/objects-visiting.cc     |  4 +++-
+ src/objects-visiting.h      |  7 +++++++
+ src/objects.h               | 44 ++++++++++++++++++++++++++++++++++++++++----
+ src/regexp.js               |  0
+ src/string.js               |  0
+ src/x64/code-stubs-x64.cc   |  5 ++---
+ 15 files changed, 232 insertions(+), 36 deletions(-)
+:::
+4707d7ac0821dadcddd178a0f526406b7bdb46e7
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Mar 3 11:49:03 2011 +0000
+8fddb2a664326630d2c786828c8215c9df01a68c
+Stop using plain Arrays internally in built-in functions.
+In built-in code we use arrays for internal computations.
+This makes it possible to affect the built-in code by putting getters
+or setters on the Array prototype chain.
+This adds a new internal Array constructor that creates Arrays with
+a very simplistic prototype chain that doesn't include any publicly
+visible objects. These Arrays shoudl ofcourse never leak outside the
+builtins, since that would expose the prototype object.
+The prototype object contains only the array functions that we use:
+push, pop and join (and not even a toString, so it doesn't stringify
+well).
+
+Also change uses of .call to %_CallFunction.
+
+BUG=1206
+
+Review URL: http://codereview.chromium.org/6602081
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@7040 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/arm/builtins-arm.cc        |  2 +-
+ src/array.js                   | 44 +++++++++++++++++++++++++++++++-------------
+ src/bootstrapper.cc            | 38 ++++++++++++++++++++++++++++++++++++++
+ src/ia32/builtins-ia32.cc      |  8 +++-----
+ src/json.js                    | 20 ++++++++++----------
+ src/objects.cc                 |  4 ++++
+ src/regexp.js                  |  6 +++---
+ src/string.js                  | 14 +++++++-------
+ src/v8natives.js               | 10 +++++-----
+ src/x64/builtins-x64.cc        |  2 +-
+ src/x64/macro-assembler-x64.cc |  2 +-
+ 11 files changed, 104 insertions(+), 46 deletions(-)
+:::
+f8b74a1541e65ee0a19942965af2ea516597f5ff
+ager@chromium.org
+ager@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Jan 28 10:33:10 2011 +0000
+4968d50d8ffc3b7c55bf102fd7e9cfce94de0541
+Avoid using Function.prototype.call in a number of places in our builtins files. We should always use %_CallFunction for a couple of reasons: it cannot be overwritten and it does not wrap basic types in wrapper objects.
+Review URL: http://codereview.chromium.org/6349018
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@6524 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/date.js                          |  4 ++--
+ src/json.js                          |  6 +++---
+ src/messages.js                      | 52 +++++++++++++++++-----------------------------------
+ src/mirror-debugger.js               | 40 ++++++++++++++++++++--------------------
+ src/regexp.js                        |  2 +-
+ test/cctest/test-api.cc              |  4 +++-
+ test/mjsunit/debug-backtrace-text.js |  6 +++---
+ 7 files changed, 49 insertions(+), 65 deletions(-)
+:::
+578e70a552e238e0914033b1ca421a60744024ae
+sandholm@chromium.org
+sandholm@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Dec 17 11:57:10 2010 +0000
+83b28cd1fc6e5d6f28c159fd27079f5be293d574
+Improve regexp split, replace and test. Review URL: http://codereview.chromium.org/5959002
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@6065 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 27 +++++++++++++++------------
+ src/string.js | 67 +++++++++++++++++++++++++++++--------------------------------------
+ 2 files changed, 44 insertions(+), 50 deletions(-)
+:::
+425a221b02306cb43b4aae64d7d2f2734958a376
+sandholm@chromium.org
+sandholm@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Mon Dec 13 12:19:10 2010 +0000
+1e494335bb1ac1390502b64434a4bf155de0a18e
+Optimizing BuildResultFromMatchInfo, StringReplace and StringSplit. Review URL: http://codereview.chromium.org/5708006
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5982 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 62 +++++++++++++++++++++++++++++---------------------------------
+ src/string.js | 93 +++++++++++++++++++++++++++++++++++++++++++++------------------------------------------------
+ 2 files changed, 74 insertions(+), 81 deletions(-)
+:::
+c8932d030b07d081826ad1b09dfb3eb53ba7ce0b
+sandholm@chromium.org
+sandholm@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Nov 11 08:47:30 2010 +0000
+4fa607ec57e22ab40c1c391fc2453f8e588bfbb4
+Special case global and non-global code paths in regexp.test. Review URL: http://codereview.chromium.org/4517003
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5810 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 45 +++++++++++++++++++++------------------------
+ 1 file changed, 21 insertions(+), 24 deletions(-)
+:::
+97cb006188eeb81af65902c22fc4e2a41d200eeb
+sandholm@chromium.org
+sandholm@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Wed Nov 3 10:30:15 2010 +0000
+94d09633bee09bcb8cd69d7d51af8295e96953e6
+Minor regexp test cleanup. Review URL: http://codereview.chromium.org/4371002
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5759 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
+:::
+e1458503d13cbcc20ae619a1a4d6d0be9cb74bfb
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Tue Nov 2 13:37:59 2010 +0000
+b9860d3af83e905accb58829b4801813efbe3492
+Remove regexp caching.
+Review URL: http://codereview.chromium.org/4308001
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5755 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/arm/codegen-arm.cc   |  67 -------------------------------------------------------------------
+ src/arm/codegen-arm.h    |   2 --
+ src/full-codegen.cc      |   7 -------
+ src/ia32/codegen-ia32.cc |  82 ----------------------------------------------------------------------------------
+ src/ia32/codegen-ia32.h  |   5 -----
+ src/regexp.js            | 117 +++++++++++++++++++++------------------------------------------------------------------------------------------------
+ src/runtime.cc           |  60 ------------------------------------------------------------
+ src/runtime.h            |   4 +---
+ src/string.js            |  71 +++--------------------------------------------------------------------
+ src/x64/codegen-x64.cc   |  80 --------------------------------------------------------------------------------
+ src/x64/codegen-x64.h    |   2 --
+ 11 files changed, 25 insertions(+), 472 deletions(-)
+:::
+01d7470b9b3a257bda3e9ecdc9aadcbb9b78ce78
+ricow@chromium.org
+ricow@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Oct 15 13:03:59 2010 +0000
+9aec3124688e63098145bbe4ed84672704dd3957
+Remove trailing spaces from js files.
+This is a cosmetic change only.
+
+Review URL: http://codereview.chromium.org/3797009
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5630 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/d8.js                | 0
+ src/date.js              | 0
+ src/debug-debugger.js    | 0
+ src/liveedit-debugger.js | 1 -
+ src/messages.js          | 0
+ src/mirror-debugger.js   | 0
+ src/regexp.js            | 0
+ src/v8natives.js         | 0
+ 8 files changed, 1 deletion(-)
+:::
+d5ac565882c6df2600677ffbc4a8f27d51f09cd5
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Oct 14 12:54:00 2010 +0000
+e144c259c59bfed5320a469ac31647bdf45994b1
+Restructure RegExp exec cache code.
+Review URL: http://codereview.chromium.org/3778004
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5622 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js          | 142 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------------------
+ src/string.js          |   5 ++---
+ test/mjsunit/regexp.js |  87 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 172 insertions(+), 62 deletions(-)
+:::
+6c0cde67bc8a7a5c50db437a83866b9bbcb21322
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Oct 14 08:51:20 2010 +0000
+788c5e344dada75adba69d20f59c0f7972e25f33
+Fix bug in cache handling of lastIndex on global regexps.
+Review URL: http://codereview.chromium.org/3745005
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5615 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js                         |  4 ++--
+ test/mjsunit/regress/regress-58740.js | 35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 37 insertions(+), 2 deletions(-)
+:::
+0dece535d9fadc8f4dbc3078639e39ae6cdcaf7a
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Wed Sep 22 11:22:57 2010 +0000
+22eb9af355e858178ffe8798e2b96ec9f1603a24
+RegExp: Fix caching to correctly set lastIndex.
+BUG: 52801
+
+Review URL: http://codereview.chromium.org/3389022
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5504 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js                         |  8 ++++++++
+ test/mjsunit/regress/regress-52801.js | 71 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 79 insertions(+)
+:::
+0210df584860280f5aecdc5c883f61282a2ba53a
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Aug 20 09:37:22 2010 +0000
+2982f5e3200ee860a4ff84f382704710230ff4f6
+Use Copy-on-write arrays for cached regexp results.
+Review URL: http://codereview.chromium.org/3158020
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5310 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/arm/codegen-arm.cc        |  61 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/arm/codegen-arm.h         |   2 ++
+ src/arm/full-codegen-arm.cc   |   8 ++++++++
+ src/arm/simulator-arm.cc      |   8 +++++++-
+ src/codegen.h                 |   1 +
+ src/full-codegen.cc           |  83 ++++++++++-------------------------------------------------------------------------
+ src/full-codegen.h            |  41 +++++------------------------------------
+ src/ia32/codegen-ia32.cc      | 103 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ src/ia32/codegen-ia32.h       |   6 ++++++
+ src/ia32/full-codegen-ia32.cc |   8 ++++++++
+ src/regexp.js                 |  15 ++-------------
+ src/runtime.cc                |  59 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/runtime.h                 |   1 +
+ src/x64/codegen-x64.cc        |  92 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ src/x64/codegen-x64.h         |   2 ++
+ src/x64/full-codegen-x64.cc   |   8 ++++++++
+ test/mjsunit/regexp.js        |  18 ++++++++++++++++++
+ 17 files changed, 389 insertions(+), 127 deletions(-)
+:::
+53e22e386c0b99f0de9bf833beee6a692dd6c5ab
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Aug 6 13:04:27 2010 +0000
+b69db81f3aeec077c926372c382b10ed91fac798
+Create a new RegExp object for every evaluation of a RegExp literal. Changes necessary to following ES5 semantics and matching Safari - in ES3 the same RegExp object was generated by each evaluation of the RegExp literal. Fixes bug 704.
+Review URL: http://codereview.chromium.org/3034060
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@5198 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/arm/codegen-arm.cc           | 72 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--------------
+ src/arm/codegen-arm.h            |  2 ++
+ src/arm/full-codegen-arm.cc      | 60 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++----
+ src/arm/macro-assembler-arm.cc   | 28 ++++++++++++++++++++++++++++
+ src/arm/macro-assembler-arm.h    |  2 ++
+ src/codegen.h                    | 39 +++++++++++++++++++--------------------
+ src/full-codegen.cc              |  2 ++
+ src/full-codegen.h               |  1 +
+ src/ia32/codegen-ia32.cc         | 87 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ src/ia32/codegen-ia32.h          |  5 ++++-
+ src/ia32/full-codegen-ia32.cc    | 86 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------
+ src/ia32/macro-assembler-ia32.cc | 25 +++++++++++++++++++------
+ src/objects.h                    |  1 +
+ src/regexp.js                    |  6 +++---
+ src/runtime.cc                   | 20 ++++++++++++++++++++
+ src/runtime.h                    |  1 +
+ src/string.js                    | 13 ++++++++-----
+ src/x64/codegen-x64.cc           | 85 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ src/x64/codegen-x64.h            |  2 ++
+ src/x64/full-codegen-x64.cc      | 84 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---------
+ src/x64/macro-assembler-x64.cc   | 16 ++++++++++++----
+ src/x64/macro-assembler-x64.h    |  4 +++-
+ test/mjsunit/object-literal.js   |  4 ++--
+ 23 files changed, 561 insertions(+), 84 deletions(-)
+:::
+ade53c4282133e3266ab6b69069d1110d122c325
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Tue Jun 29 14:15:34 2010 +0000
+d539095bcb29fd74319777f39572585e8e785c07
+X64: Make the ToBoolean inline code do even less if the value is known to be a smi.
+Review URL: http://codereview.chromium.org/2834028
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4978 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js          | 0
+ src/x64/codegen-x64.cc | 5 +++++
+ 2 files changed, 5 insertions(+)
+:::
+991af265198572fba1a61677b3864eae3119ffa1
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Jun 25 07:51:46 2010 +0000
+b71fe5b61e0faeac5099b7a77239f06706c83d1c
+Less intrusive patch for regexp bug.
+Review URL: http://codereview.chromium.org/2843024
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4947 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+:::
+7b46a1f49d7ef4a60c9378bb0328b0bcd6cc248b
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Jun 25 07:00:29 2010 +0000
+667c5e84a1c9890589c6972c6bd50067e915bed6
+Fix bug in regexp exec with global regexps.
+Review URL: http://codereview.chromium.org/2826020
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4945 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js                         |  1 +
+ test/mjsunit/regress/regress-45469.js | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 47 insertions(+)
+:::
+c9b1bf7eaad8b35c2f178d0d4d9e6f1fe6584471
+sandholm@chromium.org
+sandholm@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Jun 4 13:43:41 2010 +0000
+6e7d663eed563d8013af88a9b5c7887cc66eb57f
+Fix issue in previous test optimization Review URL: http://codereview.chromium.org/2653002
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4801 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+:::
+6e7d663eed563d8013af88a9b5c7887cc66eb57f
+sandholm@chromium.org
+sandholm@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Jun 4 13:37:28 2010 +0000
+52f52ae99fe54b35df7e17a7243f996315583ed4
+Simplify criteria for doing an optimized test call Review URL: http://codereview.chromium.org/2662002
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4800 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+:::
+52f52ae99fe54b35df7e17a7243f996315583ed4
+sandholm@chromium.org
+sandholm@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Jun 4 11:58:40 2010 +0000
+8a4d49b65aac1405d01ef09dc3844a7241a9c5d4
+Simplify regexp test call when the regexp starts and ends with '.*'. Review URL: http://codereview.chromium.org/2645002
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4799 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 28 +++++++++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
+:::
+0adfe842a515dd206cb0322d17c05f97244c0e72
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Wed Apr 21 08:33:04 2010 +0000
+5c7ffe9f1c773cb8b5803ad8c1e98f504de0bcb8
+Fix incorrect handling of global RegExp properties for nested replace-regexp-with-function.
+Review URL: http://codereview.chromium.org/1695002
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4455 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js                  | 12 ++++++++----
+ src/string.js                  | 17 ++++++++---------
+ test/mjsunit/string-replace.js | 16 ++++++++++++++++
+ 3 files changed, 32 insertions(+), 13 deletions(-)
+:::
+285d5bc48ac0ccf0fde6f89041c1a8ac7f5310d1
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Tue Apr 13 09:31:03 2010 +0000
+4418b5897335bf143ae6fbfda724f385265601a7
+Native construction of RegExp result objects, with in-object index and input. Avoid cloning using CloneRegExpResult for results that are just arrays. Made a more direct path for string.match with string argument.
+Review URL: http://codereview.chromium.org/1645001
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4395 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/arm/codegen-arm.cc       | 94 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/arm/codegen-arm.h        |  2 ++
+ src/bootstrapper.cc          | 56 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/codegen.h                |  1 +
+ src/contexts.h               |  2 ++
+ src/heap.h                   |  2 ++
+ src/ia32/codegen-ia32.cc     | 91 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ src/ia32/codegen-ia32.h      |  2 ++
+ src/objects.h                | 20 ++++++++++++++++++++
+ src/regexp.js                | 72 ++++++++++++++++++++++++++++++++++++++++++------------------------------
+ src/runtime.cc               | 30 ++++++++++++++++++++++++++++++
+ src/runtime.h                |  1 +
+ src/string.js                | 29 +++++++++++++++++++++--------
+ src/x64/codegen-x64.cc       | 91 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/x64/codegen-x64.h        |  2 ++
+ test/mjsunit/fuzz-natives.js |  6 ++++++
+ 16 files changed, 462 insertions(+), 39 deletions(-)
+:::
+67116752d9e2a57dcaf08126ab8e37746be3a5f3
+sandholm@chromium.org
+sandholm@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Apr 9 09:21:46 2010 +0000
+82ddab5fd57ec213ec542d9141bb533b1be4047c
+Adding Lasse's improvement to r4364 http://codereview.chromium.org/1556019 http://code.google.com/p/v8/source/detail?r=4364
+Review URL: http://codereview.chromium.org/1638001
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4373 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+:::
+c9b3e45cca7a8d067c40d6d8edbc7b5276ed7229
+sandholm@chromium.org
+sandholm@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Apr 8 14:42:27 2010 +0000
+a6e6131bf74cd25e83407f0cc3c7a0c0a550e458
+Adding boolean saveAnswer property of RegExpCache to avoid unnecessary cloning of the regexp answer object/array. Review URL: http://codereview.chromium.org/1556019
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4364 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js | 24 +++++++++++++++++-------
+ src/string.js | 42 +++++++++++++++++++++---------------------
+ 2 files changed, 38 insertions(+), 28 deletions(-)
+:::
+1cf0439ca7002bebd4421b184417f08f82c321c9
+kmillikin@chromium.org
+kmillikin@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Tue Mar 30 07:15:23 2010 +0000
+69bb110075aa5c7f0f82c23b043d6ad52868005f
+Remove trailing regexp from .js files.
+Removed trailing whitespace using regexp replace.  No other changes.
+
+Review URL: http://codereview.chromium.org/1559006
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4314 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/array.js             | 0
+ src/d8.js                | 0
+ src/debug-debugger.js    | 0
+ src/liveedit-debugger.js | 0
+ src/messages.js          | 0
+ src/mirror-debugger.js   | 0
+ src/regexp.js            | 0
+ src/runtime.js           | 0
+ src/string.js            | 0
+ src/uri.js               | 0
+ src/v8natives.js         | 0
+ 11 files changed, 0 insertions(+), 0 deletions(-)
+:::
+845fd15dd67386fb3d410bbfb814774d59138fc9
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Mar 26 14:19:47 2010 +0000
+75003d7e7628cb2192ef945ff81d93c837190401
+Pre-create properties on JSRegExp objects Initialize properties in single runtime call.
+Review URL: http://codereview.chromium.org/1350003
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4298 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/bootstrapper.cc           | 62 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ src/heap.h                    |  5 +++++
+ src/objects.h                 |  7 +++++++
+ src/regexp.js                 | 26 ++------------------------
+ src/runtime.cc                | 56 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/runtime.h                 |  1 +
+ test/mjsunit/mirror-regexp.js |  4 ++--
+ test/mjsunit/regexp.js        | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 8 files changed, 182 insertions(+), 27 deletions(-)
