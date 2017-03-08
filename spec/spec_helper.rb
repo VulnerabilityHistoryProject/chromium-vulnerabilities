@@ -31,3 +31,9 @@ def git_log_has?(word)
   end
   return included
 end
+
+def valid_git_hash_or_empty(str)
+  str.nil? ||
+    str.to_s.nil? ||
+    str =~ /[0-9a-z]{40}/
+end

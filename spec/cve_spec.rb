@@ -16,18 +16,23 @@ describe 'CVE yml file' do
       it('has fixes key') { expect(vuln).to include('fixes') }
       it('has vccs key')  { expect(vuln).to include('vccs') }
 
-      cve_hash(file)['fixes'].each do |fix|
-        it "has git log data for fix #{fix}" do
-          expect(git_log_has?(fix)).to be true
+      it 'has valid git hashes commits in fixes' do
+        vuln['fixes'].each do |fix|
+          expect(fix['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
         end
       end
 
-      cve_hash(file)['vccs'].each do |vcc|
-        vcc = vcc.keys[0] if vcc.respond_to? :keys
-        it "has git log data for vcc #{vcc}" do
-          expect(git_log_has?(vcc)).to be true
-        end
-      end
+      # it 'has git commits in vccs'
+      #
+      # it 'has git commits in interesting commits'
+      #
+      # it 'has true, false, or nil in unit_test->code'
+      #
+      # it 'has true, false, or nil in unit_test->fix'
+      #
+      # it 'has true, false, or nil in discovered->automated'
+      #
+      # it 'has true, false, or nil in lessons->*->applies'
 
     end
 
