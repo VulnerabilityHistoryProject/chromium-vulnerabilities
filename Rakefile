@@ -4,8 +4,11 @@ require 'rspec/core/rake_task'
 require 'yaml'
 require 'zlib'
 require_relative 'scripts/cve_commits.rb'
+require_relative 'scripts/cve_update_skeleton.rb'
 require_relative 'scripts/pull_task_handler'
 require_relative 'scripts/reviews_to_fixes.rb'
+require_relative 'scripts/script_helpers.rb'
+
 
 desc 'Run the specs by default'
 task default: :spec
@@ -84,4 +87,12 @@ namespace :pull do
     Pull_Task_Handler.clean('tmp')
   end
 
+end
+
+namespace :cve do
+
+  desc 'Update CVE ymls from skeleton'
+  task :update_skeleton do
+    CVEUpdateSkeleton.new.run
+  end
 end
