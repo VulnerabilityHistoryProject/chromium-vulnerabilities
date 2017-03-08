@@ -1000,3 +1000,50 @@ git-svn-id: http://v8.googlecode.com/svn/branches/3.2@7979 ce2b1a6d-e550-0410-ae
   media/midi/midi_manager.cc      | 3 +--
   media/midi/midi_manager_alsa.cc | 4 ++--
   2 files changed, 3 insertions(+), 4 deletions(-)
+:::
+b32ff09a49fe4c76827e717f911e5a0066bdad4b
+erik.corry@gmail.com
+erik.corry@gmail.com@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Fri Apr 13 11:03:22 2012 +0000
+f0ea13846d9023abb1702b34461954d96202e20f
+Regexp.rightContext was still not quite right.  Fixed and added more tests. Review URL: https://chromiumcodereview.appspot.com/10008104
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@11312 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/macros.py                    |  9 +++++++++
+ src/regexp.js                    | 16 +++++++++-------
+ test/mjsunit/regexp-capture-3.js | 60 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 77 insertions(+), 8 deletions(-)
+:::
+0adfe842a515dd206cb0322d17c05f97244c0e72
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Wed Apr 21 08:33:04 2010 +0000
+5c7ffe9f1c773cb8b5803ad8c1e98f504de0bcb8
+Fix incorrect handling of global RegExp properties for nested replace-regexp-with-function.
+Review URL: http://codereview.chromium.org/1695002
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4455 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js                  | 12 ++++++++----
+ src/string.js                  | 17 ++++++++---------
+ test/mjsunit/string-replace.js | 16 ++++++++++++++++
+ 3 files changed, 32 insertions(+), 13 deletions(-)
+:::
+498b074bd0db2913cf2c9458407c0d340bbcc05e
+lrn@chromium.org
+lrn@chromium.org@ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+Thu Mar 25 12:57:58 2010 +0000
+0737ec8dcba291ec85c5285f91850ae0f7dcd77f
+Run string replace regexp with function in C++ code loop. Reuses the result array to save on allocation. Matches Safari's behavior.
+Review URL: http://codereview.chromium.org/1109010
+
+git-svn-id: http://v8.googlecode.com/svn/branches/bleeding_edge@4269 ce2b1a6d-e550-0410-aec6-3dcde31c8c00
+
+;;;
+ src/regexp.js  |  45 ++++++++++++++++----
+ src/runtime.cc | 630 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------
+ src/runtime.h  |   1 +
+ src/string.js  | 145 ++++++++++++++++++++++++++++++++--------------------------------
+ 4 files changed, 699 insertions(+), 122 deletions(-)
