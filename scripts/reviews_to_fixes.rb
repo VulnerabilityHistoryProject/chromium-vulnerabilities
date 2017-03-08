@@ -8,7 +8,7 @@ class ReviewsToFixes
     Dir['cves/*.yml'].each do |yml_file|
       dirty = false
       cve = File.open(yml_file) { |f| YAML.load(f) }
-      cve['reviews']&.each do |review_id|
+      cve['reviews'].each do |review_id|
         puts "Looking up #{review_id}..."
         Dir.chdir('tmp/src') do
           out = `git log -1 --pretty="%H" --grep="codereview.chromium.org/#{review_id}$"`.strip
@@ -17,7 +17,7 @@ class ReviewsToFixes
             dirty = true
           end
         end
-      end
+      end unless cve['reviews'].nil?
       File.open(yml_file, 'w+') { |f| cve.to_yaml } if dirty
     end
   end
@@ -27,7 +27,7 @@ class ReviewsToFixes
   end
 
   def already_have?(str, cve)
-    cve['fixes']&.include? str
+    (!cve['fixes'].nil?) && (cve['fixes'].include?(str))
   end
 
 end
