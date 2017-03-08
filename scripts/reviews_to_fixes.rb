@@ -15,6 +15,7 @@ class ReviewsToFixes
           if is_git_hash?(out) && !already_have?(out, cve)
             cve['fixes'] << out
             dirty = true
+            puts "Found! #{out}"
           end
         end
       end unless cve['reviews'].nil?
