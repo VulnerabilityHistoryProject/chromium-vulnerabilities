@@ -16,8 +16,14 @@ describe 'CVE yml file' do
       it('has fixes key') { expect(vuln).to include('fixes') }
       it('has vccs key')  { expect(vuln).to include('vccs') }
 
-      it 'has valid git hashes commits in fixes' do
+      it 'has valid git hashes commits in fixes, vccs, and interesting_commits' do
         vuln['fixes'].each do |fix|
+          expect(fix['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
+        end
+        vuln['vccs'].each do |fix|
+          expect(fix['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
+        end
+        vuln['interesting_commits']['commits'].each do |fix|
           expect(fix['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
         end
       end
