@@ -4,12 +4,12 @@ cache: bundler
 rvm:
 - 2.3.3
 script: bundle exec rake
-deploy:
-  provider: script
-  script: ci/travis-deploy.sh
-  on:
-    tags: true
-  skip_cleanup: true
-env:
-  global:
-    secure: RulvXBJGbFBXZWpLN3RVhup7pLd3TFb+RkiC+BaMeoVLJfSGld3etoes+O+zXxPAj/1emcm+DX7CaqnBal4owCclr4w/Xefl0UsBYkRPhjAi0Y7n67K8x+HJqgPV9W48O0+3Z/G3Kep/3wqm+LxFFPtODduTlpRovGp5uIV+FlJ5DsTtnX0mR+2eXRWuxZfn5Tb2c6KAP+zll414WYrslnhXSNPW/AtulAgkcHuQ1q15REI4SFVhlHMbVEWnNcRNVkAViMZmpf+kHgpNdd4tqnvwA5KyJXQv2fef7u+jy2A6lEYQre/1c5ZRXvIxDqD544w870QqpOZSpwDeZsh+o2lpDJ2hrH7MxfRCDZ/OShEpN+TEJnh4jYrnBtmmknqTo1W9DatM8612DOCqrxIhznl7QMKlciIiVXPNlhuxFn+KKAKUtpZ6eN8mdf/RfOX8XMCFrKQFeWZ5ur8S+WwesmzopW/CuIdVButQhD8O4Bq9yQy4pWI0mfBcbkvdxLgPFfG5UnJ6zXfyfHL502earlWauCIaf1zjrFxVoUUaHaYRb12kNPP46pQGNdZhRKZLi+3dupHWXPwQjH6k5z+LAaW85zKfMya3uU1xxeQeBVCM1dx1Gq3z4yEFWgRenD58ORFMcTpo4L4WEomqMifWPxQJ2ZitBBw93vdX3xqepFc=
+# deploy:
+#   provider: script
+#   script: ci/travis-deploy.sh
+#   on:
+#     tags: true
+#   skip_cleanup: true
+# env:
+#   global:
+#     secure: RulvXBJGbFBXZWpLN3RVhup7pLd3TFb+RkiC+BaMeoVLJfSGld3etoes+O+zXxPAj/1emcm+DX7CaqnBal4owCclr4w/Xefl0UsBYkRPhjAi0Y7n67K8x+HJqgPV9W48O0+3Z/G3Kep/3wqm+LxFFPtODduTlpRovGp5uIV+FlJ5DsTtnX0mR+2eXRWuxZfn5Tb2c6KAP+zll414WYrslnhXSNPW/AtulAgkcHuQ1q15REI4SFVhlHMbVEWnNcRNVkAViMZmpf+kHgpNdd4tqnvwA5KyJXQv2fef7u+jy2A6lEYQre/1c5ZRXvIxDqD544w870QqpOZSpwDeZsh+o2lpDJ2hrH7MxfRCDZ/OShEpN+TEJnh4jYrnBtmmknqTo1W9DatM8612DOCqrxIhznl7QMKlciIiVXPNlhuxFn+KKAKUtpZ6eN8mdf/RfOX8XMCFrKQFeWZ5ur8S+WwesmzopW/CuIdVButQhD8O4Bq9yQy4pWI0mfBcbkvdxLgPFfG5UnJ6zXfyfHL502earlWauCIaf1zjrFxVoUUaHaYRb12kNPP46pQGNdZhRKZLi+3dupHWXPwQjH6k5z+LAaW85zKfMya3uU1xxeQeBVCM1dx1Gq3z4yEFWgRenD58ORFMcTpo4L4WEomqMifWPxQJ2ZitBBw93vdX3xqepFc=
