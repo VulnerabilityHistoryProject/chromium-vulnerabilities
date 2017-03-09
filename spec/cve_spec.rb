@@ -28,17 +28,53 @@ describe 'CVE yml file' do
         end
       end
 
-      # it 'has git commits in vccs'
-      #
-      # it 'has git commits in interesting commits'
-      #
-      # it 'has true, false, or nil in unit_test->code'
-      #
-      # it 'has true, false, or nil in unit_test->fix'
-      #
-      # it 'has true, false, or nil in discovered->automated'
-      #
-      # it 'has true, false, or nil in lessons->*->applies'
+      it 'has true, false, or nil in various places' do
+        expect(vuln['unit_tested']['code']).to be(true).
+                                             or(be(false)).
+                                             or(be_nil)
+        expect(vuln['unit_tested']['fix']).to be(true).
+                                           or(be(false)).
+                                           or(be_nil)
+        expect(vuln['discovered']['automated']).to be(true).
+                                                or(be(false)).
+                                                or(be_nil)
+        expect(vuln['discovered']['google']).to be(true).
+                                                or(be(false)).
+                                                or(be_nil)
+        expect(vuln['lessons']['defense_in_depth']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['least_privilege']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['frameworks_are_optional']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['native_wrappers']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['distrust_input']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['security_by_obscurity']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['serial_killer']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['environment_variables']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['secure_by_default']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['yagni']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+        expect(vuln['lessons']['complex_inputs']['applies']).to be(true).
+                                                               or(be(false)).
+                                                               or(be_nil)
+      end
 
     end
 
