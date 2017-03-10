@@ -13,13 +13,12 @@ class ReviewsToFixes
         Dir.chdir('tmp/src') do
           out = `git log -1 --pretty="%H" --grep="codereview.chromium.org/#{review_id}$"`.strip
           if is_git_hash?(out) && !already_have?(out, cve)
-            cve['fixes'] << out
+            cve['fixes'] << { commit: out, note: '' }
             dirty = true
-            puts "Found! #{out}"
           end
         end
       end unless cve['reviews'].nil?
-      File.open(yml_file, 'w+') { |f| f.write cve.to_yaml } if dirty
+      File.open(yml_file, 'w+') { |f| cve.to_yaml } if dirty
     end
   end
 
