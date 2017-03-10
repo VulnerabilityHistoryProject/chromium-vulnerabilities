@@ -361,6 +361,15 @@ The output gives me ~20 commits over a two-year period. So there was some work, 
 
 With all of this information, I wrote up my final report in my [CVE-2011-3092.yml](https://github.com/andymeneely/chromium-vulnerabilities/blob/dev/cves/CVE-2011-3092.yml).
 
+# Useful links for Chromium
+
+You might find these links useful:
+
+* [Their git repository on the web](https://chromium.googlesource.com/chromium/src)
+* Their code review tool. Here's [one review](https://codereview.chromium.org/137703014) - replace the ID with your own to look up another one
+* Their bug tracker. Here's [one bug](https://bugs.chromium.org/p/chromium/issues/detail?id=337882) - replace the ID with your own to look up another one
+* They put some useful information on their [announcement blog](- http://chromereleases.googleblog.com/2014/03/stable-channel-update.html).
+
 # Another Example: CVE-2013-6665
 
 In the interest of being helpful, Prof. Meneely has done another example for you to reference. You can read about it in [https://github.com/andymeneely/chromium-vulnerabilities/blob/dev/cves/CVE-2013-6665.yml]
