@@ -18,7 +18,7 @@ class ReviewsToFixes
           end
         end
       end unless cve['reviews'].nil?
-      File.open(yml_file, 'w+') { |f| cve.to_yaml } if dirty
+      File.open(yml_file, 'w+') { |f| f.write cve.to_yaml } if dirty
     end
   end
 
