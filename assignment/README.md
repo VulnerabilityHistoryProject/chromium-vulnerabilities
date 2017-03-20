@@ -16,6 +16,7 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
 
   1. **Set up a GitHub account.** If do not have a GitHub account, you will need to create one. We recommend using a permanent, professional name as this will likely go on your resume.
   2. **Give copyright consent and notify us of your GitHub username**. We would like you to contribute your work to a Creative Commons/MIT Licensed repository to be used in academic resarch. Also, please notify us via [this survey](https://goo.gl/forms/tV6pJ2uaCUoHk1GU2) what your GitHub username is so that we can trace your GitHub username to your RIT username. *NOTE: your contribution to open source is voluntary. We will make similar arrangements to submit your report privately if you do not wish to contribute to this research project. Your grade will not be affected.*
+  2. **Get your CVEs from [here](https://docs.google.com/spreadsheets/d/1aFWFbj0dsrfhqVZ6mrnL5d9wIwUPI8Ou-LsPv8aqDGE/pubhtml?gid=1955484899&single=true)**. Everyone will be assigned *three* CVEs to research. You are only required to research *two* of these. We give you a third in case one of these CVEs is a dead-end.
   2. **Fork this repository.** You can read about forking [on GitHub's docs.](https://help.github.com/articles/fork-a-repo/)
   3. **Clone this repository locally** using your favorite Git client.
   4. **Open up your CVE files in a good text editor**. For example, `cves/CVE-2011-3092.yml`. You will be editing [YAML](http://yaml.org)  for this assignment, which is a human-friendly JSON-like format that we use for structuring our data. Here's another [helpful link about YAML](http://yaml.org/YAML_for_ruby.html). It would be helpful if your text editor support syntax highlighting of YAML files so you can avoid syntax errors. My personal favorites are [Atom](http://atom.io) and [SublimeText](https://www.sublimetext.com/3).
@@ -43,11 +44,13 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
 
 ### Round 1 Submission: Pull Request
 
-To submit, you must create a pull request from your repository to ours.
+Remember, though we have assigned you *three* CVEs, you are only responsible for researching *two*. We give you an extra in case of a dead-end. We cannot give extra credit for doing a third, but if you do all three we would consider it a donation of research data.
 
-1. **Fork, clone, edit, push**. Clone your forked repo locally and enter your code. Commit your changes to the `dev` branch. Push to your forked repo. _Tip: if you have never done this before, this may be a learning experience for you. Get help from your friends, TA, or instructor._
+To submit, you must create a pull request from your forked repository to ours.
+
+1. **Fork, clone, edit, push**. Clone your forked repo locally and enter your code. Commit your changes to the `dev` branch, or to your own branch if you like. Push to your forked repo. _Tip: if you have never done this before with GitHub, this may be a learning experience for you. Get help from your friends, TA, or instructor._
 3. **Create a pull requests against our _dev_ branch**. You must name your pull request after the CVEs that you are editing, for example "CVE-2011-3092 and CVE-2011-3093". Write a brief description that will become the commit message. Please create one pull request that edits all of your CVE files.
-4. **Correct anything from feedback or  build tests**. We have all of our YAML files run against some integrity checkers to verify they have the right structure. If your pull request does not pass, then check the details of the build to see which tests failed. You might have broken YAML syntax, or the wrong format for a commit, or some other issue. **_You must fix build issues before the Round 1 deadline._** To fix any issues, just edit your CVEs, commit, and push. The pull request will automatically update (you don't need to create a new pull request if you want to correct something). Don't worry about committing and pushing too many times - we will "squash" your commits into one commit on the final merge.
+4. **Correct anything from feedback or build tests**. We have all of our YAML files run against some integrity checkers to verify they have the right structure. If your pull request does not pass, then check the details of the build to see which tests failed. You might have broken YAML syntax, or the wrong format for a commit, or some other issue. **_You must fix build issues before the Round 1 deadline._** To fix any issues, just edit your CVEs, commit, and push. The pull request will automatically update (you don't need to create a new pull request if you want to correct something). Don't worry about committing and pushing too many times - we will "squash" your commits into one commit on the final merge.
 5. **Respond to feedback**. You might get immediate feedback from someone else on the project, even before Round 1 is done. See details below.
 
 Grading:
@@ -372,4 +375,4 @@ You might find these links useful:
 
 # Another Example: CVE-2013-6665
 
-In the interest of being helpful, Prof. Meneely has done another example for you to reference. You can read about it in [https://github.com/andymeneely/chromium-vulnerabilities/blob/dev/cves/CVE-2013-6665.yml]
+In the interest of being helpful, Prof. Meneely has done another example for you to reference. You can read about it in [CVE-2013-6665.yml]( https://github.com/andymeneely/chromium-vulnerabilities/blob/dev/cves/CVE-2013-6665.yml)
