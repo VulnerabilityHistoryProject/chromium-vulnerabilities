@@ -16,36 +16,35 @@ OptionParser.new do |opts|
 end.parse!
 
 g = Git.open(options[:environment])
-
-
 if options[:firstcommit] && options[:lastcommit]
-  commits = g.log.between(options[:firstcommit], options[:lastcommit])
+  commits = g.log.between(options[:firstcommit], options[:lastcommit]).to_a
+  commits << g.object(options[:firstcommit])
 else
   commits = g.log
 end
 
-json_array = []
-files_hash = {}
-
+commits_to_jsonify = []
 commits.each do |x|
-  json = {}
-  json[:commit] = x
-  json[:author] = x.author.name
-  json[:email] = x.author.email
-  json[:date] = x.author.date
-  json[:parent] = x.parent.sha
-  json[:message] = x.message.gsub('\n', '\\n').gsub('"', '&quot')
-  json[:insertions] = g.diff(x, x.parent.sha).insertions
-  json[:deletions] = g.diff(x, x.parent.sha).deletions
+  # Get list of files and caculate their churn
+  files_hash = {}
   stats = g.diff(x, x.parent.sha).stats
   g.gtree(x).diff(x.parent.sha).each do |f|
     file_churn = stats[:files][f.path]
     churn = file_churn[:insertions] + file_churn[:deletions]
     files_hash[f.path] = churn
   end
-  json[:filepaths] = files_hash
-  json_array.push(JSON.generate(json))
-  files_hash.clear
+  c = {
+    :commit => x,
+    :author => x.author.name,
+    :email => x.author.email,
+    :date => x.author.date,
+    :parent => x.parent.sha,
+    :message => x.message.gsub('\n', '\\n').gsub('"', '&quot'),
+    :insertions => g.diff(x, x.parent.sha).insertions,
+    :deletions => g.diff(x, x.parent.sha).deletions,
+    :filepaths => files_hash
+  }
+  commits_to_jsonify << c
 end
 
-File.open(options[:output] + 'gitlog.json', 'w') { |file| file.write(JSON.pretty_generate(json_array).gsub('\"','"').gsub('"{','{').gsub('}"','}'))}
+File.open(options[:output] + 'gitlog.json', 'w') { |file| file.write(commits_to_jsonify.to_json)}

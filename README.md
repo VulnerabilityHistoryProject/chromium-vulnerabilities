@@ -34,6 +34,9 @@ $ git log --pretty=format:"%H" 498b074bd0db2913cf2c9458407c0d340bbcc05e..b32ff09
 $ for /F %i in (../commit_hashes.txt) do git log -1 --pretty=format:":::%n%H%n%an%n%ae%n%ad%n%P%n%s%n%b%n;;;" --stat --stat-width=300 --stat-name-width=300 --ignore-space-change %i >> ..\..\commits\gitlog.txt
 ```
 
+# Get Git log as json
+Run git_log_json.rb using -e (environment) -f (earliest commit) -l (latest commit) and -o (output dir).
+ex: `ruby git_log_json.rb -e ../ -f b5a4700 -l da484cb -o ../commits/`
 
 # Get the Releases data
 

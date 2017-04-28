@@ -1,0 +1,456 @@
+[{
+    "commit": "6fe4e841191055b69f5df33002e78d75bfdcf725",
+    "author": "dglazkov@chromium.org",
+    "email": "dglazkov@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 12:42:12 -0400",
+    "parent": "c7bc223397c1eb512609aa0a0c21663dfce5abfd",
+    "message": "Remove empty unused directories from src/webkit.\n\nR=darin\nBUG=3319\nTEST=none\n\nReview URL: http://codereview.chromium.org/113903\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16990 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 1210,
+    "deletions": 0,
+    "filepaths": {
+        "webkit/pending/README.txt": 13,
+        "webkit/port/DerivedSources.make": 1185,
+        "webkit/port/platform/win-encodings.txt": 12
+    }
+}, {
+    "commit": "c7bc223397c1eb512609aa0a0c21663dfce5abfd",
+    "author": "pinkerton@chromium.org",
+    "email": "pinkerton@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 12:37:06 -0400",
+    "parent": "285050ff95b5bc5aecc612e48f4ec56414c803a1",
+    "message": "Add shift-zoom to maximize.\nBUG=none\nTEST=shift-zoom maximizes window, zoom sizes to intrinsic size.\nReview URL: http://codereview.chromium.org/115818\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16989 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 0,
+    "deletions": 7,
+    "filepaths": {
+        "chrome/browser/cocoa/browser_window_controller.mm": 7
+    }
+}, {
+    "commit": "285050ff95b5bc5aecc612e48f4ec56414c803a1",
+    "author": "pinkerton@chromium.org",
+    "email": "pinkerton@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 12:36:57 -0400",
+    "parent": "3da579b85a36e95c03d06b7c4ce9d618af4107bf",
+    "message": "Fix errant comments on parameters.\nBUG=none\nTEST=none\nReview URL: http://codereview.chromium.org/112062\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16988 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 2,
+    "deletions": 2,
+    "filepaths": {
+        "chrome/test/startup/feature_startup_test.cc": 4
+    }
+}, {
+    "commit": "3da579b85a36e95c03d06b7c4ce9d618af4107bf",
+    "author": "sky@chromium.org",
+    "email": "sky@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 12:36:19 -0400",
+    "parent": "6f10a83d4397a71caa64ed0019ba59a0d9e94dd2",
+    "message": "Relands cl 16982 as it wasn't the cause of the build breakage. Here's\nthe description for that cl:\n\nLands http://codereview.chromium.org/115505 for bug\nhttp://crbug.com/4030 for tyoshino.\n\nBUG=http://crbug.com/4030\nTEST=make sure control-w dismisses bookmark manager.\n\nReview URL: http://codereview.chromium.org/113902\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16987 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 0,
+    "deletions": 15,
+    "filepaths": {
+        "chrome/browser/views/bookmark_manager_view.cc": 11,
+        "chrome/browser/views/bookmark_manager_view.h": 4
+    }
+}, {
+    "commit": "6f10a83d4397a71caa64ed0019ba59a0d9e94dd2",
+    "author": "kuchhal@chromium.org",
+    "email": "kuchhal@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 12:36:10 -0400",
+    "parent": "11ca005c425ef920f54b7317a775eb9b7b1bc148",
+    "message": "Make the import feature a little more complete:\n- Now we show import progress of individual items\n- In case Firefox is running we display a warning and allow user to close it before proceeding\n- Delete the Firefox lock when import finishes\n\nBUG=11191\n\nReview URL: http://codereview.chromium.org/114047\n\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16986 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 60,
+    "deletions": 456,
+    "filepaths": {
+        "chrome/browser/gtk/import_dialog_gtk.cc": 40,
+        "chrome/browser/gtk/import_dialog_gtk.h": 15,
+        "chrome/browser/gtk/import_lock_dialog_gtk.cc": 53,
+        "chrome/browser/gtk/import_lock_dialog_gtk.h": 38,
+        "chrome/browser/gtk/import_progress_dialog_gtk.cc": 202,
+        "chrome/browser/gtk/import_progress_dialog_gtk.h": 81,
+        "chrome/browser/importer/firefox_importer_utils.cc": 52,
+        "chrome/browser/importer/firefox_importer_utils.h": 12,
+        "chrome/browser/importer/firefox_profile_lock_posix.cc": 1,
+        "chrome/browser/importer/importer.cc": 14,
+        "chrome/browser/importer/importer.h": 4,
+        "chrome/chrome.gyp": 4
+    }
+}, {
+    "commit": "11ca005c425ef920f54b7317a775eb9b7b1bc148",
+    "author": "maruel@chromium.org",
+    "email": "maruel@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 11:28:38 -0400",
+    "parent": "96d3fb5954088dc929dcedfd82c5b6a05e0e3116",
+    "message": "Reverting 16982.\n\nBroke Modules Mac\nReview URL: http://codereview.chromium.org/113901\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16985 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 15,
+    "deletions": 0,
+    "filepaths": {
+        "chrome/browser/views/bookmark_manager_view.cc": 11,
+        "chrome/browser/views/bookmark_manager_view.h": 4
+    }
+}, {
+    "commit": "96d3fb5954088dc929dcedfd82c5b6a05e0e3116",
+    "author": "pfeldman@chromium.org",
+    "email": "pfeldman@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 10:51:21 -0400",
+    "parent": "4079724701312d23a68a148158c8024f0433fbd8",
+    "message": "DevTools: Add 'Enable Developer Tools' option into the Advanced tab. Hide developer tools by default.\n\nReview URL: http://codereview.chromium.org/117003\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16984 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 6,
+    "deletions": 101,
+    "filepaths": {
+        "chrome/app/generated_resources.grd": 7,
+        "chrome/browser/debugger/devtools_manager.cc": 14,
+        "chrome/browser/debugger/devtools_manager.h": 2,
+        "chrome/browser/tab_contents/tab_contents.cc": 3,
+        "chrome/browser/views/options/advanced_contents_view.cc": 81
+    }
+}, {
+    "commit": "4079724701312d23a68a148158c8024f0433fbd8",
+    "author": "sky@chromium.org",
+    "email": "sky@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 10:34:22 -0400",
+    "parent": "449dd2fa0f79ea68566f04399b3860b59762bc62",
+    "message": "Lands http://codereview.chromium.org/115505 for bug\nhttp://crbug.com/4030 for tyoshino.\n\nBUG=http://crbug.com/4030\nTEST=make sure control-w dismisses bookmark manager.\n\nReview URL: http://codereview.chromium.org/113887\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16982 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 0,
+    "deletions": 15,
+    "filepaths": {
+        "chrome/browser/views/bookmark_manager_view.cc": 11,
+        "chrome/browser/views/bookmark_manager_view.h": 4
+    }
+}, {
+    "commit": "449dd2fa0f79ea68566f04399b3860b59762bc62",
+    "author": "pinkerton@chromium.org",
+    "email": "pinkerton@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 09:04:00 -0400",
+    "parent": "b004209b94e258e9ca5a2356e4bd108f8443e142",
+    "message": "Fix issue where cmd-w was hard-coded to closing a browser tab regardless of the frontmost window type. Have cmd-key equiv correctly set depending on the window type and the number of tabs in the window. Broadcast notification when the number of tabs changes in the model. Disable &quotclose tab&quot item when there's only 1 tab in the browser window.\nBUG=10047\nTEST=cmd-w correctly closes the expected thing (frontmost window, or tab in the frontmost window). close tab should be disabled when the frontmost tab is not a browser or if there is only 1 tab in the window.\nReview URL: http://codereview.chromium.org/115789\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16981 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 47,
+    "deletions": 182,
+    "filepaths": {
+        "chrome/app/nibs/en.lproj/MainMenu.xib": 82,
+        "chrome/browser/app_controller_mac.h": 7,
+        "chrome/browser/app_controller_mac.mm": 112,
+        "chrome/browser/cocoa/browser_window_controller.mm": 5,
+        "chrome/browser/cocoa/tab_strip_controller.h": 4,
+        "chrome/browser/cocoa/tab_strip_controller.mm": 12,
+        "chrome/browser/cocoa/tab_strip_controller_unittest.mm": 7
+    }
+}, {
+    "commit": "b004209b94e258e9ca5a2356e4bd108f8443e142",
+    "author": "pfeldman@chromium.org",
+    "email": "pfeldman@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 05:53:27 -0400",
+    "parent": "bc296f37929b762850ce2c3b317f8542bdace2a1",
+    "message": "DevTools: Migrate to InspectorController for network and console events.\n- introduced bound object on the agent side;\n- established remote dispatch of WebInspector calls\n- using fake InspectorFrontend for serializing events and sending them over the ipc\n- removed net agents from both sides\n- moved GetResource stuff to tools agent\n\nAssumes following is landed:\nhttps://bugs.webkit.org/show_bug.cgi?id=26010\nReview URL: http://codereview.chromium.org/113836\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16980 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 886,
+    "deletions": 293,
+    "filepaths": {
+        "webkit/glue/chrome_client_impl.cc": 7,
+        "webkit/glue/devtools/bound_object.cc": 61,
+        "webkit/glue/devtools/bound_object.h": 31,
+        "webkit/glue/devtools/js/devtools.html": 1,
+        "webkit/glue/devtools/js/devtools.js": 80,
+        "webkit/glue/devtools/js/devtools_host_stub.js": 8,
+        "webkit/glue/devtools/js/dom_agent.js": 35,
+        "webkit/glue/devtools/js/inject_dispatch.js": 16,
+        "webkit/glue/devtools/js/net_agent.js": 126,
+        "webkit/glue/devtools/net_agent.h": 39,
+        "webkit/glue/devtools/net_agent_impl.cc": 325,
+        "webkit/glue/devtools/net_agent_impl.h": 143,
+        "webkit/glue/devtools/tools_agent.h": 12,
+        "webkit/glue/inspector_client_impl.cc": 12,
+        "webkit/glue/webdevtoolsagent_impl.cc": 111,
+        "webkit/glue/webdevtoolsagent_impl.h": 35,
+        "webkit/glue/webdevtoolsclient_impl.cc": 61,
+        "webkit/glue/webdevtoolsclient_impl.h": 8,
+        "webkit/glue/webframeloaderclient_impl.cc": 54,
+        "webkit/glue/webframeloaderclient_impl.h": 4,
+        "webkit/glue/webview_impl.cc": 4,
+        "webkit/webkit.gyp": 6
+    }
+}, {
+    "commit": "bc296f37929b762850ce2c3b317f8542bdace2a1",
+    "author": "sgjesse@chromium.org",
+    "email": "sgjesse@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 05:26:58 -0400",
+    "parent": "9c5e417def0fef57d5dc79b0348dab9b0d354d42",
+    "message": "Added support for constructor calls in the NPAPI.\n\nThe LiveConnect test cases at http://java.sun.com/javase/6/webnotes/6u10/plugin2/liveconnect/LiveConnectTests/ now pass for Chromium.\n\nParts of this change is rather mechanical, and leaves room for some refactoring afterwards.\n\nMerged the implementation of testConstruct and the &quotobjectPointer&quot property from WebKit\\WebKitTools\\DumpRenderTree\\TestNetscapePlugIn.subproj\\TestObject.cpp to the Chromium TestObject.cpp for the layout test LayoutTests\\plugins\\netscape-construct.html pass.\n\nBUG=http://crbug.com/3285\nBUG=http://crbug.com/10354\n\nTEST=http://java.sun.com/javase/6/webnotes/6u10/plugin2/liveconnect/LiveConnectTests/\nTEST=LayoutTests\\plugins\\netscape-construct.html\nReview URL: http://codereview.chromium.org/113823\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16979 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 25,
+    "deletions": 200,
+    "filepaths": {
+        "chrome/common/plugin_messages_internal.h": 5,
+        "chrome/plugin/npobject_proxy.cc": 49,
+        "chrome/plugin/npobject_proxy.h": 6,
+        "chrome/plugin/npobject_stub.cc": 40,
+        "chrome/plugin/npobject_stub.h": 2,
+        "webkit/port/bindings/v8/NPV8Object.cpp": 36,
+        "webkit/port/bindings/v8/V8NPObject.cpp": 19,
+        "webkit/port/bindings/v8/v8_proxy.cpp": 23,
+        "webkit/port/bindings/v8/v8_proxy.h": 5,
+        "webkit/tools/layout_tests/test_expectations.txt": 2,
+        "webkit/tools/npapi_layout_test_plugin/TestObject.cpp": 38
+    }
+}, {
+    "commit": "9c5e417def0fef57d5dc79b0348dab9b0d354d42",
+    "author": "phajdan.jr@chromium.org",
+    "email": "phajdan.jr@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 04:46:28 -0400",
+    "parent": "5c22958a27f510c5c8f88f77a5769fef971070e3",
+    "message": "Create OpenClose browser test for TaskManager with necessary refactoring.\n\nhttp://crbug.com/12320\n\nReview URL: http://codereview.chromium.org/113636\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16978 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 8,
+    "deletions": 31,
+    "filepaths": {
+        "chrome/browser/task_manager.cc": 10,
+        "chrome/browser/task_manager.h": 7,
+        "chrome/browser/task_manager_browsertest.cc": 8,
+        "chrome/browser/task_manager_linux.cc": 5,
+        "chrome/browser/task_manager_win.cc": 9
+    }
+}, {
+    "commit": "5c22958a27f510c5c8f88f77a5769fef971070e3",
+    "author": "phajdan.jr@chromium.org",
+    "email": "phajdan.jr@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 04:38:33 -0400",
+    "parent": "bc732c29295ddd05a8bf2348b6848897acd27352",
+    "message": "Re-enable SystemMonitor.* in base_unittests.\n\nIt was disabled in http://src.chromium.org/viewvc/chrome?view=rev&revision=16308\n\nThe root cause of crash has been fixed (see linked bug).\n\nTEST=none\nhttp://crbug.com/12187\n\nReview URL: http://codereview.chromium.org/115782\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16977 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 2,
+    "deletions": 1,
+    "filepaths": {
+        "base/system_monitor_unittest.cc": 3
+    }
+}, {
+    "commit": "bc732c29295ddd05a8bf2348b6848897acd27352",
+    "author": "phajdan.jr@chromium.org",
+    "email": "phajdan.jr@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 04:12:55 -0400",
+    "parent": "b9fe294776b6b5a1103cfa9a354895a95cae2738",
+    "message": "Do not monitor system power state during unit tests.\n\nThe observer requires that message loop stays up and same through\nits lifetime. This is not true during testing.\n\nTEST=none\n\nhttp://crbug.com/12187\n\nReview URL: http://codereview.chromium.org/113824\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16976 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 32,
+    "deletions": 95,
+    "filepaths": {
+        "base/test_suite.h": 10,
+        "base/time.h": 7,
+        "base/time_win.cc": 105,
+        "chrome/browser/browser_main.cc": 5
+    }
+}, {
+    "commit": "b9fe294776b6b5a1103cfa9a354895a95cae2738",
+    "author": "jungshik@google.com",
+    "email": "jungshik@google.com@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 01:36:25 -0400",
+    "parent": "af173cc9bbac340328d2d4c85feafe304cfcc8ca",
+    "message": "Show Unicode IDNs for &quotOn startup&quot setting and &quotAdd page&quot dialog for it.\n\nTEST=visit an IDN URL, and open the &quotBasics&quot tab of the &quotOptions&quot\n  dialog, select &quotOpen the following pages&quot, press &quotAdd...&quot button,\n  select the IDN URL, and confirm that the URL field is shown in\n  Unicode, or\n  paste a Punycode URL to the URL field of the &quotAdd page&quot dialog,\n  press &quotAdd&quot button, and confirm that the &quotOpen the followig pages&quot\n  list shows the Unicode URL.\n\nhttp://crbug.com/3991\nPatch by tkent\nOriginal review: http://codereview.chromium.org/115759\n\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16974 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 3,
+    "deletions": 12,
+    "filepaths": {
+        "chrome/browser/views/options/general_page_view.cc": 5,
+        "chrome/browser/views/shelf_item_dialog.cc": 10
+    }
+}, {
+    "commit": "af173cc9bbac340328d2d4c85feafe304cfcc8ca",
+    "author": "jungshik@google.com",
+    "email": "jungshik@google.com@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-27 01:33:19 -0400",
+    "parent": "b1c70b7e0f2586b70a181c7cc9e53d787401f807",
+    "message": "For &quotCopy link address&quot context menu, copy the URL with Unicode host name\ninstead of Punycode host name.\n\nhttp://crbug.com/4008\nTEST=&quotCopy link address&quot copies Unicode host name for both of <a href=&quotpunycode\nURL&quot> and <a href=&quotUnicode URL&quot> if Accept-Language preference is matched.\n\nPatch by tkent\nOriginal review: http://codereview.chromium.org/115752\n\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16973 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 27,
+    "deletions": 27,
+    "filepaths": {
+        "chrome/browser/tab_contents/render_view_context_menu.cc": 54
+    }
+}, {
+    "commit": "b1c70b7e0f2586b70a181c7cc9e53d787401f807",
+    "author": "huanr@chromium.org",
+    "email": "huanr@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 23:25:01 -0400",
+    "parent": "487236fa3f7915970a027ef8ccdcb27f909f843f",
+    "message": "Add 12156 to crash list.\n\nReview URL: http://codereview.chromium.org/114053\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16972 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 0,
+    "deletions": 3,
+    "filepaths": {
+        "chrome/test/data/reliability/known_crashes.txt": 3
+    }
+}, {
+    "commit": "487236fa3f7915970a027ef8ccdcb27f909f843f",
+    "author": "huanr@chromium.org",
+    "email": "huanr@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 23:15:14 -0400",
+    "parent": "dbcd136f5ca76e7056ffe3c7b3a0f2d1d531076c",
+    "message": "Remove fixed crashes from known list.\n\nReview URL: http://codereview.chromium.org/113886\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16971 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 40,
+    "deletions": 0,
+    "filepaths": {
+        "chrome/test/data/reliability/known_crashes.txt": 40
+    }
+}, {
+    "commit": "dbcd136f5ca76e7056ffe3c7b3a0f2d1d531076c",
+    "author": "thestig@chromium.org",
+    "email": "thestig@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 22:59:36 -0400",
+    "parent": "2385216237b2db00863afd386e1ad40e1eff670f",
+    "message": "Fix comparison in window_sizer_linux. There can be multiple desktops so data_len can be greater.\n\nTBR=evan\n\nBUG=none\nTEST=should work on window managers that support the wm-spec.\nReview URL: http://codereview.chromium.org/113884\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16970 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 1,
+    "deletions": 2,
+    "filepaths": {
+        "chrome/browser/window_sizer_linux.cc": 3
+    }
+}, {
+    "commit": "2385216237b2db00863afd386e1ad40e1eff670f",
+    "author": "huanr@chromium.org",
+    "email": "huanr@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 22:52:18 -0400",
+    "parent": "e89387a45a6bcf16a878e3a96e29c7855882bc5a",
+    "message": "Remove #12479 from crash list as the change is\nreverted.\n\nReview URL: http://codereview.chromium.org/113885\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16969 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 3,
+    "deletions": 0,
+    "filepaths": {
+        "chrome/test/data/reliability/known_crashes.txt": 3
+    }
+}, {
+    "commit": "e89387a45a6bcf16a878e3a96e29c7855882bc5a",
+    "author": "finnur@chromium.org",
+    "email": "finnur@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 22:42:09 -0400",
+    "parent": "53553a865491c55449c18cff0523c399d73d326d",
+    "message": "Bug 11487: Alignment issues with Classic theme (clear browsing data dialog). It needs to be heightened just a bit.\n\nBUG=11487\nTEST=Open Clear Data Dialog on XP with Classic Theme and the button should not overlap the combo box.\n\nReview URL: http://codereview.chromium.org/113880\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16968 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 1,
+    "deletions": 1,
+    "filepaths": {
+        "chrome/app/resources/locale_settings.grd": 2
+    }
+}, {
+    "commit": "53553a865491c55449c18cff0523c399d73d326d",
+    "author": "ukai@chromium.org",
+    "email": "ukai@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 22:07:40 -0400",
+    "parent": "b23427553edd7e39f2cbd78ab169d3440c61d248",
+    "message": "Rebaseline Linux LayoutTests/fast/canvas/canvas-bg-zoom.html\n\nFixed bug number for rebaselines after Webkit Update 43750:43770\nin test_expectations.txt\n\nBUG=12053\nTEST=LayoutTests/fast/canvas-bg-zoom.html passes on linux\n\nReview URL: http://codereview.chromium.org/113835\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16967 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 7,
+    "deletions": 14,
+    "filepaths": {
+
+
+
+        "webkit/tools/layout_tests/test_expectations.txt": 13
+    }
+}, {
+    "commit": "b23427553edd7e39f2cbd78ab169d3440c61d248",
+    "author": "sgk@google.com",
+    "email": "sgk@google.com@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 22:06:16 -0400",
+    "parent": "337e80fe8bbe234f428af00732af95cbbf433c8f",
+    "message": "Add gyp-generated bspatch (used by setup.exe) and bsdiff.\nBUG=none\nTEST=none\nReview URL: http://codereview.chromium.org/115778\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16966 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 2,
+    "deletions": 59,
+    "filepaths": {
+        "build/all.gyp": 6,
+        "chrome/chrome.gyp": 2,
+        "third_party/bsdiff/bsdiff.gyp": 22,
+        "third_party/bspatch/bspatch.gyp": 31
+    }
+}, {
+    "commit": "337e80fe8bbe234f428af00732af95cbbf433c8f",
+    "author": "ukai@chromium.org",
+    "email": "ukai@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 22:04:02 -0400",
+    "parent": "3484b56f1defad2c882f0621e19ef191b62a59fa",
+    "message": "Rebaseline new test added in webkit revision 44087\n\nThe differences are JavaScript exception message only.\n\nBUG=12611\nTEST=run_webkit_test LayoutTests\\fast\\js\\exception-for-nonobject.html passes\n\nReview URL: http://codereview.chromium.org/115766\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16965 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 3,
+    "deletions": 33,
+    "filepaths": {
+
+
+
+        "webkit/tools/layout_tests/test_expectations.txt": 3
+    }
+}, {
+    "commit": "3484b56f1defad2c882f0621e19ef191b62a59fa",
+    "author": "estade@chromium.org",
+    "email": "estade@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 21:29:43 -0400",
+    "parent": "c970dda6872775374a216f03f24b0c8a4b00272a",
+    "message": "Control spacing of toolbar elements with pixels rather than &quot &quot GtkLabels.\n\nThis fixes another large fonts issue.\n\nBUG=12573\nTEST=toolbar should look like it does on windows (where there is spacing, the size of it, etc.)\n\nReview URL: http://codereview.chromium.org/115792\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16963 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 13,
+    "deletions": 16,
+    "filepaths": {
+        "chrome/browser/gtk/browser_toolbar_gtk.cc": 24,
+        "chrome/browser/gtk/browser_toolbar_gtk.h": 5
+    }
+}, {
+    "commit": "c970dda6872775374a216f03f24b0c8a4b00272a",
+    "author": "jshin@chromium.org",
+    "email": "jshin@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 21:20:08 -0400",
+    "parent": "476f21a7c670f892550497f5701fbc3af2fac577",
+    "message": "Adjust the dimension of import dialog box for Tamil.\n\nhttp://crbug.com/11824\nTEST=Run CHrome with '--lang=ta' with Firefox runing. Try to import bookmarks and settings\nfrom Firefox into Chrome. The dialog box alerting that Firefox is running should not be truncated.\n\n\nReview URL: http://codereview.chromium.org/113516\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16962 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 2,
+    "deletions": 2,
+    "filepaths": {
+        "chrome/app/resources/locale_settings_ta.xtb": 4
+    }
+}, {
+    "commit": "476f21a7c670f892550497f5701fbc3af2fac577",
+    "author": "arv@google.com",
+    "email": "arv@google.com@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 20:58:31 -0400",
+    "parent": "b6d30e86df6210336031439e6b320547f5972279",
+    "message": "Use the original profile for the downloads manager so that a download manager\nin an incognito window is in sync with all other download managers.\n\nBUG=11514\n\nTEST=Open a download manager (Ctrl+J) and an incognito window with a\ndownload manager (Ctrl+Shift+N followed by Ctrl+J). Then start to download a\nfile and note that both download managers should get updated. Try pausing and\neventually click &quotRemove all&quot in either DM and all downloads should get removed\nfrom both DMs.\n\n\nReview URL: http://codereview.chromium.org/115804\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16960 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 1,
+    "deletions": 2,
+    "filepaths": {
+        "chrome/browser/dom_ui/downloads_ui.cc": 3
+    }
+}, {
+    "commit": "b6d30e86df6210336031439e6b320547f5972279",
+    "author": "thestig@chromium.org",
+    "email": "thestig@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 20:11:11 -0400",
+    "parent": "5e2023bc169d9027459c62759c6438e03ce69fb0",
+    "message": "Reverting 16954.\n\nTBR=mmoss\nReview URL: http://codereview.chromium.org/113879\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16958 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 8,
+    "deletions": 0,
+    "filepaths": {
+        "chrome/app/breakpad_linux_stub.cc": 5,
+        "chrome/chrome.gyp": 3
+    }
+}, {
+    "commit": "5e2023bc169d9027459c62759c6438e03ce69fb0",
+    "author": "ben@chromium.org",
+    "email": "ben@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 20:08:42 -0400",
+    "parent": "1976ca8502a340591fa90d4bd0971b3ed6ef2fa0",
+    "message": "Fix broken toolkit_views build by adding include of message_loop.\n\nTBR=sky\nReview URL: http://codereview.chromium.org/115806\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16957 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 0,
+    "deletions": 1,
+    "filepaths": {
+        "chrome/browser/views/status_bubble_views.cc": 1
+    }
+}, {
+    "commit": "1976ca8502a340591fa90d4bd0971b3ed6ef2fa0",
+    "author": "evan@chromium.org",
+    "email": "evan@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-05-26 20:06:46 -0400",
+    "parent": "588811c4de221eb4017741c23e90b42243f7584d",
+    "message": "linux: fix CHECK fail in window_sizer.\n\n1) We shouldn't use CHECK for situations that can reasonably occur.\n2) We need to recover from the case where this WORKAREA property isn't\n   available.\n\nReview URL: http://codereview.chromium.org/113877\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@16956 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 20,
+    "deletions": 37,
+    "filepaths": {
+        "chrome/browser/window_sizer_linux.cc": 57
+    }
+}, {
+    "commit": "f5b16fed647e941aa66933178da85db2860d639b",
+    "author": "initial.commit",
+    "email": "initial.commit@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2008-07-26 20:20:51 -0400",
+    "parent": "920c091ac3ee15079194c82ae8a7a18215f3f23c",
+    "message": "Add webkit to the repository.\n\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@18 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 0,
+    "deletions": 343202,
+    "filepaths": {
+        "webkit/README": 22,
+        "webkit/SConscript": 202,
+        "webkit/SConscript.javascriptcore_pcre": 68,
+        "webkit/SConscript.port": 139,
+        "webkit/SConstruct": 3,
+        "webkit/port/DerivedSources.make": 1124,
+        "webkit/port/bindings/scripts/CodeGenerator.pm": 288,
+        "webkit/port/bindings/scripts/CodeGeneratorV8.pm": 1839
+    }
+}]
