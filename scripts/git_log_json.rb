@@ -18,7 +18,7 @@ end.parse!
 g = Git.open(options[:environment])
 if options[:firstcommit] && options[:lastcommit]
   commits = g.log.between(options[:firstcommit], options[:lastcommit]).to_a
-  commits << g.object(options[:firstcommit])
+  commits << g.object(options[:firstcommit]) # add first commit because between in not inclusive
 else
   commits = g.log
 end
@@ -47,4 +47,6 @@ commits.each do |x|
   commits_to_jsonify << c
 end
 
-File.open(options[:output] + 'gitlog.json', 'w') { |file| file.write(commits_to_jsonify.to_json)}
+File.open(options[:output] + 'gitlog.json', 'w') do |file|
+  file.write(commits_to_jsonify.to_json)
+end
