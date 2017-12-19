@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import re
 import sys
 import urllib.request
@@ -65,7 +66,11 @@ if __name__ == "__main__":
         description = clean_match(DESCRIPTION_RE.search(cve).group(0))
 
         # And write the new CVE to disk.
-        skeleton = get_skeleton(cve_id, description, bounty, bug_id)
-        with open("./cves/" + cve_id + ".yml", "w") as f:
-            f.write(skeleton)
-        print(cve_id)
+        cve_path = "./cves/{:s}.yml".format(cve_id)
+        if os.path.exists(cve_path):
+            print("Skipping CVE: {:s}.".format(cve_id))
+        else:
+            skeleton = get_skeleton(cve_id, description, bounty, bug_id)
+            with open("./cves/" + cve_id + ".yml", "w") as f:
+                f.write(skeleton)
+            print(" Created CVE: {:s}".format(cve_path))
