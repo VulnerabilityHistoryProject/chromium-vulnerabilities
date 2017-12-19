@@ -10,8 +10,8 @@ CVE_RE = re.compile('CVE-[0-9]{4}-[0-9]{4,}')
 HTML_RE = re.compile('<[^<]+?>')
 BOUNTY_RE = re.compile('\[\$([0-9]|TBD|N/A)+\]')
 BUG_RE = re.compile('\[[0-9]+\]')
-DESCRIPTION_RE = re.compile(': [^\.]*\.')
-CLEAN_RE = re.compile('(\]|\[|\: |\$)')
+DESCRIPTION_RE = re.compile('[:-] [^\.]*(\.|\s)')
+CLEAN_RE = re.compile('(\]|\[|\: |\- |\$)')
 
 SKELETON = list()
 with open("./spec/data/cve-skeleton.yml", "r") as f:
@@ -60,7 +60,10 @@ if __name__ == "__main__":
     # For each CVE...
     for cve in matches:
         # Parse out the fields we care about...
-        bounty = clean_match(BOUNTY_RE.search(cve).group(0))
+        try:
+            bounty = clean_match(BOUNTY_RE.search(cve).group(0))
+        except:
+            bounty = ""
         bug_id = clean_match(BUG_RE.search(cve).group(0))
         cve_id = clean_match(CVE_RE.search(cve).group(0))
         description = clean_match(DESCRIPTION_RE.search(cve).group(0))
