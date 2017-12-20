@@ -8,9 +8,9 @@ import urllib.request
 # Regular Expressions
 CVE_RE = re.compile('CVE-[0-9]{4}-[0-9]{4,}')
 HTML_RE = re.compile('<[^<]+?>')
-BOUNTY_RE = re.compile('\[\$([0-9]|TBD|N/A)+\]')
+BOUNTY_RE = re.compile('\[\$([0-9\.]|TBD|N/A)+\]')
 BUG_RE = re.compile('\[[0-9]+\]')
-DESCRIPTION_RE = re.compile('[:-] [^\.]*(\.|\s)')
+DESCRIPTION_RE = re.compile('[:-]{0,1} [^\.]*(\.|\s)')
 CLEAN_RE = re.compile('(\]|\[|\: |\- |\$)')
 
 SKELETON = list()
@@ -66,7 +66,10 @@ if __name__ == "__main__":
             bounty = ""
         bug_id = clean_match(BUG_RE.search(cve).group(0))
         cve_id = clean_match(CVE_RE.search(cve).group(0))
-        description = clean_match(DESCRIPTION_RE.search(cve).group(0))
+        try:
+            description = clean_match(DESCRIPTION_RE.search(cve).group(0))
+        except:
+            print("ERROR: Regex failed for Description in " + str(cve_id))
 
         # And write the new CVE to disk.
         cve_path = "./cves/{:s}.yml".format(cve_id)
