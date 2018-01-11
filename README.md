@@ -9,6 +9,14 @@ Every push and pull request is run against our integrity checkers on Travis. Cli
 
 Please see the assignments folder for information about your project.
 
+# List all Fix Commits
+
+Be in the root of this repository, and run:
+
+```
+rake cve:fixes
+```
+
 # Scrape a GoogleBlog page for CVE's
 
 Be in the root of this repository, and run:
