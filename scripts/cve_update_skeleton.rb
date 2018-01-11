@@ -1,6 +1,4 @@
 require_relative 'script_helpers'
-require_relative 'script_helpers'
-require_relative 'script_helpers'
 
 class CVEUpdateSkeleton
 
