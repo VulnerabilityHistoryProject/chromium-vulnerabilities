@@ -7,7 +7,7 @@ require 'yaml'
 require 'zlib'
 require_relative 'scripts/cve_commits.rb'
 require_relative 'scripts/cve_update_skeleton.rb'
-require_relative 'scripts/list_cve_fixes.rb'
+require_relative 'scripts/list_cve_data.rb'
 require_relative 'scripts/pull_task_handler'
 require_relative 'scripts/reviews_to_fixes.rb'
 require_relative 'scripts/script_helpers.rb'
@@ -100,6 +100,11 @@ namespace :cve do
 
   desc 'Output newline delimited list of git fixes for every CVE'
   task :fixes do
-    ListCVEFixes.new.run
+    ListCVEData.new.print_fixes
+  end
+
+  desc 'Output newline delimited list of CVE missing fix data'
+  task :missing_fixes do
+    ListCVEData.new.print_missing_fixes
   end
 end
