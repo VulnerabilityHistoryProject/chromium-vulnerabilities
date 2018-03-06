@@ -1,5 +1,5 @@
 require 'irb'
-require 'nokogiri'
+# require 'nokogiri'
 require 'open-uri'
 require 'optparse'
 require 'rspec/core/rake_task'
