@@ -58,12 +58,10 @@ To submit, you must create a pull request from your forked repository to ours.
 Grading:
 * 20pts. Build passes on the pull request by the deadline.
 * 10pts. Is the CWE appropriate?
-* 10pts. Is the opening description written in plain English in a way that an average 2nd-year computer science major would understand it? (i.e. don't know security, doesn't know Chromium details, but knows some programming) Note: just parroting the NVD description is not usually good enough.
-* 10pts. Is the VCC filled out, is it a valid commit hash, and is it not a simple refactoring?
-* 10pts. Are there interesting commits noted? Or, is there a good reason stated that there weren't interesting commits? (i.e. is there evidence that the student did this part?)
+* 20pts. Is the opening description written in plain English in a way that an average 2nd-year computer science major would understand it? (i.e. don't know security, doesn't know Chromium details, but knows some programming) Note: just parroting the NVD description is not usually good enough.
+* 20pts. Is the VCC filled out, is it a valid commit hash, and is it not a simple refactoring?
+* 10pts. Are there interesting commits and subsystems noted? Or, is there a good reason stated that there weren't interesting commits? (i.e. is there evidence that the student did this part?)
 * 20pts. Would the Mistakes Made section be useful for a future student or industry practitioner? Do we have a better understanding of why this vulnerability started, was missed, and was fixed?
-* 10pts. Overall quality of research.
-* 10pts. Clear voice in writing.
 
 ## Round 2: Reviewing other Pull Requests
 
