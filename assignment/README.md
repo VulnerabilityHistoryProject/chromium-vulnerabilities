@@ -21,12 +21,14 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
   3. **Clone this repository locally** using your favorite Git client.
   4. **Open up your CVE files in a good text editor**. For example, `cves/CVE-2011-3092.yml`. You will be editing [YAML](http://yaml.org)  for this assignment, which is a human-friendly JSON-like format that we use for structuring our data. Here's another [helpful link about YAML](http://yaml.org/YAML_for_ruby.html). It would be helpful if your text editor support syntax highlighting of YAML files so you can avoid syntax errors. My personal favorites are [Atom](http://atom.io) and [SublimeText](https://www.sublimetext.com/3).
   5. **Read the research notes** that are currently there for the vulnerability, including the questions that need to be filled out.
-  6. **Go to the Chromium source code repository**. We have the Chromium main repository in read-only form on Nitron. SSH into nitron.se.rit.edu and you can see the repository at `/pub/swen-331/chromium/src`. Once you `cd` into that directory you can run `git` commands there to do your investigation. You can also do your own `git clone` if you like by going [here](https://chromium.googlesource.com/chromium/src/) (this is repo has over 700k commits and is over 10 gigs - it takes a long time!)
-  7. **Find the vulnerability fix**. Generally speaking we should have these for you, but you may need to correct and fix the data. Go to the git repository that you downloaded and find the fix (`git show` is good for this). Make sure this fix makes sense for your vulnerability.
-  8. **Find the VCC** (Vulnerability-Contributing Commit). Next, we want to dig into the changes to the files that were affected by this change and attempt to find the commit(s) that introduced this vulnerability in the first place. For this, you will need to follow our example below, but it is essentially making use of `git blame`. Record the VCC commit hash in the data. *This is the most important part of the project in terms of its academic contribution*.
-  9. **Find the commits between the VCC and fix**. Using `git log`, get the commits between the VCC(s) and fix(es). You do not need to record these - we will be collecting this automatically in the future based on your VCC. But, these will be the basis for the next step.
-  10. **Read**. Begin reading the commit messages, bug reports, and code reviews between the VCC(s) and fix(es). Record any observations, such as major events or linguistic notes as you go. Do your best to get a "big picture" of how this development team works during this time, inferring anything you can about their process, expertise, constraints, etc.
-  11. **Record your findings**. Research the following pieces and contribute them to your CVE YAML files. We have notes in the YAML about precisely what we are looking for. Also, we have a detailed example below that Prof. Meneely did himself.
+  6. **Set `curated` to `true`** in your YAML file. Save the file.
+  7. **Set up your pull request** using the submission instructions below.
+  7. **Go to the Chromium source code repository**. We have the Chromium main repository in read-only form on Nitron. SSH into nitron.se.rit.edu and you can see the repository at `/pub/swen-331/chromium/src`. Once you `cd` into that directory you can run `git` commands there to do your investigation. You can also do your own `git clone` if you like by going [here](https://chromium.googlesource.com/chromium/src/) (this is repo has over 700k commits and is over 10 gigs - it takes a long time!)
+  8. **Find the vulnerability fix**. Generally speaking we should have these for you, but you may need to correct and fix the data. Go to the git repository that you downloaded and find the fix (`git show` is good for this). Make sure this fix makes sense for your vulnerability.
+  9. **Find the VCC** (Vulnerability-Contributing Commit). Next, we want to dig into the changes to the files that were affected by this change and attempt to find the commit(s) that introduced this vulnerability in the first place. For this, you will need to follow our example below, but it is essentially making use of `git blame`. Record the VCC commit hash in the data. *This is the most important part of the project in terms of its academic contribution*.
+  10. **Find the commits between the VCC and fix**. Using `git log`, get the commits between the VCC(s) and fix(es). You do not need to record these - we will be collecting this automatically in the future based on your VCC. But, these will be the basis for the next step.
+  11. **Read**. Begin reading the commit messages, bug reports, and code reviews between the VCC(s) and fix(es). Record any observations, such as major events or linguistic notes as you go. Do your best to get a "big picture" of how this development team works during this time, inferring anything you can about their process, expertise, constraints, etc.
+  12. **Record your findings**. Research the following pieces and contribute them to your CVE YAML files. We have notes in the YAML about precisely what we are looking for. Also, we have a detailed example below that Prof. Meneely did himself.
     * CWE identifier.
     * Description
     * Subsystems
@@ -40,7 +42,7 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
     * Discovered questions
     * Lessons from class
     * Mistakes report
-  12. **Submit a Pull Request**. See below.
+  13. **Submit a Pull Request**. See below.
 
 ### Round 1 Submission: Pull Request
 
@@ -49,14 +51,19 @@ Remember, though we have assigned you *three* CVEs, you are only responsible for
 To submit, you must create a pull request from your forked repository to ours.
 
 1. **Fork, clone, edit, push**. Clone your forked repo locally and edit your YAML files. Commit your changes to the `dev` branch, or to your own branch if you like. Push to your forked repo. _Tip: if you have never done this before with GitHub, this may be a learning experience for you. Get help from your friends, TA, or instructor._
-3. **Create a pull requests against our _dev_ branch**. You must name your pull request after the CVEs that you are editing, for example "CVE-2011-3092 and CVE-2011-3093". Write a brief description that will become the commit message. Please create one pull request that edits all of your CVE files.
-4. **Correct anything from feedback or build tests**. We have all of our YAML files run against some integrity checkers on Travis CI to verify they have roughly the correct structure. If your pull request does not pass, then check the details of the build to see which tests failed. You might have broken YAML syntax, or the wrong format for a commit, or some other issue. **_You must fix build issues before the Round 1 deadline._** To fix any issues, just edit your CVEs, commit, and push. The pull request will automatically update (you don't need to create a new pull request if you want to correct something). Don't worry about committing and pushing too many times - we will "squash" your commits into one commit on the final merge. *Note*: only checking your work on Travis can be tedious. To run the integrity checkers locally, see the README.md at the root of this repository.
+3. **Create single a pull request against our _dev_ branch**. You must name your pull request after the CVEs that you are editing, for example "CVE-2011-3092 and CVE-2011-3093". Write a brief description that will become the commit message. Please create one pull request that edits all of your CVE files.
+4. **Correct anything from feedback or build tests**. We have all of our YAML files run against some integrity checkers on Travis CI to verify they have roughly the correct structure. If your pull request does not pass, then check the details of the build to see which tests failed. You might have broken YAML syntax, or the wrong format for a commit, or some other issue. **_You must fix build issues before the Round 1 deadline._** To fix any issues, just edit your CVEs, commit, and push. The pull request will automatically update (you don't need to create a new pull request if you want to correct something). Don't worry about committing and pushing too many times - we will "squash" your commits into one commit on the final merge. *Note*: only checking your work on Travis can be tedious. If you want to run the integrity checkers locally, see the README.md at the root of this repository.
 5. **Respond to feedback**. You might get immediate feedback from someone else on the project, even before Round 1 is done. See details below.
 
 Grading:
 * 20pts. Build passes on the pull request by the deadline.
-* 30pts. Overall quality of research
-* 30pts. Clear voice in writing.
+* 10pts. Is the CWE appropriate?
+* 10pts. Is the opening description written in plain English in a way that an average 2nd-year computer science major would understand it? (i.e. don't know security, doesn't know Chromium details, but knows some programming) Note: just parroting the NVD description is not usually good enough.
+* 10pts. Is the VCC filled out, is it a valid commit hash, and is it not a simple refactoring?
+* 10pts. Are there interesting commits noted? Or, is there a good reason stated that there weren't interesting commits? (i.e. is there evidence that the student did this part?)
+* 20pts. Would the Mistakes Made section be useful for a future student or industry practitioner? Do we have a better understanding of why this vulnerability started, was missed, and was fixed?
+* 10pts. Overall quality of research.
+* 10pts. Clear voice in writing.
 
 ## Round 2: Reviewing other Pull Requests
 
@@ -66,6 +73,7 @@ Grading:
     * _Grammar, Spelling, or Style_: These comments should be trivially correctable. Don't just look for low-hanging fruit here - think about what would make the writing smoother and easier for you to read. For example, "Use active voice in this paragraph instead of passive voice."
     * _Methodology or Investigation comments_: These types of comments concern the content itself, i.e. about security. For example, "I think this vulnerability could also be an arbitrary code execution concern - can you discuss this possibility too?". Or, "Looking at the VCC, it looks like it was a refactoring and not introducing new logic. Can you double-check?"
 * **Give upvotes**. Every CVE yaml file has an `upvotes` key. When you are giving feedback on pull requests, you have 10 virtual "points" to give across all CVEs you are reviewing. In your feedback, give a point value to the CVE you are reviewing based on how _interesting_ it is to you. _IT IS NOT A GRADE OF THE PERSON, IT IS HOW INTERESTING THE VULNERABILITY WAS TO YOU._ So it is entirely possible that you had a very boring vulnerability, got poor upvotes, but get a very good grade on the project. This upvotes metric will be used to curate the data and present interesting stories to people wanting to learn vulnerability history. As a reviewer, say how many upvotes you are giving to each CVE, and the author will increase that number in their yaml and push the changes.
+* **Update upvotes**. Every time someone comments with upvotes, you need to update your YML file and push to your pull request.
 
 A high-quality comment is insightful, actionable, and constructive. We do not place a number on how many comments you are to supposed give - only on how helpful and insightful they are.
 
@@ -74,6 +82,7 @@ Grading:
 * 10pts Quality of grammar, spelling, writing style feedback
 * 10pts Quality of methodology or investigation feedback given
 * 10pts Timely response to feedback
+* 5pts. Timely response to upvotes
 
 ## Example Vulnerability: CVE-2011-3092
 
