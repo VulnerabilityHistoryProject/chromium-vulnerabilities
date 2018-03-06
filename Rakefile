@@ -12,6 +12,7 @@ require_relative 'scripts/list_cve_data.rb'
 require_relative 'scripts/pull_task_handler'
 require_relative 'scripts/reviews_to_fixes.rb'
 require_relative 'scripts/script_helpers.rb'
+require_relative 'scripts/update_curated.rb'
 
 desc 'Run the specs by default'
 task default: :spec
@@ -119,4 +120,10 @@ namespace :cve do
   task :missing_fixes do
     ListCVEData.new.print_missing_fixes
   end
+
+  desc 'Update curated - ONE TIME TASK'
+  task :update_curated do
+     UpdateCurated.new.run
+  end
+  
 end
