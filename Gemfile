@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rspec'
 gem 'rake'
+gem 'rspec'
 
 # You'll need this installed for get_releases.rb
 # But it causes problems on installation so
