@@ -382,4 +382,18 @@ You might find these links useful:
 
 # Another Example: CVE-2013-6665
 
-In the interest of being helpful, Prof. Meneely has done another example for you to reference. You can read about it in [CVE-2013-6665.yml]( https://github.com/andymeneely/chromium-vulnerabilities/blob/dev/cves/CVE-2013-6665.yml)
+Prof. Meneely has done another example for you to reference. You can read about it in [CVE-2013-6665.yml]( https://github.com/andymeneely/chromium-vulnerabilities/blob/dev/cves/CVE-2013-6665.yml)
+
+# Common YAML Questions
+
+## Does indentation matter?
+
+YES! Indentation has semantic meaning. Imagine YAML as if a Python person was  was redesigning JSON to be more human-friendly.
+
+## What is with the pipe character?
+
+This is a [literal block](http://yaml.org/YAML_for_ruby.html#blocks), which means that newlines are preserved. Again, indentation matters here too.
+
+## Should I use string keys or symbol keys? (e.g. `commit:` or `:commit:`)
+
+Keep with what was written in the file. We tend to be flexible toward both. We prefer string keys.
