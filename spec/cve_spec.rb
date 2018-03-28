@@ -16,7 +16,7 @@ describe 'CVE yml file' do
       it('has fixes key') { expect(vuln).to include('fixes') }
       it('has vccs key')  { expect(vuln).to include('vccs') }
 
-      it 'has valid git hashes commits in fixes, vccs, and interesting_commits' do
+      it 'has valid git hashes and commit/note structure in fixes, vccs, and interesting_commits' do
         vuln['fixes'].each do |fix|
           expect(fix['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
         end
@@ -26,6 +26,27 @@ describe 'CVE yml file' do
         vuln['interesting_commits']['commits'].each do |fix|
           expect(fix['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
         end
+      end
+
+      context 'when curated, it must' do
+
+        it 'have the CWE filled out' do
+          if(vuln['curated'])
+            expect(vuln['CWE'].to_s).not_to be_empty
+          end
+        end
+
+        it 'have answers for description, unit_tested, discovered, subsystem filled out' do
+          if(vuln['curated'])
+            expect(vuln['description'].to_s).not_to be_empty
+            expect(vuln['unit_tested']['answer'].to_s).not_to be_empty
+            expect(vuln['discovered']['answer'].to_s).not_to be_empty
+            expect(vuln['subsystem']['answer'].to_s).not_to be_empty
+            expect(vuln['major_events']['answer'].to_s).not_to be_empty
+            expect(vuln['mistakes']['answer'].to_s).not_to be_empty
+          end
+        end
+
       end
 
       it 'has true, false, or nil in various places' do
