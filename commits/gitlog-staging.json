@@ -1,0 +1,646 @@
+{
+  "937ea54bbb38b815023e8ceab068ef3f0425effd": {
+    "commit": "937ea54bbb38b815023e8ceab068ef3f0425effd",
+    "author": "tommycli",
+    "email": "tommycli@chromium.org",
+    "date": "2016-10-06 14:34:36 -0400",
+    "message": "[HBD] Blanket BLOCK on all non-HTTP(s) and non-FILE URLs for Flash.\n\nThis patch does two things:\n\n1) Blocks all non-HTTP and non-FILE plugin loads within plugin_utils.cc (unless the user has chosen ALLOW)\n\n2) Fixes FILE plugin loads. Previously, FILE origins were getting lost in the GetPlugins, since WebSecurityOrigin serializes FILE origins to &quotnull&quot.\n\nThis meant that content settings exceptions did not work correctly for the plugin list retrieval. This didn't matter before HBD because the plugin list wasn't affected by content settings until HBD.\n\nThis patch fixes it by passing url::Origin throughout the Plugins code rather than GURL for the page origin.\n\nBUG=649223\nCQ_INCLUDE_TRYBOTS=master.tryserver.chromium.linux:linux_site_isolation\n\nReview-Url: https://codereview.chromium.org/2378573005\nCr-Commit-Position: refs/heads/master@{#423598}",
+    "insertions": 198,
+    "deletions": 229,
+    "churn": 427,
+    "filepaths": {
+      "chrome/browser/download/download_target_determiner.cc": {
+        "insertions": 5,
+        "deletions": 4
+      },
+      "chrome/browser/download/download_target_determiner_unittest.cc": {
+        "insertions": 1,
+        "deletions": 2
+      },
+      "chrome/browser/plugins/chrome_plugin_service_filter.cc": {
+        "insertions": 9,
+        "deletions": 7
+      },
+      "chrome/browser/plugins/chrome_plugin_service_filter.h": {
+        "insertions": 3,
+        "deletions": 4
+      },
+      "chrome/browser/plugins/chrome_plugin_service_filter_unittest.cc": {
+        "insertions": 52,
+        "deletions": 59
+      },
+      "chrome/browser/plugins/flash_download_interception.cc": {
+        "insertions": 2,
+        "deletions": 3
+      },
+      "chrome/browser/plugins/flash_download_interception_unittest.cc": {
+        "insertions": 11,
+        "deletions": 14
+      },
+      "chrome/browser/plugins/flash_permission_context.cc": {
+        "insertions": 2,
+        "deletions": 3
+      },
+      "chrome/browser/plugins/plugin_info_message_filter.cc": {
+        "insertions": 20,
+        "deletions": 17
+      },
+      "chrome/browser/plugins/plugin_info_message_filter.h": {
+        "insertions": 2,
+        "deletions": 6
+      },
+      "chrome/browser/plugins/plugin_info_message_filter_unittest.cc": {
+        "insertions": 17,
+        "deletions": 18
+      },
+      "chrome/browser/plugins/plugin_utils.cc": {
+        "insertions": 14,
+        "deletions": 26
+      },
+      "chrome/browser/plugins/plugin_utils.h": {
+        "insertions": 2,
+        "deletions": 6
+      },
+      "chrome/browser/printing/print_preview_dialog_controller_browsertest.cc": {
+        "insertions": 10,
+        "deletions": 5
+      },
+      "chrome/browser/ui/cocoa/drag_util.mm": {
+        "insertions": 3,
+        "deletions": 3
+      },
+      "chrome/browser/ui/views/tabs/browser_tab_strip_controller.cc": {
+        "insertions": 2,
+        "deletions": 3
+      },
+      "chrome/common/render_messages.h": {
+        "insertions": 1,
+        "deletions": 2
+      },
+      "chrome/renderer/chrome_content_renderer_client.cc": {
+        "insertions": 2,
+        "deletions": 1
+      },
+      "chrome/renderer/plugins/chrome_plugin_placeholder.cc": {
+        "insertions": 8,
+        "deletions": 3
+      },
+      "content/browser/frame_host/render_frame_message_filter.cc": {
+        "insertions": 8,
+        "deletions": 6
+      },
+      "content/browser/frame_host/render_frame_message_filter.h": {
+        "insertions": 1,
+        "deletions": 5
+      },
+      "content/browser/loader/mime_sniffing_resource_handler.cc": {
+        "insertions": 2,
+        "deletions": 3
+      },
+      "content/browser/loader/mime_sniffing_resource_handler_unittest.cc": {
+        "insertions": 1,
+        "deletions": 2
+      },
+      "content/browser/plugin_service_impl.cc": {
+        "insertions": 7,
+        "deletions": 4
+      },
+      "content/browser/plugin_service_impl.h": {
+        "insertions": 1,
+        "deletions": 1
+      },
+      "content/common/frame_messages.h": {
+        "insertions": 1,
+        "deletions": 1
+      },
+      "content/public/browser/plugin_service.h": {
+        "insertions": 1,
+        "deletions": 5
+      },
+      "content/public/browser/plugin_service_filter.h": {
+        "insertions": 1,
+        "deletions": 5
+      },
+      "content/renderer/render_frame_impl.cc": {
+        "insertions": 5,
+        "deletions": 3
+      },
+      "content/shell/browser/shell_plugin_service_filter.cc": {
+        "insertions": 1,
+        "deletions": 1
+      },
+      "content/shell/browser/shell_plugin_service_filter.h": {
+        "insertions": 1,
+        "deletions": 1
+      },
+      "content/test/fake_plugin_service.cc": {
+        "insertions": 1,
+        "deletions": 1
+      },
+      "content/test/fake_plugin_service.h": {
+        "insertions": 1,
+        "deletions": 5
+      }
+    }
+  },
+  "29d1eb815f296355e63a555729abc17b896d220a": {
+    "commit": "29d1eb815f296355e63a555729abc17b896d220a",
+    "author": "sidchat@google.com",
+    "email": "sidchat@google.com@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2008-09-05 15:25:54 -0400",
+    "message": "Resolve Array Overflow.\n\nBUG=1362175\nReview URL: http://codereview.chromium.org/474\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@1796 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 7,
+    "deletions": 10,
+    "churn": 17,
+    "filepaths": {
+      "chrome/common/gfx/url_elider.cc": {
+        "insertions": 7,
+        "deletions": 10
+      }
+    }
+  },
+  "a4b862b91183cc63c120d2ab50f1445068379884": {
+    "commit": "a4b862b91183cc63c120d2ab50f1445068379884",
+    "author": "cpu@google.com",
+    "email": "cpu@google.com@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-04-08 18:03:41 -0400",
+    "message": "Fix for invocation over deprecated protocol handler\n- We don't support chromehtml protocol anymore and future installers do not register it\n- Avoid stale registry entries to invoke us\n\nBUG=9860\nBUG=9862\n\n\nReview URL: http://codereview.chromium.org/64003\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@13384 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 28,
+    "deletions": 8,
+    "churn": 36,
+    "filepaths": {
+      "chrome/app/chrome_dll_main.cc": {
+        "insertions": 28,
+        "deletions": 8
+      }
+    }
+  },
+  "025b3ef66aa030bb8a1e5f78a7d1e92696219649": {
+    "commit": "025b3ef66aa030bb8a1e5f78a7d1e92696219649",
+    "author": "abarth@chromium.org",
+    "email": "abarth@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-04-23 20:31:12 -0400",
+    "message": "Check the size of bitmaps coming over IPC.\n\nR=cpu\nBUG=10869\nTEST=IPCMessageTest.Bitmap\n\nReview URL: http://codereview.chromium.org/92064\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@14398 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 4,
+    "deletions": 53,
+    "churn": 57,
+    "filepaths": {
+      "chrome/common/ipc_message_unittest.cc": {
+        "insertions": 0,
+        "deletions": 45
+      },
+      "chrome/common/ipc_message_utils.cc": {
+        "insertions": 4,
+        "deletions": 8
+      }
+    }
+  },
+  "5af45e0206cbff9815ae661162361f29ac8df727": {
+    "commit": "5af45e0206cbff9815ae661162361f29ac8df727",
+    "author": "abarth@chromium.org",
+    "email": "abarth@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-03-11 17:06:23 -0400",
+    "message": "Block reading unauthenticated bytes from the proxy when the user cancels a 407 proxy auth request while we're trying to establish an SSL tunnel.\n\nBUG=8473\nR=wtc\n\nReview URL: http://codereview.chromium.org/42065\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@11484 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 3,
+    "deletions": 74,
+    "churn": 77,
+    "filepaths": {
+      "net/base/net_error_list.h": {
+        "insertions": 2,
+        "deletions": 1
+      },
+      "net/http/http_network_transaction.cc": {
+        "insertions": 1,
+        "deletions": 14
+      },
+      "net/http/http_network_transaction_unittest.cc": {
+        "insertions": 0,
+        "deletions": 59
+      }
+    }
+  },
+  "9f9f86ce20db46dfed79eff111eed7a2f3bff48d": {
+    "commit": "9f9f86ce20db46dfed79eff111eed7a2f3bff48d",
+    "author": "wtc@chromium.org",
+    "email": "wtc@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-03-12 18:32:42 -0400",
+    "message": "Clean up our fix for bug 7338 and bug 8473, which went\nthrough several iterations.\n\nR=abarth\nBUG=7338,8473\nReview URL: http://codereview.chromium.org/42148\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@11589 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 9,
+    "deletions": 16,
+    "churn": 25,
+    "filepaths": {
+      "net/http/http_network_transaction.cc": {
+        "insertions": 5,
+        "deletions": 12
+      },
+      "net/http/http_network_transaction.h": {
+        "insertions": 0,
+        "deletions": 4
+      },
+      "net/http/http_response_headers.h": {
+        "insertions": 4,
+        "deletions": 0
+      }
+    }
+  },
+  "b4599a15c90a853930187cc751c951beb819c02d": {
+    "commit": "b4599a15c90a853930187cc751c951beb819c02d",
+    "author": "abarth@chromium.org",
+    "email": "abarth@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-09-07 19:09:58 -0400",
+    "message": "Refuse to render RSS as XML by treating the response as text/plain.  This is\nsomewhat unfortunate, but we need to do this until we have a built-in feed\npreviewer.\n\nR=mal\nBUG=21238\n\nReview URL: http://codereview.chromium.org/201044\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@25608 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 0,
+    "deletions": 13,
+    "churn": 13,
+    "filepaths": {
+      "chrome/browser/renderer_host/buffered_resource_handler.cc": {
+        "insertions": 0,
+        "deletions": 13
+      }
+    }
+  },
+  "2eff16b382860246f51b157e06dca50cb7e12db9": {
+    "commit": "2eff16b382860246f51b157e06dca50cb7e12db9",
+    "author": "karen@chromium.org",
+    "email": "karen@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2013-03-25 16:40:22 -0400",
+    "message": "Revert 190089 &quotTurn on SyncedNotifications for Dev, Canary, and ...&quot\nreverting cause it's causing server-side problems where sync becomes unavailable.\ncrbug.com/223556\n\n> Turn on SyncedNotifications for Dev, Canary, and Unknown channel\n> \n> Turning it on in Dev and Canary will allow us to gather feedback during the development process.\n> \n> BUG=22205\n> \n> \n> Review URL: https://chromiumcodereview.appspot.com/12617010\n\nTBR=petewil@chromium.org\nReview URL: https://codereview.chromium.org/13030006\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@190471 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 22,
+    "deletions": 11,
+    "churn": 33,
+    "filepaths": {
+      "chrome/browser/sync/profile_sync_components_factory_impl.cc": {
+        "insertions": 10,
+        "deletions": 6
+      },
+      "chrome/browser/sync/profile_sync_components_factory_impl_unittest.cc": {
+        "insertions": 7,
+        "deletions": 0
+      },
+      "chrome/common/chrome_switches.cc": {
+        "insertions": 4,
+        "deletions": 4
+      },
+      "chrome/common/chrome_switches.h": {
+        "insertions": 1,
+        "deletions": 1
+      }
+    }
+  },
+  "5bd97204ef6dfa26357cf128d8fbcab84fca42f0": {
+    "commit": "5bd97204ef6dfa26357cf128d8fbcab84fca42f0",
+    "author": "japhet@chromium.org",
+    "email": "japhet@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-10-29 15:58:28 -0400",
+    "message": "First attempt at fixing a crash that occurs when we get into WebFrameLoaderClient::dispatchDidChangeLocationWithinPage()\nwith an empty redirect chain.\n\nBUG=22205\nTEST=none\n\n\nReview URL: http://codereview.chromium.org/326015\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@30496 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 2,
+    "deletions": 5,
+    "churn": 7,
+    "filepaths": {
+      "webkit/glue/webframeloaderclient_impl.cc": {
+        "insertions": 2,
+        "deletions": 5
+      }
+    }
+  },
+  "69719063c6ddf24d63762a5519efb11dc412a3ee": {
+    "commit": "69719063c6ddf24d63762a5519efb11dc412a3ee",
+    "author": "eroman@chromium.org",
+    "email": "eroman@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2010-01-05 15:09:21 -0500",
+    "message": "Remove the implicit fallback to DIRECT when proxies fail. This better matches other browsers, and simplifies the code.\n\nTo better understand what this means, here are some examples how the behaviors will differ for the user:\n\n(1) You start chrome with --proxy-server=&quotfoobar:80&quot.\nThe server &quotfoobar:80&quot is refusing connections.\n\n  Before: Would fallback to direct after failing to connect through foobar:80.\n  Now: Will error-out with connection refused after failing to connect through foobar:80.\n\n(2) You start chrome with --proxy-pac-url=&quotfile:///foobar.pac&quot.\nThe server &quotfoobar:80&quot is unreachable, and foobar.pac reads:\n  function FindProxyForURL(url, host) {\n    return &quotPROXY foobar:80&quot;\n  }\n\n  Before: Would fallback to direct after failing to connect through foobar:80.\n  Now: Will error-out with connection refused after failing to connect through foobar:80.\n\n(3) You start chrome with --proxy-pac-url=&quotfile:///foobar.pac&quot.\nThe server &quotfoobar:80&quot is unreachable, and foobar.pac reads:\n  function FindProxyForURL(url, host) {\n    return &quotPROXY foobar:80; DIRECT&quot;\n  }\n\n  *No change, since the fallback to DIRECT is explicit in the PAC script*\n\nBUG=12303\n\nReview URL: http://codereview.chromium.org/502068\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@35549 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 149,
+    "deletions": 310,
+    "churn": 459,
+    "filepaths": {
+      "net/base/net_error_list.h": {
+        "insertions": 0,
+        "deletions": 3
+      },
+      "net/http/http_network_transaction.cc": {
+        "insertions": 2,
+        "deletions": 47
+      },
+      "net/http/http_network_transaction_unittest.cc": {
+        "insertions": 0,
+        "deletions": 2
+      },
+      "net/proxy/proxy_info.cc": {
+        "insertions": 4,
+        "deletions": 2
+      },
+      "net/proxy/proxy_info.h": {
+        "insertions": 9,
+        "deletions": 15
+      },
+      "net/proxy/proxy_list.cc": {
+        "insertions": 18,
+        "deletions": 42
+      },
+      "net/proxy/proxy_list.h": {
+        "insertions": 2,
+        "deletions": 6
+      },
+      "net/proxy/proxy_list_unittest.cc": {
+        "insertions": 2,
+        "deletions": 14
+      },
+      "net/proxy/proxy_server.h": {
+        "insertions": 0,
+        "deletions": 5
+      },
+      "net/proxy/proxy_service.cc": {
+        "insertions": 60,
+        "deletions": 12
+      },
+      "net/proxy/proxy_service.h": {
+        "insertions": 9,
+        "deletions": 0
+      },
+      "net/proxy/proxy_service_unittest.cc": {
+        "insertions": 43,
+        "deletions": 162
+      }
+    }
+  },
+  "f209dba88c91b0461dc5acd02af0b3685213938c": {
+    "commit": "f209dba88c91b0461dc5acd02af0b3685213938c",
+    "author": "eroman@chromium.org",
+    "email": "eroman@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-12-17 19:24:37 -0500",
+    "message": "When talking to a SOCKS v5 proxy, default to sending addresses as raw domains rather than IP addresses.\n\nBefore, we would default to client-side DNS resolution (sending IP addresses to the proxy) for both v4 and v5. However if you are using a v5 server, it is most likely that you want to do the resolves on the proxy-side. And in fact if you are using a SOCKS 5 proxy to anonymize your browsing, you definitely don't want that as the default policy.\n\nEmbedders of the network stack can select the alternate policy by passing a non-NULL Host resolver into SOCKS5ClientSocket.\n\nBUG=29914\nTEST=HttpNetworkTransactionTest.SOCKS5_HTTP_GET, HttpNetworkTransactionTest.SOCKS5_SSL_GET\n\nReview URL: http://codereview.chromium.org/507033\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@34903 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 25,
+    "deletions": 112,
+    "churn": 137,
+    "filepaths": {
+      "net/http/http_network_transaction.cc": {
+        "insertions": 1,
+        "deletions": 1
+      },
+      "net/http/http_network_transaction_unittest.cc": {
+        "insertions": 4,
+        "deletions": 21
+      },
+      "net/socket/socks5_client_socket.cc": {
+        "insertions": 4,
+        "deletions": 12
+      },
+      "net/socket/socks5_client_socket.h": {
+        "insertions": 2,
+        "deletions": 19
+      },
+      "net/socket/socks5_client_socket_unittest.cc": {
+        "insertions": 13,
+        "deletions": 58
+      },
+      "net/socket_stream/socket_stream.cc": {
+        "insertions": 1,
+        "deletions": 1
+      }
+    }
+  },
+  "20cbe23d256ad1522424a030fd109b82c7d08938": {
+    "commit": "20cbe23d256ad1522424a030fd109b82c7d08938",
+    "author": "eroman@chromium.org",
+    "email": "eroman@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-12-17 22:39:21 -0500",
+    "message": "Cleanup: Remove the support for IPv4 and IPv6 addressing types in the SOCKS5 implementation.\nThis is no longer used by chrome, and it is unlikely that embedders would want to use this.\nThe default will just use the DOMAIN addressing type.\n\nBUG=29914\n\nReview URL: http://codereview.chromium.org/507048\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@34928 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 230,
+    "deletions": 70,
+    "churn": 300,
+    "filepaths": {
+      "net/http/http_network_transaction.cc": {
+        "insertions": 1,
+        "deletions": 1
+      },
+      "net/socket/socks5_client_socket.cc": {
+        "insertions": 83,
+        "deletions": 13
+      },
+      "net/socket/socks5_client_socket.h": {
+        "insertions": 35,
+        "deletions": 6
+      },
+      "net/socket/socks5_client_socket_unittest.cc": {
+        "insertions": 110,
+        "deletions": 49
+      },
+      "net/socket_stream/socket_stream.cc": {
+        "insertions": 1,
+        "deletions": 1
+      }
+    }
+  },
+  "c0fbaed2be9b4df04c8cc9fe3f5c1c41b3459ca0": {
+    "commit": "c0fbaed2be9b4df04c8cc9fe3f5c1c41b3459ca0",
+    "author": "hamaji@chromium.org",
+    "email": "hamaji@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-11-26 08:14:53 -0500",
+    "message": "Remove unexpected pass.\n\nTEST=none\nBUG=20450,20458\nTBR=abarth\n\nReview URL: http://codereview.chromium.org/434113\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@33207 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 3,
+    "deletions": 0,
+    "churn": 3,
+    "filepaths": {
+      "webkit/tools/layout_tests/test_expectations.txt": {
+        "insertions": 3,
+        "deletions": 0
+      }
+    }
+  },
+  "04c84bc6d9fdc15a8d49786b28ee2256aaaf50a8": {
+    "commit": "04c84bc6d9fdc15a8d49786b28ee2256aaaf50a8",
+    "author": "jparent@chromium.org",
+    "email": "jparent@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-08-28 14:42:51 -0400",
+    "message": "Rebaseline LayoutTests/fast/xmlhttprequest/xmlhttprequest-nonexistent-file.html for Windows and Linux.  Chrome allows xhr's to local directories (if the security origin of the document is file://) and Safari does not, so when testXHRDirectory is run on Safari hits an error handler, but returns a real result in Chrome.  Mac is still marked as failing because of unimplemented test shell features (See http://crbug.com/20458 for more details). \n\nTEST=layout test try bots\nBUG=20458,20450,18686\n\nReview URL: http://codereview.chromium.org/173598\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@24756 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 1,
+    "deletions": 4,
+    "churn": 5,
+    "filepaths": {
+      "webkit/tools/layout_tests/test_expectations.txt": {
+        "insertions": 1,
+        "deletions": 4
+      }
+    }
+  },
+  "1c966c891f7f495fd08c84b58ec145bd6bd7d181": {
+    "commit": "1c966c891f7f495fd08c84b58ec145bd6bd7d181",
+    "author": "cevans@chromium.org",
+    "email": "cevans@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-11-10 21:27:48 -0500",
+    "message": "Add method to control whether local files get universal access during testing.\nThis is required to test any form of local filesystem access restrictions.\n\nBUG=20450\nTEST=Needed for LayoutTests/fast/xmlhttprequest/xmlhttprequest-nonexistent-file.html\n\nReview URL: http://codereview.chromium.org/384015\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@31643 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 0,
+    "deletions": 12,
+    "churn": 12,
+    "filepaths": {
+      "webkit/tools/test_shell/layout_test_controller.cc": {
+        "insertions": 0,
+        "deletions": 11
+      },
+      "webkit/tools/test_shell/layout_test_controller.h": {
+        "insertions": 0,
+        "deletions": 1
+      }
+    }
+  },
+  "7844480ae4f50930ca66fd3658790b52d344826d": {
+    "commit": "7844480ae4f50930ca66fd3658790b52d344826d",
+    "author": "japhet@chromium.org",
+    "email": "japhet@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-12-16 16:18:58 -0500",
+    "message": "If we redirect from an https to an http site, ensure that we don't\nleak referrer information.\n\nBUG=29920\nTEST=URLRequestTestHTTP.HTTPSToHTTPRedirectNoRefererTest\n\n\nReview URL: http://codereview.chromium.org/486015\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@34751 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 0,
+    "deletions": 28,
+    "churn": 28,
+    "filepaths": {
+      "net/url_request/url_request.cc": {
+        "insertions": 0,
+        "deletions": 5
+      },
+      "net/url_request/url_request_unittest.cc": {
+        "insertions": 0,
+        "deletions": 23
+      }
+    }
+  },
+  "f8bc33be983c60bdd7de7a34fc76cc7ddd2f7dfd": {
+    "commit": "f8bc33be983c60bdd7de7a34fc76cc7ddd2f7dfd",
+    "author": "japhet@chromium.org",
+    "email": "japhet@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-12-16 17:28:24 -0500",
+    "message": "Remove layout tests passing because of r34751.\n\nBUG=29920\nTEST=LayoutTests/http/tests/ssl\n\nReview URL: http://codereview.chromium.org/502038\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@34763 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 6,
+    "deletions": 0,
+    "churn": 6,
+    "filepaths": {
+      "webkit/tools/layout_tests/test_expectations.txt": {
+        "insertions": 6,
+        "deletions": 0
+      }
+    }
+  },
+  "d3d98bc21e6fe0ea6aa0186194347a1f5e4d7be8": {
+    "commit": "d3d98bc21e6fe0ea6aa0186194347a1f5e4d7be8",
+    "author": "cevans@chromium.org",
+    "email": "cevans@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2009-12-30 00:27:59 -0500",
+    "message": "Fix up rowbytes vs. width desynchronization, and fix failure to initialize entire bitmap memory. To fix up the rowbytes value properly, we simply don't send it via IPC any more, and recalulate it from width and depth in the trusted code. It's a cheap calculation.\nAlso one bonus fix: don't use an unintialized IconInfo if deserialization fails.\n\nBUG=31307\nTEST=Manual; ran with breakpoints on the failure paths.\n\nReview URL: http://codereview.chromium.org/517023\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@35371 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 8,
+    "deletions": 6,
+    "churn": 14,
+    "filepaths": {
+      "chrome/common/common_param_traits.cc": {
+        "insertions": 8,
+        "deletions": 6
+      }
+    }
+  },
+  "690d0a9175790c4bd3abd066932bc08203c164ca": {
+    "commit": "690d0a9175790c4bd3abd066932bc08203c164ca",
+    "author": "cevans@chromium.org",
+    "email": "cevans@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2010-01-05 19:19:36 -0500",
+    "message": "Avoid excessive nesting / recursion in browser URL handling.\n\nBUG=31517\nTEST=ChildProcessSecurityPolicyTest\n\nReview URL: http://codereview.chromium.org/525038\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@35585 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 2,
+    "deletions": 16,
+    "churn": 18,
+    "filepaths": {
+      "chrome/browser/child_process_security_policy.cc": {
+        "insertions": 2,
+        "deletions": 8
+      },
+      "chrome/browser/child_process_security_policy_unittest.cc": {
+        "insertions": 0,
+        "deletions": 8
+      }
+    }
+  },
+  "ea3d1d84be3d6f97bf50e76511c9e26af6895533": {
+    "commit": "ea3d1d84be3d6f97bf50e76511c9e26af6895533",
+    "author": "jam@chromium.org",
+    "email": "jam@chromium.org@0039d316-1c4b-4281-b951-d872f2087c98",
+    "date": "2010-01-29 17:35:33 -0500",
+    "message": "Fix passing pointers between processes.\n\nBUG=31880\nReview URL: http://codereview.chromium.org/558036\n\ngit-svn-id: svn://svn.chromium.org/chrome/trunk/src@37555 0039d316-1c4b-4281-b951-d872f2087c98",
+    "insertions": 509,
+    "deletions": 425,
+    "churn": 934,
+    "filepaths": {
+      "chrome/common/plugin_messages.h": {
+        "insertions": 65,
+        "deletions": 9
+      },
+      "chrome/common/plugin_messages_internal.h": {
+        "insertions": 22,
+        "deletions": 22
+      },
+      "chrome/plugin/webplugin_delegate_stub.cc": {
+        "insertions": 16,
+        "deletions": 17
+      },
+      "chrome/plugin/webplugin_delegate_stub.h": {
+        "insertions": 17,
+        "deletions": 8
+      },
+      "chrome/plugin/webplugin_proxy.cc": {
+        "insertions": 41,
+        "deletions": 18
+      },
+      "chrome/plugin/webplugin_proxy.h": {
+        "insertions": 22,
+        "deletions": 13
+      },
+      "chrome/renderer/webplugin_delegate_pepper.cc": {
+        "insertions": 24,
+        "deletions": 10
+      },
+      "chrome/renderer/webplugin_delegate_pepper.h": {
+        "insertions": 8,
+        "deletions": 6
+      },
+      "chrome/renderer/webplugin_delegate_proxy.cc": {
+        "insertions": 51,
+        "deletions": 41
+      },
+      "chrome/renderer/webplugin_delegate_proxy.h": {
+        "insertions": 14,
+        "deletions": 9
+      },
+      "webkit/glue/plugins/plugin_host.cc": {
+        "insertions": 21,
+        "deletions": 6
+      },
+      "webkit/glue/plugins/plugin_instance.cc": {
+        "insertions": 40,
+        "deletions": 88
+      },
+      "webkit/glue/plugins/plugin_instance.h": {
+        "insertions": 22,
+        "deletions": 42
+      },
+      "webkit/glue/plugins/webplugin_delegate_impl.cc": {
+        "insertions": 22,
+        "deletions": 11
+      },
+      "webkit/glue/plugins/webplugin_delegate_impl.h": {
+        "insertions": 9,
+        "deletions": 7
+      },
+      "webkit/glue/webplugin.h": {
+        "insertions": 11,
+        "deletions": 11
+      },
+      "webkit/glue/webplugin_delegate.h": {
+        "insertions": 6,
+        "deletions": 9
+      },
+      "webkit/glue/webplugin_impl.cc": {
+        "insertions": 77,
+        "deletions": 69
+      },
+      "webkit/glue/webplugin_impl.h": {
+        "insertions": 21,
+        "deletions": 29
+      }
+    }
+  }
+}
