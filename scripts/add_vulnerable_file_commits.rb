@@ -40,18 +40,20 @@ puts "Adding commit with options: #{options}"
 
 saver = GitSaver.new(options[:repo], options[:gitlog_json])
 failed = []
-
+filepaths = []
 puts "Traversing CVE ymls"
 shas = []
 # Dir["#{options[:cves]}/**/*.yml"].each do |file|
-file = "#{options[:cves]}/CVE-2013-6665.yml"
+file = "#{options[:cves]}/CVE-2013-6665.yml" # just the test case
   yml = YAML.load(File.open(file))
   shas += yml['fixes'].map { |fix| fix[:commit] || fix['commit'] }
-  filepaths = []
   shas.each do |sha|
-    Dir.chdir('tmp/src') do
-      filepaths << `git log --stat -1 --pretty="" --name-only #{sha}`.split
-    end
+    # `git show #{sha}`
+    # if $?.success? # if that commit exists
+      Dir.chdir('tmp/src') do
+        filepaths << `git log --stat -1 --pretty="" --name-only #{sha}`.split
+      end
+    # end
   end
 # end
 filepaths = filepaths.sort.uniq
