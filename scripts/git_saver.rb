@@ -1,3 +1,5 @@
+require 'git'
+
 # A collection of utilitize to save thing to git
 class GitSaver
 
