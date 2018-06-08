@@ -38,43 +38,46 @@ OptionParser.new do |opts|
 end.parse!
 puts "Adding commit with options: #{options}"
 
-saver = GitSaver.new(options[:repo], options[:gitlog_json])
 failed = []
 filepaths = []
 puts "Traversing CVE ymls"
 shas = []
 # Dir["#{options[:cves]}/**/*.yml"].each do |file|
-file = "#{options[:cves]}/CVE-2013-6665.yml" # just the test case
-  yml = YAML.load(File.open(file))
-  shas += yml['fixes'].map { |fix| fix[:commit] || fix['commit'] }
-  shas.each do |sha|
-    # `git show #{sha}`
-    # if $?.success? # if that commit exists
-      Dir.chdir('tmp/src') do
-        filepaths << `git log --stat -1 --pretty="" --name-only #{sha}`.split
-      end
-    # end
+# file = "#{options[:cves]}/CVE-2015-1296.yml" # just the test case
+file = "#{options[:cves]}/CVE-2010-3248.yml" # just the test case
+# file = "#{options[:cves]}/CVE-2011-3092.yml" # just the test case
+# file = "#{options[:cves]}/CVE-2013-6665.yml" # just the test case
+yml = YAML.load(File.open(file))
+shas += yml['fixes'].map { |fix| fix[:commit] || fix['commit'] }
+shas.each do |sha|
+  Dir.chdir('tmp/src') do
+    filepaths << `git log --stat -1 --pretty="" --name-only #{sha}`.split
   end
-# end
-filepaths = filepaths.sort.uniq
+end
+filepaths = filepaths.flatten.sort.uniq.delete_if {|f| f == 'DEPS' }
 
-puts "Getting file edits"
+puts "Vulnerable files: #{filepaths}"
+
+puts "Getting file edits for #{filepaths.size} files"
 edit_shas = []
 Dir.chdir('tmp/src') do
   filepaths.each do |filepath|
-    edit_shas << `git log --pretty="%H" #{filepath}`.split
+    puts "  running: git log --pretty=%H -- #{filepath}"
+    edit_shas << `git log --pretty="%H" -- #{filepath}`.split
   end
 end
+edit_shas = edit_shas.flatten.uniq
 
-puts "Getting git logs"
-edit_shas.uniq.each do |sha|
-  puts "Attempting to add: #{sha}"
+puts "Getting git logs for #{edit_shas.size} commits"
+saver = GitSaver.new(options[:repo], options[:gitlog_json])
+edit_shas.each do |sha|
   begin
     saver.add(sha, options[:skip_existing])
   rescue
     puts "FAILED to add #{sha}"
     failed << sha
   end
+  print '.'
 end
 saver.save
 
