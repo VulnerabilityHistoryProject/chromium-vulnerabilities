@@ -42,16 +42,13 @@ failed = []
 filepaths = []
 puts "Traversing CVE ymls"
 shas = []
-# Dir["#{options[:cves]}/**/*.yml"].each do |file|
-# file = "#{options[:cves]}/CVE-2015-1296.yml" # just the test case
-file = "#{options[:cves]}/CVE-2010-3248.yml" # just the test case
-# file = "#{options[:cves]}/CVE-2011-3092.yml" # just the test case
-# file = "#{options[:cves]}/CVE-2013-6665.yml" # just the test case
-yml = YAML.load(File.open(file))
-shas += yml['fixes'].map { |fix| fix[:commit] || fix['commit'] }
-shas.each do |sha|
-  Dir.chdir('tmp/src') do
-    filepaths << `git log --stat -1 --pretty="" --name-only #{sha}`.split
+Dir["#{options[:cves]}/**/*.yml"].each do |file|
+  yml = YAML.load(File.open(file))
+  shas += yml['fixes'].map { |fix| fix[:commit] || fix['commit'] }
+  shas.each do |sha|
+    Dir.chdir('tmp/src') do
+      filepaths << `git log --stat -1 --pretty="" --name-only #{sha}`.split
+    end
   end
 end
 filepaths = filepaths.flatten.sort.uniq.delete_if {|f| f == 'DEPS' }
