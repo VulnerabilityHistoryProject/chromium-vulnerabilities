@@ -1,0 +1,4 @@
+filepaths:
+  - DEPS
+note: |
+  This is the main file in Chromium used to manage dependencies. When this file is "fixed" for a vulnerability, it usually means that they had the vulnerability fixed in an external project and simply updated to that version.
