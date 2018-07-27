@@ -8,7 +8,7 @@ description: |
   Throughout the VHP, when we refer to Chromium, we are referring to the Browser. This study does not include ChromeOS.
 git_commit_url_prefix: https://github.com/chromium/chromium/commit/
 github_search_url_prefix: https://github.com/chromium/chromium/search?utf8=✓&q=
-github_edit_cve_yml_url_prefix: https://github.com/andymeneely/chromium-vulnerabilities/edit/dev/cves/
+github_edit_cve_url_prefix: https://github.com/andymeneely/chromium-vulnerabilities/edit/dev/cves/
 vulnerabilities_description: |
   These vulnerabilities have been reported and confirmed by the Chromium team. Chromium typically releases this data on their [release blog](https://chromereleases.googleblog.com/).
 developers_description: |
