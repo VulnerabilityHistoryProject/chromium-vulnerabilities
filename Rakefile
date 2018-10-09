@@ -125,5 +125,5 @@ namespace :cve do
   task :update_curated do
      UpdateCurated.new.run
   end
-  
+
 end

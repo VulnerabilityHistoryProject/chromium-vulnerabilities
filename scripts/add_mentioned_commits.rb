@@ -50,11 +50,12 @@ Dir["#{options[:cves]}/**/*.yml"].each do |file|
 end
 puts "Getting git logs"
 shas.uniq.each do |sha|
-  puts "Attempting to add: #{sha}"
+  # puts "Attempting to add: #{sha}"
   begin
     saver.add(sha, options[:skip_existing])
-  rescue
-    puts "FAILED to add #{sha}"
+    print '.'
+  rescue StandardError => e
+    puts "\nFAILED to add #{sha}. #{e}\n"
     failed << sha
   end
 end
