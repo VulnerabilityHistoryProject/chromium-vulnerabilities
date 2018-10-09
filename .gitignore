@@ -1,4 +1,4 @@
 tmp/
 !tmp/gitkeep.txt
 .byebug_history
-src/
+.DS_Store

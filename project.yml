@@ -1,0 +1,15 @@
+name: Chromium
+fullname: Chromium Browser
+subdomain: chromium
+project_url: https://www.chromium.org/Home
+description: |
+  The Chromium Browser project is the open source project behind Google Chrome.
+
+  Throughout the VHP, when we refer to Chromium, we are referring to the Browser. This study does not include ChromeOS.
+git_commit_url_prefix: https://github.com/chromium/chromium/commit/
+github_search_url_prefix: https://github.com/chromium/chromium/search?utf8=✓&q=
+github_edit_cve_url_prefix: https://github.com/andymeneely/chromium-vulnerabilities/edit/dev/cves/
+vulnerabilities_description: |
+  These vulnerabilities have been reported and confirmed by the Chromium team. Chromium typically releases this data on their [release blog](https://chromereleases.googleblog.com/).
+developers_description: |
+  The following is a list of developers who are involved in code that was found to be vulnerable. Specifically, developers end up here if they were the author of a commit to code that was, at some point in time, fixed for a vulnerability. Note that this is NOT a comprehensive list, as Chromium has 3,000+ contributors
