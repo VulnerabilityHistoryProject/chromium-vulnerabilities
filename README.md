@@ -1,5 +1,5 @@
 # chromium-vulnerabilities
-Data for vulnerabilityhistory.org
+Data for [vulnerabilityhistory.org](http://vulnerabilityhistory.org)
 
 # Travis Build [![Build Status](https://travis-ci.org/andymeneely/chromium-vulnerabilities.svg?branch=master)](https://travis-ci.org/andymeneely/chromium-vulnerabilities)
 
@@ -8,6 +8,13 @@ Every push and pull request is run against our integrity checkers on Travis. Cli
 # For SWEN 331 Students
 
 Please see the assignments folder for information about your project.
+
+Would you like to run the tests locally before pushing to your pull request? Here's what you do:
+
+  1. You'll need Ruby 2.4+
+  2. Run `gem install bundler` (if you don't already have bundler)
+  3. `cd` to the root of this repo, run `bundle install`
+  4. Run `rspec` from the root of the repo to run all the tests. You'll see similar output as you get on Travis. Thousands of green dots is good.
 
 # List all Fix Commits
 

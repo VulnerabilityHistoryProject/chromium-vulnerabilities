@@ -1,21 +1,34 @@
-require 'irb'
-require 'nokogiri'
-require 'open-uri'
-require 'optparse'
+# require 'irb'
+# require 'nokogiri'
+# require 'open-uri'
+# require 'optparse'
+# require 'zlib'
 require 'rspec/core/rake_task'
 require 'yaml'
-require 'zlib'
 require_relative 'scripts/cve_commits.rb'
 require_relative 'scripts/cve_update_skeleton.rb'
+require_relative 'scripts/git_log_utils.rb'
 require_relative 'scripts/list_cve_data.rb'
 require_relative 'scripts/pull_task_handler'
 require_relative 'scripts/reviews_to_fixes.rb'
 require_relative 'scripts/script_helpers.rb'
+require_relative 'scripts/update_curated.rb'
 
 desc 'Run the specs by default'
 task default: :spec
 
 RSpec::Core::RakeTask.new(:spec)
+
+namespace :list do
+
+  desc 'Use Git to list all of the files that were fixed from a vulnerability'
+  task :vulnerable_files do
+    puts "Getting fixes from ymls..."
+    fixes = ListCVEData.new.get_fixes
+    puts "Getting files from git"
+    puts GitLogUtils.new.get_files_from_shas(fixes).to_a
+  end
+end
 
 namespace :git do
 
@@ -107,4 +120,10 @@ namespace :cve do
   task :missing_fixes do
     ListCVEData.new.print_missing_fixes
   end
+
+  desc 'Update curated - ONE TIME TASK'
+  task :update_curated do
+     UpdateCurated.new.run
+  end
+
 end
