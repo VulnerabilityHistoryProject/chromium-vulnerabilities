@@ -62,6 +62,7 @@ class GitSaver
                                 commit.message.
                                   gsub('\n', '\\n').
                                   gsub('"', '&quot')[0..2000]
+    @gitlog[sha][:filepaths]  = {}
   end
 
 end
