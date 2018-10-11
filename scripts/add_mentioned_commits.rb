@@ -40,6 +40,7 @@ puts "Adding commit with options: #{options}"
 
 saver = GitSaver.new(options[:repo], options[:gitlog_json])
 failed = []
+
 puts "Traversing CVE ymls"
 shas = []
 Dir["#{options[:cves]}/**/*.yml"].each do |file|
@@ -48,6 +49,16 @@ Dir["#{options[:cves]}/**/*.yml"].each do |file|
   shas += yml['vccs'].map  { |vcc| vcc[:commit] || vcc['commit'] }
   shas += yml['interesting_commits']['commits'].map  { |c| c[:commit] || c['commit'] }
 end
+
+puts "Handling known 'mega' commits"
+megas = YAML.load(File.open('commits/mega-commits.yml')) || []
+megas.each do |mega|
+  shas.delete mega['commit']
+  saver.add_mega(mega['commit'],
+                 mega['note'],
+                 options[:skip_existing])
+end
+
 puts "Getting git logs"
 shas.uniq.reject { |sha| sha.to_s.empty? }.each do |sha|
   # puts "Attempting to add: #{sha}"

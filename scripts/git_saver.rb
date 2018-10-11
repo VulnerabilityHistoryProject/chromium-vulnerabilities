@@ -42,4 +42,26 @@ class GitSaver
     end
   end
 
+  # Similar method as above, but not adding file info
+  def add_mega(sha, curator_note, skip_existing = true)
+    if @gitlog.key? sha
+      if skip_existing
+        puts "#{sha} already exists in gitlog.json, skipping"
+        return
+      end
+      puts "WARNING! Commit #{sha} already exists in gitlog.json. Will be overwritten."
+    end
+
+    @gitlog[sha] = {} # Even if it existed before, let's reset
+    commit = @git.object(sha)
+    @gitlog[sha][:commit]   = sha
+    @gitlog[sha][:author]   = commit.author.name
+    @gitlog[sha][:email]    = commit.author.email
+    @gitlog[sha][:date]     = commit.author.date
+    @gitlog[sha][:message]  = curator_note +
+                                commit.message.
+                                  gsub('\n', '\\n').
+                                  gsub('"', '&quot')[0..2000]
+  end
+
 end

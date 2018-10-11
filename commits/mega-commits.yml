@@ -1,0 +1,29 @@
+# A "mega commit" is a commit that touched thousands of files
+# We ignore getting file information for these commits as they
+# bog down VHP unnnecessarily. Instead, we add a note here
+- commit: c14d891d44f0afff64e56ed7c9702df1d807b1ee
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    It is the original import of the Chromium source tree in 2008, and involves
+    copying over 300k files.To see more about it, head over to:
+    https://chromium.googlesource.com/chromium/src/+/c14d891d44f0afff64e56ed7c9702df1d807b1ee. This was the original
+- commit: 1c8e1a7719e9d223cc84e838c9a31a0210f5878b
+  note: |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    It was a 2016 commit that was just a reformatting of the code.
+- commit: 584cd5cbd7be997400ccb8db24ae5410b0b88117
+  note: |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    This was the original import of the third_party/ folder in the repo
+- commit: 09911bf300f1a419907a9412154760efd0b7abc3
+  note: |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    This was the original import of the chrome/ folder in the repo
+- commit: ebff986b4bd9cbe0b0328adaf86dc69964945173
+  note: |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    This commit was when they converted their testing framework
+- commit: 91e7e108ecd4ca910a005cb0924e174a8b0e2db3
+  note: |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    This was a refactoring in how #includes were handled
