@@ -3,14 +3,18 @@ require_relative 'script_helpers'
 
 class GitLogUtils
 
+  def initialize(repo)
+    @git = Git.open(repo)
+  end
+
   def get_files_from_shas(fixes)
     files = []
-    Dir.chdir('./tmp/src') do
-      fixes.each do |sha|
-        files << `git show --name-only --pretty='' #{sha}`.split("\n")
-      end
+    fixes.each do |sha|
+      commit = @git.object(sha)
+      diff = @git.diff(commit, commit.parent)
+      files << diff.stats[:files].keys
     end
-    return files.uniq
+    return files.flatten.uniq
   end
 
 end
