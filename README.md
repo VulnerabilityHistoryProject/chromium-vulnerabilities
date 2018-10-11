@@ -24,12 +24,20 @@ Be in the root of this repository, and run:
 rake cve:fixes
 ```
 
+# Clone the Chromium git repo
+
+```
+cd tmp
+git clone https://chromium.googlesource.com/chromium/src
+```
+(takes a very long time!)
+
 # Scrape a GoogleBlog page for CVE's
 
 Be in the root of this repository, and run:
 
 ```
-scripts/get_cves_from_url.py https://chromereleases.googleblog.com/some/blog/post
+python scripts/get_cves_from_url.py https://chromereleases.googleblog.com/some/blog/post
 ```
 
 This will scrape the page source for lines beginning with `[$bounty] [bug_id] priority CVE-2017-12345: description.` and create a new CVE in `cves/` for each match.
@@ -39,7 +47,7 @@ This will scrape the page source for lines beginning with `[$bounty] [bug_id] pr
 Be in the root of this repository, and run:
 
 ```
-scripts/add_commit.rb --sha commit_sha_to_add
+ruby scripts/add_commit.rb --sha commit_sha_to_add
 ```
 
 See the source code for other options.
@@ -51,13 +59,13 @@ When you want to make sure that any commit that's mentioned in a YAML is also in
 Be in the root of this repository, and run:
 
 ```
-scripts/add_mentioned_commits.rb
+ruby scripts/add_mentioned_commits.rb
 ```
 
 This will overwrite any commit and take a LONG time (5-10 minutes). If you just want to go quickly and add what's not already there, use:
 
 ```
-scripts/add_mentioned_commits.rb --skip-existing
+ruby scripts/add_mentioned_commits.rb --skip-existing
 ```
 
 So if a commit is already in gitlog.json then we won't look it up in the GitLog. This is a much faster option.

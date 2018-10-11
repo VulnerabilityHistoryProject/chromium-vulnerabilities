@@ -49,7 +49,7 @@ Dir["#{options[:cves]}/**/*.yml"].each do |file|
   shas += yml['interesting_commits']['commits'].map  { |c| c[:commit] || c['commit'] }
 end
 puts "Getting git logs"
-shas.uniq.each do |sha|
+shas.uniq.reject { |sha| sha.to_s.empty? }.each do |sha|
   # puts "Attempting to add: #{sha}"
   begin
     saver.add(sha, options[:skip_existing])

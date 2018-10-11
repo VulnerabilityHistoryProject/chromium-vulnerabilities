@@ -21,14 +21,14 @@ class GitSaver
 
     @gitlog[sha] = {} # Even if it existed before, let's reset
     commit = @git.object(sha)
-    diff = @git.diff(commit, commit.parent.sha)
+    diff = @git.diff(commit, commit.parent)
     @gitlog[sha][:commit]     = sha
     @gitlog[sha][:author]     = commit.author.name
     @gitlog[sha][:email]      = commit.author.email
     @gitlog[sha][:date]       = commit.author.date
     @gitlog[sha][:message]    = commit.message.
                                   gsub('\n', '\\n').
-                                  gsub('"', '&quot')
+                                  gsub('"', '&quot')[0..2000]
     @gitlog[sha][:insertions] = diff.insertions
     @gitlog[sha][:deletions]  = diff.deletions
     @gitlog[sha][:churn]      = @gitlog[sha][:insertions].to_i +
