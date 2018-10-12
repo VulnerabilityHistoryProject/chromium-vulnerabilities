@@ -10,7 +10,7 @@ require_relative 'git_log_utils'
 require_relative 'weekly_report'
 
 options = {}
-options[:gitlog_json] = 'commits/gitlog.json'
+options[:weeklies] = 'commits/weeklies.json'
 options[:repo] = 'tmp/src'
 options[:cves] = 'cves'
 options[:skip_existing] = false
@@ -19,8 +19,9 @@ OptionParser.new do |opts|
   opts.banner = <<~EOS
   Usage: generate_weeklies.rb \
     --repo tmp/src
-    --skip-existing
     --cves cves
+    --weeklies commits/weeklies.json
+    --skip-existing
   EOS
   opts.on('--repo r',
           'Path to the repository to get the commit data') do |r|
@@ -42,7 +43,7 @@ git_utils = GitLogUtils.new(options[:repo])
 puts "Generating weekly reports"
 weekly_reporter = WeeklyReport.new(options)
 Dir["#{options[:cves]}/**/*.yml"].each do |file|
-  yml = YAML.load(File.open(file)).symbolize_keys
+  yml = YAML.load(File.open(file)).deep_symbolize_keys
   fix_commits = yml[:fixes].inject([]) do |memo, fix|
     memo << fix[:commit] unless fix[:commit].blank?
     memo
