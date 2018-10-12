@@ -34,8 +34,12 @@ class WeeklyReport
       commits: 0,
       insertions: 0,
       deletions: 0,
-      developers: [],
+      reverts: 0,
+      rolls: 0,
+      refactors: 0,
+      test_files: 0,
       files: [],
+      developers: [],
       new_developers: [],
       ownership_change: false,
     }
@@ -43,30 +47,62 @@ class WeeklyReport
 
   # Append something to an array, then uniq the array
   def append_uniq!(weekly, key, element)
-    weekly[key] = (weekly[key] << element).uniq
+    weekly[key] = (weekly[key] << element).flatten.uniq
+  end
+
+  def any_owners_files?(files)
+    files.inject(false) do |any_owners, file|
+      any_owners || file.match?(/OWNERS/)
+    end
+  end
+
+  def revert?(message)
+    message.match? /^Revert "/
+  end
+
+  def roll?(message)
+    message.match? /^Roll /
+  end
+
+  def regression?(message)
+    message.downcase.match? /regression/
+  end
+
+  def refactor?(message)
+    message.downcase.match? /refactor/
+  end
+
+  def any_test_files?(files)
+    files.inject(false) do |any_tests, file|
+      any_tests || file.match?(/test/)
+    end
   end
 
   def add(cve, offenders)
     return if offenders.blank?
-    puts "Adding report..."
     Dir.chdir(@repo_dir) do
       commits = `git log --author-date-order --reverse --pretty="%H" -- #{offenders.join(' ')}`.split("\n")
+      devs = []
       commits.each do |sha|
-        # puts sha
-        # byebug
         commit = @git.object(sha)
         diff = @git.diff(commit, commit.parent)
+        commit_files = diff.stats[:files].keys
         week_n = week_num(commit.author.date)
-        # byebug
         @calendar[week_n] ||= init_weekly(week_n)
         weekly = @calendar[week_n]
-        weekly[:commits] += 1
+        weekly[:commits]    += 1
         weekly[:insertions] += diff.insertions
         weekly[:deletions]  += diff.deletions
+        weekly[:reverts]    += revert?(commit.message) ? 1 : 0
+        weekly[:rolls]      += roll?(commit.message) ? 1 : 0
+        weekly[:refactors]  += refactor?(commit.message) ? 1 : 0
+        weekly[:test_files] += any_owners_files?(commit_files) ? 1 : 0
+        weekly[:ownership_change] ||= any_owners_files?(commit_files)
+        append_uniq!(weekly, :files, commit_files & offenders)
         append_uniq!(weekly, :developers, commit.author.email)
-        append_uniq!(weekly, :files, commit.author.email)
+        append_uniq!(weekly, :new_developers, [commit.author.email] - devs)
+        devs = (devs << commit.author.email).flatten.uniq
       end
-      pp @calendar
     end
   end
 end
