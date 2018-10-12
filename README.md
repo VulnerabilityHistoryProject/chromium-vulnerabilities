@@ -16,6 +16,14 @@ Would you like to run the tests locally before pushing to your pull request? Her
   3. `cd` to the root of this repo, run `bundle install`
   4. Run `rspec` from the root of the repo to run all the tests. You'll see similar output as you get on Travis. Thousands of green dots is good.
 
+# Load the tmp/ folder with the git source
+
+```
+mkdir tmp
+cd tmp
+git clone https://chromium.googlesource.com/chromium/src
+```
+
 # List all Fix Commits
 
 Be in the root of this repository, and run:
