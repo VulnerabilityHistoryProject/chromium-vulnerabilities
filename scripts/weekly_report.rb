@@ -9,7 +9,7 @@ class WeeklyReport
     @git = Git.open(options[:repo])
     @repo_dir = options[:repo]
     @skip_existing = options[:skip_existing]
-    @calendar = init_calendar(options[:weeklies])
+    @weekly_dir = options[:weeklies]
   end
 
   def week_num(timestamp)
@@ -20,10 +20,28 @@ class WeeklyReport
     @@START_DATE + (i * @@SECONDS_IN_WEEK).to_i
   end
 
-  def init_calendar(weeklies_file)
-    File.open(weeklies_file, 'a+') do |f|
-      str = f.read
-      JSON.parse(str.blank? ? '{}' : str)
+  def weekly_file(cve)
+    "#{@weekly_dir}/#{cve.upcase}-weekly.json"
+  end
+
+  # def init_calendar(cve)
+  #   calendar = File.open(weekly_file(cve), 'a+') do |f|
+  #     str = f.read
+  #     JSON.parse(str.blank? ? '{}' : str)
+  #   end
+  #   # Calendars gets saved as a flattened hash of stringified-ints
+  #   # mapping to weekly reports, so here we convert, e.g.
+  #   # convert {"1" => {...}, "3" => {...}} to [nil,{...},nil,{...}]
+  #   return calendar.inject({}) do |memo, (week_n, weekly)|
+  #     memo[week_n.to_i] = weekly.deep_symbolize_keys
+  #     memo
+  #   end
+  # end
+
+  def write(cve, calendar)
+    File.open(weekly_file(cve), 'w+') do |f|
+      f.write JSON.pretty_generate(calendar.to_h)
+      # f.write JSON.generate(calendar)
     end
   end
 
@@ -80,6 +98,7 @@ class WeeklyReport
 
   def add(cve, offenders)
     return if offenders.blank?
+    calendar = {} # Always start fresh - don't read in the old one
     Dir.chdir(@repo_dir) do
       commits = `git log --author-date-order --reverse --pretty="%H" -- #{offenders.join(' ')}`.split("\n")
       devs = []
@@ -88,8 +107,8 @@ class WeeklyReport
         diff = @git.diff(commit, commit.parent)
         commit_files = diff.stats[:files].keys
         week_n = week_num(commit.author.date)
-        @calendar[week_n] ||= init_weekly(week_n)
-        weekly = @calendar[week_n]
+        calendar[week_n] ||= init_weekly(week_n)
+        weekly = calendar[week_n]
         weekly[:commits]    += 1
         weekly[:insertions] += diff.insertions
         weekly[:deletions]  += diff.deletions
@@ -104,5 +123,6 @@ class WeeklyReport
         devs = (devs << commit.author.email).flatten.uniq
       end
     end
+    write(cve, calendar)
   end
 end
