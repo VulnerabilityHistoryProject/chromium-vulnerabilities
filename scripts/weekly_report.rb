@@ -24,24 +24,10 @@ class WeeklyReport
     "#{@weekly_dir}/#{cve.upcase}-weekly.json"
   end
 
-  # def init_calendar(cve)
-  #   calendar = File.open(weekly_file(cve), 'a+') do |f|
-  #     str = f.read
-  #     JSON.parse(str.blank? ? '{}' : str)
-  #   end
-  #   # Calendars gets saved as a flattened hash of stringified-ints
-  #   # mapping to weekly reports, so here we convert, e.g.
-  #   # convert {"1" => {...}, "3" => {...}} to [nil,{...},nil,{...}]
-  #   return calendar.inject({}) do |memo, (week_n, weekly)|
-  #     memo[week_n.to_i] = weekly.deep_symbolize_keys
-  #     memo
-  #   end
-  # end
-
   def write(cve, calendar)
     File.open(weekly_file(cve), 'w+') do |f|
-      f.write JSON.pretty_generate(calendar.to_h)
-      # f.write JSON.generate(calendar)
+      # f.write JSON.pretty_generate(calendar)
+      f.write JSON.generate(calendar)
     end
   end
 
