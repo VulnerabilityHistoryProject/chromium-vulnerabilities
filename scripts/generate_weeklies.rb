@@ -48,7 +48,8 @@ git_utils = GitLogUtils.new(options[:repo])
 puts "Generating weekly reports"
 weekly_reporter = WeeklyReport.new(options)
 ymls = Dir["#{options[:cves]}/**/*.yml"].to_a
-Parallel.each(ymls, in_threads: 2, progress: 'Generating weeklies') do |file|
+# Parallel.each(ymls, in_threads: 2, progress: 'Generating weeklies') do |file|
+ymls.each do |file|
   yml = YAML.load(File.open(file)).deep_symbolize_keys
   fix_commits = yml[:fixes].inject([]) do |memo, fix|
     memo << fix[:commit] unless fix[:commit].blank?
