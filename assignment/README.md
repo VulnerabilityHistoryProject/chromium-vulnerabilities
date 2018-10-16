@@ -36,7 +36,7 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
     * Bugs. We should have these for you already, but these may need correcting.
     * Fix commits. We should have these for you already, but these may need correcting.
     * Vulnerability Contributing Commits (VCCs).
-    * Major events
+    * Major events (optional)
     * Interesting commits
     * Unit tested questions
     * Discovered questions

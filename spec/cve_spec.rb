@@ -20,11 +20,11 @@ describe 'CVE yml file' do
         vuln['fixes'].each do |fix|
           expect(fix['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
         end
-        vuln['vccs'].each do |fix|
-          expect(fix['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
+        vuln['vccs'].each do |vcc|
+          expect(vcc['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
         end
-        vuln['interesting_commits']['commits'].each do |fix|
-          expect(fix['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
+        vuln['interesting_commits']['commits'].each do |ic|
+          expect(ic['commit']).to(match(/[0-9a-f]{40}/).or(be_nil))
         end
       end
 
@@ -42,7 +42,6 @@ describe 'CVE yml file' do
             expect(vuln['unit_tested']['answer'].to_s).not_to be_empty
             expect(vuln['discovered']['answer'].to_s).not_to be_empty
             expect(vuln['subsystem']['answer'].to_s).not_to be_empty
-            expect(vuln['major_events']['answer'].to_s).not_to be_empty
             expect(vuln['mistakes']['answer'].to_s).not_to be_empty
           end
         end
