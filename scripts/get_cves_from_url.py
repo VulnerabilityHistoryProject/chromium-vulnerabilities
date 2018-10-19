@@ -10,6 +10,7 @@ CVE_RE = re.compile('CVE-[0-9]{4}-[0-9]{4,}')
 HTML_RE = re.compile('<[^<]+?>')
 BOUNTY_RE = re.compile('\[\$([0-9\.]|TBD|N/A)+\]')
 BUG_RE = re.compile('\[[0-9]+\]')
+ANNOUNCED_RE = re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2}')
 DESCRIPTION_RE = re.compile('[:-]{0,1} [^\.]*(\.|\s)')
 CLEAN_RE = re.compile('(\]|\[|\: |\- |\$)')
 
@@ -17,7 +18,7 @@ SKELETON = list()
 with open("./spec/data/cve-skeleton.yml", "r") as f:
     SKELETON = f.readlines()
 
-def get_skeleton(cve, description, bounty, bug):
+def get_skeleton(cve, description, bounty, bug, announced):
     """ Return the skeleton of a CVE with the given fields filled. """
     global SKELETON
     skeleton = SKELETON.copy()
@@ -66,6 +67,7 @@ if __name__ == "__main__":
             bounty = ""
         bug_id = clean_match(BUG_RE.search(cve).group(0))
         cve_id = clean_match(CVE_RE.search(cve).group(0))
+        announced = clean_match(ANNOUNCED_RE.search(cve).group(0))
         try:
             description = clean_match(DESCRIPTION_RE.search(cve).group(0))
         except:
