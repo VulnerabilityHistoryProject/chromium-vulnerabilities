@@ -11,11 +11,11 @@ HTML_RE = re.compile('<[^<]+?>')
 BOUNTY_RE = re.compile('\[\$([0-9\.]|TBD|N/A)+\]')
 BUG_RE = re.compile('\[[0-9]+\]')
 ANNOUNCED_RE = re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2}')
-DESCRIPTION_RE = re.compile('[:-]{0,1} [^\.]*(\.|\s)')
+DESCRIPTION_RE = re.compile('[: ]{0,1} [^\.]*(\.|\s)')
 CLEAN_RE = re.compile('(\]|\[|\: |\- |\$)')
 
 SKELETON = list()
-with open("./spec/data/cve-skeleton.yml", "r") as f:
+with open("../spec/data/cve-skeleton.yml", "r") as f:
     SKELETON = f.readlines()
 
 def get_skeleton(cve, description, bounty, bug, announced):
@@ -23,15 +23,16 @@ def get_skeleton(cve, description, bounty, bug, announced):
     global SKELETON
     skeleton = SKELETON.copy()
     skeleton[0] = "CVE: {:s}\n".format(cve)
-    skeleton[16] = "description: |\n  {:s}\n".format(description)
-    skeleton[22] = "bugs: [{:s}]\n".format(bug)
+    skeleton[24] = "announced: {:s}\n".format(announced)
+    skeleton[38] = "description: |\n  {:s}\n".format(description)
+    skeleton[48] = "bugs: [{:s}]\n".format(bug)
 
     if bounty == "N/A":
-        skeleton[18] = "  amt: 0\n"
+        skeleton[44] = "  amt: 0\n"
     elif bounty == "TBD":
-        skeleton[19] = "  announced: TBD\n"
+        skeleton[45] = "  announced: TBD\n"
     else:
-        skeleton[18] = "  amt: {:s}\n".format(bounty)
+        skeleton[44] = "  amt: {:s}\n".format(bounty)
 
     return "".join(skeleton)
 
@@ -67,7 +68,10 @@ if __name__ == "__main__":
             bounty = ""
         bug_id = clean_match(BUG_RE.search(cve).group(0))
         cve_id = clean_match(CVE_RE.search(cve).group(0))
-        announced = clean_match(ANNOUNCED_RE.search(cve).group(0))
+        try:
+            announced = clean_match(ANNOUNCED_RE.search(cve).group(0))
+        except:
+            announced = ""
         try:
             description = clean_match(DESCRIPTION_RE.search(cve).group(0))
         except:
@@ -78,7 +82,7 @@ if __name__ == "__main__":
         if os.path.exists(cve_path):
             print("Skipping CVE: {:s}.".format(cve_id))
         else:
-            skeleton = get_skeleton(cve_id, description, bounty, bug_id)
-            with open("./cves/" + cve_id + ".yml", "w") as f:
+            skeleton = get_skeleton(cve_id, description, bounty, bug_id, announced)
+            with open("../cves/" + cve_id + ".yml", "w") as f:
                 f.write(skeleton)
             print(" Created CVE: {:s}".format(cve_path))
