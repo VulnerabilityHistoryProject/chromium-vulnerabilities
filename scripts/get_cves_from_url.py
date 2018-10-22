@@ -11,7 +11,7 @@ HTML_RE = re.compile('<[^<]+?>')
 BOUNTY_RE = re.compile('\[\$([0-9\.]|TBD|N/A)+\]')
 BUG_RE = re.compile('\[[0-9]+\]')
 ANNOUNCED_RE = re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2}')
-DESCRIPTION_RE = re.compile('[: ]{0,1} [^\.]*(\.|\s)')
+DESCRIPTION_RE = re.compile('[:-]{0,1} [^\.]*(\.|\s)')
 CLEAN_RE = re.compile('(\]|\[|\: |\- |\$)')
 
 SKELETON = list()
@@ -25,7 +25,7 @@ def get_skeleton(cve, description, bounty, bug, announced):
     skeleton[0] = "CVE: {:s}\n".format(cve)
     skeleton[24] = "announced: {:s}\n".format(announced)
     skeleton[38] = "description: |\n  {:s}\n".format(description)
-    skeleton[48] = "bugs: [{:s}]\n".format(bug)
+    skeleton[49] = "bugs: [{:s}]\n".format(bug)
 
     if bounty == "N/A":
         skeleton[44] = "  amt: 0\n"
