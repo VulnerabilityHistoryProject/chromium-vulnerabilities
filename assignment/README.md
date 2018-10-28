@@ -16,7 +16,7 @@ You will be given 2-3 vulnerabilities to research for the first round. Here's wh
 
   1. **Set up a GitHub account.** If do not have a GitHub account, you will need to create one. We recommend using a permanent, professional name as this will likely go on your resume.
   2. **Give copyright consent and notify us of your GitHub username**. We would like you to contribute your work to a Creative Commons/MIT Licensed repository to be used in academic research. Also, please notify us via [this survey](https://goo.gl/forms/tV6pJ2uaCUoHk1GU2) what your GitHub username is so that we can trace your GitHub username to your RIT username. *NOTE: your contribution to open source is voluntary. We will make similar arrangements to submit your report privately if you do not wish to contribute to this research project. Your grade will not be affected.*
-  2. **Get your CVEs from [here](https://docs.google.com/spreadsheets/d/1aFWFbj0dsrfhqVZ6mrnL5d9wIwUPI8Ou-LsPv8aqDGE/pubhtml?gid=1955484899&single=true)**. Everyone will be assigned *three* CVEs to research. You are only required to research *two* of these. We give you a third in case one of these CVEs is a dead-end.
+  2. **Get your CVEs from [here](https://docs.google.com/spreadsheets/d/e/2PACX-1vQqSIrlS6tPP72QHtla8PmbBu9EtQCvkiaPBiD080cFw2jOWB54u0g3bY8YsAbPFrqTkX_HVsARZFZz/pubhtml?gid=1030037765&single=true)**. Everyone will be assigned *three* CVEs to research. You are only required to research *two* of these. We give you a third in case one of these CVEs is a dead-end. Examples of a dead-end CVE would be: a vulnerability where the fix is ONLY updating the DEPS file, or a vulnerability where all of the bugs are embargoed.
   2. **Fork this repository.** You can read about forking [on GitHub's docs.](https://help.github.com/articles/fork-a-repo/)
   3. **Clone this repository locally** using your favorite Git client.
   4. **Open up your CVE files in a good text editor**. For example, `cves/CVE-2011-3092.yml`. You will be editing [YAML](http://yaml.org)  for this assignment, which is a human-friendly JSON-like format that we use for structuring our data. Here's another [helpful link about YAML](http://yaml.org/YAML_for_ruby.html). It would be helpful if your text editor support syntax highlighting of YAML files so you can avoid syntax errors. My personal favorites are [Atom](http://atom.io) and [SublimeText](https://www.sublimetext.com/3).
@@ -128,7 +128,7 @@ $ git log --grep="invalid write"
 
 No such luck.
 
-It was at this point that I realized that V8 is actually a separate project for all kinds of things (as I stated above). It actually has its [own repository](https://chromium.googlesource.com/v8/v8/), which I cloned and began my searching there.
+It was at this point that I realized that V8 is actually a separate project for all kinds of things (as I stated above). It actually has its [own repository](https://chromium.googlesource.com/v8/v8/), which I cloned and began my searching there. For your vulnerability, don't go beyond the Chromium repository - this one is just an example.
 
 I re-ran the above searches with no luck. But, I did notice that person who patched the bug, Erik Corry, was on several commits. So, I examined commits around the time that the vulnerabliity would have been patched (April 12, 2012).
 
