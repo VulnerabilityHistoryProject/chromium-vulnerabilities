@@ -21,8 +21,8 @@
       <file leaf-file-name="CVE-2010-2105.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cves/CVE-2010-2105.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="61" column="2" lean-forward="false" selection-start-line="61" selection-start-column="2" selection-end-line="61" selection-end-column="2" />
+            <state relative-caret-position="330">
+              <caret line="144" column="43" lean-forward="false" selection-start-line="143" selection-start-column="6" selection-end-line="144" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -296,7 +296,7 @@
       <option name="presentableId" value="Default" />
       <updated>1540502998024</updated>
       <workItem from="1540502999767" duration="981000" />
-      <workItem from="1540572503874" duration="34541000" />
+      <workItem from="1540572503874" duration="34880000" />
     </task>
     <task id="LOCAL-00001" summary="added changes to CVE-2015-1278 and CVE-2015-1278 setting their curated to true">
       <created>1540503137696</created>
@@ -333,15 +333,29 @@
       <option name="project" value="LOCAL" />
       <updated>1540804505892</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="changed line 63 for VCCS">
+      <created>1540804723580</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1540804723580</updated>
+    </task>
+    <task id="LOCAL-00007" summary="same spot, maybe a single line is the way to go?">
+      <created>1540804862871</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1540804862871</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35522000" />
+    <option name="totallyTimeSpent" value="35861000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -349,7 +363,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -375,7 +389,9 @@
     <MESSAGE value="finished CVE-2010-2105" />
     <MESSAGE value="finished CVE-2015-1278. Time to start correcting small mistakes to get it to pass travis.ci" />
     <MESSAGE value="hopefully this fixes it?" />
-    <option name="LAST_COMMIT_MESSAGE" value="hopefully this fixes it?" />
+    <MESSAGE value="changed line 63 for VCCS" />
+    <MESSAGE value="same spot, maybe a single line is the way to go?" />
+    <option name="LAST_COMMIT_MESSAGE" value="same spot, maybe a single line is the way to go?" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -486,8 +502,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cves/CVE-2010-2105.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="61" column="2" lean-forward="false" selection-start-line="61" selection-start-column="2" selection-end-line="61" selection-end-column="2" />
+        <state relative-caret-position="330">
+          <caret line="144" column="43" lean-forward="false" selection-start-line="143" selection-start-column="6" selection-end-line="144" selection-end-column="43" />
           <folding />
         </state>
       </provider>
