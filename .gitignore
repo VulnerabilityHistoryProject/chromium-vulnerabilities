@@ -2,4 +2,3 @@ tmp/
 !tmp/gitkeep.txt
 .byebug_history
 .DS_Store
-.vscode
