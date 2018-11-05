@@ -2,4 +2,4 @@ tmp/
 !tmp/gitkeep.txt
 .byebug_history
 .DS_Store
-.idea
+.idea/workspace.xml
