@@ -1,0 +1,16 @@
+# An "origin commit" is a commit that is the beginning of chromium
+
+- commit: c14d891d44f0afff64e56ed7c9702df1d807b1ee
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    It is the original import of the Chromium source tree in 2008, and involves
+    copying over 300k files.To see more about it, head over to:
+    https://chromium.googlesource.com/chromium/src/+/c14d891d44f0afff64e56ed7c9702df1d807b1ee. This was the original
+- commit: 584cd5cbd7be997400ccb8db24ae5410b0b88117
+  note: |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    This was the original import of the third_party/ folder in the repo
+- commit: 09911bf300f1a419907a9412154760efd0b7abc3
+  note: |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    This was the original import of the chrome/ folder in the repo
