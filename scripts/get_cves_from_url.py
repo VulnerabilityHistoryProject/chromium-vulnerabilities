@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import urllib.request
+from time import strptime
 
 # Regular Expressions
 CVE_RE = re.compile('CVE-[0-9]{4}-[0-9]{4,}')
@@ -12,25 +13,47 @@ BOUNTY_RE = re.compile('\[\$([0-9\.]|TBD|N/A)+\]')
 BUG_RE = re.compile('\[[0-9]+\]')
 DESCRIPTION_RE = re.compile('[:-]{0,1} [^\.]*(\.|\s)')
 CLEAN_RE = re.compile('(\]|\[|\: |\- |\$)')
+ANNOUNCED_RE = re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2}')
+DATE_RE = re.compile('\w+, \w+ ([0-9]{1}|[0-9]{2}), [0-9]{4}')
+
+
+def format_date(publish_date):
+    fields = publish_date.split()
+    sub = fields[1][:3]
+    month = str(strptime(sub,'%b').tm_mon)
+    if len(month) == 1:
+        month = '0' + month
+    year = fields[3]
+    day = fields[2][:-1]
+    if len(day) == 1:
+        day = '0' + day
+    return "{}-{}-{}".format(year, month, day)
+
 
 SKELETON = list()
-with open("./spec/data/cve-skeleton.yml", "r") as f:
+with open("../spec/data/cve-skeleton.yml", "r") as f:
     SKELETON = f.readlines()
 
-def get_skeleton(cve, description, bounty, bug):
+def get_skeleton(cve, description, bounty, bug, announced):
     """ Return the skeleton of a CVE with the given fields filled. """
     global SKELETON
     skeleton = SKELETON.copy()
-    skeleton[0] = "CVE: {:s}\n".format(cve)
-    skeleton[16] = "description: |\n  {:s}\n".format(description)
-    skeleton[22] = "bugs: [{:s}]\n".format(bug)
-
-    if bounty == "N/A":
-        skeleton[18] = "  amt: 0\n"
-    elif bounty == "TBD":
-        skeleton[19] = "  announced: TBD\n"
-    else:
-        skeleton[18] = "  amt: {:s}\n".format(bounty)
+    for i in range(len(skeleton)):
+        if skeleton[i] == "CVE:\n":
+            skeleton[i] = "CVE: {:s}\n".format(cve)
+        elif skeleton[i] == "description: |\n":
+            skeleton[i] = "description: |\n  {:s}\n".format(description)
+        elif skeleton[i] == "bugs: []\n":
+            skeleton[i]= "bugs: [{:s}]\n".format(bug)
+        elif skeleton[i] == "  amt:\n":
+            if bounty == "N/A":
+                skeleton[i] = "  amt: 0\n"
+            elif bounty == "TBD":
+                skeleton[i+1] = "  announced: TBD\n"
+            else:
+                skeleton[i] = "  amt: {:s}\n".format(bounty)
+        elif skeleton[i] == "announced:\n":
+            skeleton[i] = "announced: {:s}\n".format(announced)
 
     return "".join(skeleton)
 
@@ -51,10 +74,13 @@ if __name__ == "__main__":
     page = get_page(url)
     contents = page.readlines()
     matches = list()
+    publish_date = ""
     for line in contents:
         line = HTML_RE.sub('', clean_line(line))
         if CVE_RE.search(line):
             matches.append(line)
+        if DATE_RE.search(line) and not publish_date:
+            publish_date = line
 
     matches = list(set(matches))
     # For each CVE...
@@ -70,13 +96,16 @@ if __name__ == "__main__":
             description = clean_match(DESCRIPTION_RE.search(cve).group(0))
         except:
             print("ERROR: Regex failed for Description in " + str(cve_id))
-
+        try:
+        	announced = clean_match(ANNOUNCED_RE.search(cve).group(0))
+        except:
+            announced = format_date(publish_date)
         # And write the new CVE to disk.
-        cve_path = "./cves/{:s}.yml".format(cve_id)
+        cve_path = "../cves/{:s}.yml".format(cve_id)
         if os.path.exists(cve_path):
             print("Skipping CVE: {:s}.".format(cve_id))
         else:
-            skeleton = get_skeleton(cve_id, description, bounty, bug_id)
-            with open("./cves/" + cve_id + ".yml", "w") as f:
+            skeleton = get_skeleton(cve_id, description, bounty, bug_id, announced)
+            with open("../cves/" + cve_id + ".yml", "w") as f:
                 f.write(skeleton)
             print(" Created CVE: {:s}".format(cve_path))
