@@ -26,7 +26,7 @@ namespace :list do
     puts "Getting fixes from ymls..."
     fixes = ListCVEData.new.get_fixes
     puts "Getting files from git"
-    puts GitLogUtils.new.get_files_from_shas(fixes).to_a
+    puts GitLogUtils.new('./tmp/src').get_files_from_shas(fixes).to_a
   end
 end
 
