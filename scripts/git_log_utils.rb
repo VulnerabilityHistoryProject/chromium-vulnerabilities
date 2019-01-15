@@ -1,5 +1,5 @@
 require_relative 'script_helpers'
-
+require 'git'
 
 class GitLogUtils
 
@@ -13,6 +13,7 @@ class GitLogUtils
       commit = @git.object(sha)
       diff = @git.diff(commit, commit.parent)
       files << diff.stats[:files].keys
+    rescue #catch file not found exception
     end
     return files.flatten.uniq
   end
