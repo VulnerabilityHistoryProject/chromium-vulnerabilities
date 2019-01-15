@@ -3,6 +3,7 @@
 # require 'open-uri'
 # require 'optparse'
 # require 'zlib'
+require 'csv'
 require 'rspec/core/rake_task'
 require 'yaml'
 require_relative 'scripts/cve_commits.rb'
@@ -23,10 +24,39 @@ namespace :list do
 
   desc 'Use Git to list all of the files that were fixed from a vulnerability'
   task :vulnerable_files do
-    puts "Getting fixes from ymls..."
-    fixes = ListCVEData.new.get_fixes
-    puts "Getting files from git"
-    puts GitLogUtils.new.get_files_from_shas(fixes).to_a
+    puts "Getting vulnerable files list"
+    tmpFixes = ListCVEData.new.get_fixes
+    fixes = []
+    gitRepository = "#{ENV['GIT_REPOSITORY']}"
+    outputFile = "#{ENV['OUTPUT_FILE']}"
+    gitStart = "#{ENV['GIT_START']}"
+    gitEnd = "#{ENV['GIT_END']}"
+    if gitRepository.to_s.empty?
+      gitRepository = "./tmp/src"
+    end
+    if gitStart.to_s.empty? && gitEnd.to_s.empty?
+      fixes = tmpFixes
+    else
+      Dir.chdir(gitRepository) do
+        tmpFixes.each do |fix|
+          gitLogCommand = "git log --before=#{gitEnd} --after=#{gitStart} "+'--pretty=format:"%H" ' + fix + ' -1'
+          check = `#{gitLogCommand}`
+          if fix.to_s == check.chomp.to_s
+            fixes << fix
+          end
+        end
+      end
+    end
+    result = GitLogUtils.new(gitRepository).get_files_from_shas(fixes)
+    if outputFile.to_s.empty?
+      puts result.to_a
+    else
+      puts "Writing output file #{outputFile}"
+      CSV.open(outputFile, 'w+') do |csv|
+        csv << [ 'filepath' ]
+        result.to_a.each { |f| csv << [f] }
+      end
+    end
   end
 end
 
@@ -40,24 +70,35 @@ namespace :git do
   ]
 
   namespace :clone do
-
     task :src do
+      gitDirectory = "#{ENV['GIT_REPOSITORY']}"
+      if gitDirectory.empty?
+        gitDirectory = "./tmp"
+      end
       puts "Cloning chromium/src..."
-      Dir.chdir('./tmp') do
+      Dir.chdir(gitDirectory) do
         puts `git clone https://chromium.googlesource.com/chromium/src`
       end
     end
 
     task :blink do
+      gitDirectory = "#{ENV['GIT_REPOSITORY']}"
+      if gitDirectory.empty?
+        gitDirectory = "./tmp"
+      end
       puts "Cloning chromium/blink..."
-      Dir.chdir('./tmp') do
+      Dir.chdir(gitDirectory) do
         puts `git clone https://chromium.googlesource.com/chromium/blink`
       end
     end
 
     task :v8 do
+      gitDirectory = "#{ENV['GIT_REPOSITORY']}"
+      if gitDirectory.empty?
+        gitDirectory = "./tmp"
+      end
       puts "Cloning v8..."
-      Dir.chdir('./tmp') do
+      Dir.chdir(gitDirectory) do
         puts `git clone https://chromium.googlesource.com/v8/v8`
       end
     end
