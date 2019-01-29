@@ -80,6 +80,20 @@ So if a commit is already in gitlog.json then we won't look it up in the GitLog.
 
 By default, this script checks the `tmp/src` directory. If you need, say, `v8`, there's an option for that.
 
+
+# Generate "Weeklies" Git Log Reports
+
+Make sure you have the Chromium repo cloned in `tmp/src`. From the root of the repo, run:
+
+```
+$ scripts/generate_weeklies.rb --skip-existing
+```
+
+Or for a clean build, you can delete all weeklies and start over.
+
+For a list of options it supports, run `scripts/generate_weeklies.rb`
+
+
 # Get the Releases data
 
 Release data is scraped from this [Wikipedia article](https://en.wikipedia.org/wiki/Google_Chrome_version_history)
