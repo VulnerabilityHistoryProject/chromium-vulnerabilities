@@ -1,6 +1,8 @@
 name: Chromium
 fullname: Chromium Browser
 subdomain: chromium
+bg_color: '#4587f4'
+fg_color: '#d9e1ed'
 project_url: https://www.chromium.org/Home
 description: |
   The Chromium Browser project is the open source project behind Google Chrome.
