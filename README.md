@@ -124,3 +124,10 @@ Here's how you merge in student data once the assignment is finished.
   end
   ```
   * You can always do `rails data:chromium:nogit` to reload things without hitting GitHub - helpful for quicker debugging.
+
+# After Merging in New CVEs
+
+After we merge in a bunch of PRs, here's a checklist of what needs updating, and in what order:
+
+  * Add mentioned commits (default options should be good enough)
+  * Generate weeklies (skip existing)
