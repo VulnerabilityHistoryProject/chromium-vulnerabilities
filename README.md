@@ -110,7 +110,7 @@ Here's how you merge in student data once the assignment is finished.
 1. Make sure the current `dev` branch is updated and works with the build
 2. Switch `vulnerability-history` locally to pull from `dev` instead of `master`.
 3. Squash and merge the student pull req into `dev`
-4. Run `rails data:chromium` locally. When it says "Loading data version " and then a git hash, make sure that matches up with the latest merge you just made (so you know you are pulling the latest chromium-vulnerabilities data).
+4. Run `rails data:chromium` locally. When it says "Loading data version " and then a git hash, make sure that matches up with the latest merge you just made (so you know you are pulling the latest chromium-vulnerabilities data). Alternatively, you can do `rails data:clear data:chromium:load_only` which goes quicker.
 5. If all is well, then do any spot-checks of their data to make sure everything got tagged just fine.
 6. If all is not well:
   * You may need to merge their changes with any of your changes. This might be on GitHub itself, or locally.
