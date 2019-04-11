@@ -15,6 +15,8 @@ DESCRIPTION_RE = re.compile('[:-]{0,1} [^\.]*(\.|\s)')
 CLEAN_RE = re.compile('(\]|\[|\: |\- |\$)')
 ANNOUNCED_RE = re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2}')
 DATE_RE = re.compile('\w+, \w+ ([0-9]{1}|[0-9]{2}), [0-9]{4}')
+CVSS2_RE = re.compile('AV:./AC:./Au:./C:./I:./A:.')
+CVSS3_RE = re.compile('AV:./AC:./PR:./UI:./S:./C:./I:./A:.')
 
 
 def format_date(publish_date):
@@ -34,7 +36,7 @@ SKELETON = list()
 with open("../spec/data/cve-skeleton.yml", "r") as f:
     SKELETON = f.readlines()
 
-def get_skeleton(cve, description, bounty, bug, announced):
+def get_skeleton(cve, description, bounty, bug, announced, CVSS):
     """ Return the skeleton of a CVE with the given fields filled. """
     global SKELETON
     skeleton = SKELETON.copy()
@@ -45,6 +47,8 @@ def get_skeleton(cve, description, bounty, bug, announced):
             skeleton[i] = "description: |\n  {:s}\n".format(description)
         elif skeleton[i] == "bugs: []\n":
             skeleton[i]= "bugs: [{:s}]\n".format(bug)
+        elif skeleton[i] == "CVSS:\n":
+            skeleton[i] = "CVSS: {:s}\n".format(CVSS)
         elif skeleton[i] == "  amt:\n":
             if bounty == "N/A":
                 skeleton[i] = "  amt: 0\n"
@@ -90,7 +94,13 @@ if __name__ == "__main__":
             bounty = clean_match(BOUNTY_RE.search(cve).group(0))
         except:
             bounty = ""
-        bug_id = clean_match(BUG_RE.search(cve).group(0))
+
+        # The current CVE that matched might be a comment someone left on the
+        # chromium blog
+        try:
+            bug_id = clean_match(BUG_RE.search(cve).group(0))
+        except:
+            continue
         cve_id = clean_match(CVE_RE.search(cve).group(0))
         try:
             description = clean_match(DESCRIPTION_RE.search(cve).group(0))
@@ -100,12 +110,27 @@ if __name__ == "__main__":
         	announced = clean_match(ANNOUNCED_RE.search(cve).group(0))
         except:
             announced = format_date(publish_date)
+
+        base_url = "https://nvd.nist.gov/vuln/detail/"
+        url = base_url + cve_id
+        print(url)
+        page = urllib.request.urlopen(url)
+        contents = page.readlines()
+
+        CVSS = ""
+        for line in contents:
+            line = HTML_RE.sub('', line.decode().strip("\n"))
+            if CVSS3_RE.search(line):
+                CVSS = line.strip()
+            elif CVSS2_RE.search(line):
+                CVSS = line.strip()
+
         # And write the new CVE to disk.
         cve_path = "../cves/{:s}.yml".format(cve_id)
         if os.path.exists(cve_path):
             print("Skipping CVE: {:s}.".format(cve_id))
         else:
-            skeleton = get_skeleton(cve_id, description, bounty, bug_id, announced)
+            skeleton = get_skeleton(cve_id, description, bounty, bug_id, announced, CVSS)
             with open("../cves/" + cve_id + ".yml", "w") as f:
                 f.write(skeleton)
             print(" Created CVE: {:s}".format(cve_path))
