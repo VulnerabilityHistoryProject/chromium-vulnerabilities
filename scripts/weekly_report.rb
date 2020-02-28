@@ -45,6 +45,7 @@ class WeeklyReport
       files: [],
       developers: [],
       new_developers: [],
+      drive_bys: [],
       ownership_change: false,
     }
   end
@@ -56,7 +57,7 @@ class WeeklyReport
 
   def any_owners_files?(files)
     files.inject(false) do |any_owners, file|
-      any_owners || file.match?(/OWNERS/)
+      any_owners || file.to_s.match?(/OWNERS/)
     end
   end
 
@@ -86,11 +87,18 @@ class WeeklyReport
     return if offenders.blank?
     calendar = {} # Always start fresh - don't read in the old one
     devs = []
+
+    authors = `git -C #{@repo_dir} log --pretty="%ae"`.split("\n")
+    counts = Hash.new(0)
+    authors.each { |a| counts[a] += 1 }
+    drive_by_authors = counts.select { |a, count| count == 1 }.keys
+
     commits = `git -C #{@repo_dir} log --author-date-order --reverse --pretty="%H" -- #{offenders.join(' ')}`.split("\n")
     commits.each do |sha|
       commit = @git.object(sha)
       diff = @git.diff(commit, commit.parent)
       commit_files = diff.stats[:files].keys
+      email = commit.author.email
       week_n = week_num(commit.author.date)
       calendar[week_n] ||= init_weekly(week_n)
       weekly = calendar[week_n]
@@ -103,9 +111,10 @@ class WeeklyReport
       weekly[:test_files] += any_owners_files?(commit_files) ? 1 : 0
       weekly[:ownership_change] ||= any_owners_files?(commit_files)
       append_uniq!(weekly, :files, commit_files & offenders)
-      append_uniq!(weekly, :developers, commit.author.email)
-      append_uniq!(weekly, :new_developers, [commit.author.email] - devs)
-      devs = (devs << commit.author.email).flatten.uniq
+      append_uniq!(weekly, :developers, email)
+      append_uniq!(weekly, :new_developers, [email] - devs)
+      append_uniq!(weekly, :drive_bys, email) if drive_by_authors.include?(email)
+      devs = (devs << email).flatten.uniq
     end
     write(cve, calendar)
   end
