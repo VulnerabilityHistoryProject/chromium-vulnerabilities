@@ -9,6 +9,7 @@ require 'parallel'
 require 'active_support/core_ext/hash'
 require_relative 'git_log_utils'
 require_relative 'weekly_report'
+require_relative 'script_helpers'
 
 options = {}
 options[:weeklies] = 'commits/weeklies'
@@ -49,7 +50,6 @@ puts "Generating weekly reports"
 weekly_reporter = WeeklyReport.new(options)
 ymls = Dir["#{options[:cves]}/**/*.yml"].to_a
 Parallel.each(ymls, in_processes: 8, progress: 'Generating weeklies') do |file|
-#ymls.each do |file|
   yml = YAML.load(File.open(file)).deep_symbolize_keys
   fix_commits = yml[:fixes].inject([]) do |memo, fix|
     memo << fix[:commit] unless fix[:commit].blank?
@@ -60,6 +60,5 @@ Parallel.each(ymls, in_processes: 8, progress: 'Generating weeklies') do |file|
   rescue
     puts "ERROR #{file}: could not get files for #{fix_commits}"
   end
-  weekly_reporter.add(yml[:CVE], offenders)
-  # print '.'
+  weekly_reporter.add(yml[:CVE], keep_only_source_code(offenders))
 end
