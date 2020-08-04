@@ -27,3 +27,7 @@
   note: |
     **Note from VHP curators**: this commit is not fully imported into VHP.
     This was a refactoring in how #includes were handled
+- commit: 07fa7abcaf0cc4a2426bbbd18864a7772ffa3f96
+  note: |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    They were moving Source/WebCore to Source/core. Nothing particularly interesting with this commit.
