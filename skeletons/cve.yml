@@ -1,0 +1,278 @@
+CVE:
+yaml_instructions: |
+  ===YAML Primer===
+  This is a dictionary data structure, akin to JSON.
+  Everything before a colon is a key, and the values here are usually strings
+  For one-line strings, you can just use quotes after the colon
+  For multi-line strings, as we do for our instructions, you put a | and then
+  indent by two spaces
+
+  For readability, we hard-wrap multi-line strings at 80 characters. This is
+  not absolutely required, but appreciated.
+curated_instructions: |
+  If you are manually editing this file, then you are "curating" it. Set the
+  entry below to "true" as soon as you start. This will enable additional
+  integrity checks on this file to make sure you fill everything out properly.
+  If you are a student, we cannot accept your work as finished unless curated is
+  set to true.
+curated: false
+reported_instructions: |
+  What date was the vulnerability reported to the security team? Look at the
+  security bulletins and bug reports. It is not necessarily the same day that the
+  CVE was created.  Leave blank if no date is given.
+  Please enter your date in YYYY-MM-DD format.
+reported:
+announced_instructions: |
+  Was there a date that this vulnerability was announced to the world? You can
+  find this in changelogs, blogs, bug reports, or perhaps the CVE date. A good
+  source for this is Chrome's Stable Release Channel
+  (https://chromereleases.googleblog.com/).
+  Please enter your date in YYYY-MM-DD format.
+announced:
+published_instructions: |
+  Is there a published fix or patch date for this vulnerability?
+  Please enter your date in YYYY-MM-DD format.
+published:
+description_instructions: |
+  You can get an initial description from the CVE entry on cve.mitre.org. These
+  descriptions are a fine start, but they can be kind of jargony.
+
+  Rewrite this description in your own words. Make it interesting and easy to
+  read to anyone with some programming experience. We can always pull up the NVD
+  description later to get more technical.
+
+  Try to still be specific in your description, but remove Chromium-specific
+  stuff. Remove references to versions, specific filenames, and other jargon
+  that outsiders to Chromium would not understand. Technology like "regular
+  expressions" is fine, and security phrases like "invalid write" are fine to
+  keep too.
+description:
+bounty_instructions: |
+  If you came across any indications that a bounty was paid out for this
+  vulnerability, fill it out here. Or correct it if the information already here
+  was wrong. Otherwise, leave it blank.
+bounty:
+  amt:
+  announced:
+  url:
+reviews: []
+bugs: []
+repo:
+fixes_vcc_instructions: |
+  Please put the commit hash in "commit" below (see my example in
+  CVE-2011-3092.yml). Fixes and VCCs follow the same format.
+fixes:
+- commit:
+  note:
+- commit:
+  note:
+vccs:
+- commit:
+  note:
+- commit:
+  note:
+upvotes_instructions: |
+  For the first round, ignore this upvotes number.
+
+  For the second round of reviewing, you will be giving a certain amount of
+  upvotes to each vulnerability you see. Your peers will tell you how
+  interesting they think this vulnerability is, and you'll add that to the
+  upvotes score on your branch.
+upvotes:
+unit_tested:
+  question: |
+    Were automated unit tests involved in this vulnerability?
+    Was the original code unit tested, or not unit tested? Did the fix involve
+    improving the automated tests?
+
+    For the "code" answer below, look not only at the fix but the surrounding
+    code near the fix and determine if and was there were unit tests involved
+    for this module.
+
+    For the "fix" answer below, check if the fix for the vulnerability involves
+    adding or improving an automated test to ensure this doesn't happen again.
+  answer:
+  code:
+  fix:
+discovered:
+  question: |
+    How was this vulnerability discovered?
+
+    Go to the bug report and read the conversation to find out how this was
+    originally found. Answer in longform below in "answer", fill in the date in
+    YYYY-MM-DD, and then determine if the vulnerability was found by a Google
+    employee (you can tell from their email address). If it's clear that the
+    vulenrability was discovered by a contest, fill in the name there.
+
+    The "automated" flag can be true, false, or nil.
+    The "google" flag can be true, false, or nil.
+
+    If there is no evidence as to how this vulnerability was found, then you may
+    leave this part blank.
+  answer:
+  date:
+  automated:
+  google:
+  contest:
+autodiscoverable:
+  instructions: |
+    Is it plausible that a fully automated tool could have discovered
+    this? These are tools that require little knowledge of the domain,
+     e.g. automatic static analysis, compiler warnings, fuzzers.
+
+    Examples for true answers: SQL injection, XSS, buffer overflow
+
+    Examples for false: RFC violations, permissions issues, anything
+    that requires the tool to be "aware" of the project's
+    domain-specific requirements.
+
+    The answer field should be boolean. In answer_note, please explain
+    why you come to that conclusion.
+  answer_note:
+  answer:
+specification:
+  instructions: |
+    Is there mention of a violation of a specification? For example,
+    an RFC specification, a protocol specification, or a requirements
+    specification.
+
+    Be sure to check all artifacts for this: bug report, security
+    advisory, commit message, etc.
+
+    The answer field should be boolean. In answer_note, please explain
+    why you come to that conclusion.
+  answer_note:
+  answer:
+subsystem:
+  question: |
+    What subsystems was the mistake in?
+
+    Most systems don't have a formal list of their subsystems, but you can
+    usually infer them from path names, bug report tags, or other key words
+    used. A single source file is not what we mean by a subsystem. In Django,
+    the "Component" field on the bug report is useful. But there may be other
+    subsystems involved.
+
+    Your subsystem name(s) should not have any dots or slashes in them. Only
+    alphanumerics, whitespace, _, - and @.Feel free to add multiple using a YAML
+    array.
+
+    In the answer field, explain where you saw these words.
+    In the name field, a subsystem name (or an array of names)
+
+    e.g. clipboard, model, view, controller, mod_dav, ui, authentication
+  answer:
+  name:
+interesting_commits:
+  question: |
+    Are there any interesting commits between your VCC(s) and fix(es)?
+
+    Write a brief (under 100 words) description of why you think this commit was
+    interesting in light of the lessons learned from this vulnerability. Any
+    emerging themes?
+  commits:
+  - commit:
+    note:
+  - commit:
+    note:
+i18n:
+  instructions: |
+    Was the feature impacted by this vulnerability about internationalization
+    (i18n)? An internationalization feature is one that enables people from all
+    over the world to use the system. This includes translations, locales,
+    typography, unicode, or various other features.
+
+    Answer should be boolean. Write a note about how you came to the conclusions
+    you did.
+  note:
+  answer:
+ipc:
+  question: |
+    Did the feature that this vulnerability affected use inter-process
+    communication? IPC includes OS signals, pipes, stdin/stdout, message
+    passing, and clipboard. Writing to files that another program in this
+    software system reads is another form of IPC.
+
+    Answer should be boolean. Explain your answer
+  answer:
+  note:
+lessons:
+  question: |
+    Are there any common lessons we have learned from class that apply to this
+    vulnerability? In other words, could this vulnerability serve as an example
+    of one of those lessons?
+
+    Leave "applies" blank or put false if you did not see that lesson (you do
+    not need to put a reason). Put "true" if you feel the lesson applies and put
+    a quick explanation of how it applies.
+
+    Don't feel the need to claim that ALL of these apply, but it's pretty likely
+    that one or two of them apply.
+
+    If you think of another lesson we covered in class that applies here, feel
+    free to give it a small name and add one in the same format as these.
+  defense_in_depth:
+    applies:
+    note:
+  least_privilege:
+    applies:
+    note:
+  frameworks_are_optional:
+    applies:
+    note:
+  native_wrappers:
+    applies:
+    note:
+  distrust_input:
+    applies:
+    note:
+  security_by_obscurity:
+    applies:
+    note:
+  serial_killer:
+    applies:
+    note:
+  environment_variables:
+    applies:
+    note:
+  secure_by_default:
+    applies:
+    note:
+  yagni:
+    applies:
+    note:
+  complex_inputs:
+    applies:
+    note:
+mistakes:
+  question: |
+    In your opinion, after all of this research, what mistakes were made that
+    led to this vulnerability? Coding mistakes? Design mistakes?
+    Maintainability? Requirements? Miscommunications?
+
+    Look at the CWE entry for this vulnerability and examine the mitigations
+    they have written there. Are they doing those? Does the fix look proper?
+
+    Use those questions to inspire your answer. Don't feel obligated to answer
+    every one. Write a thoughtful entry here that those ing the software
+    engineering industry would find interesting.
+  answer:
+CWE_instructions: |
+  Please go to http://cwe.mitre.org and find the most specific, appropriate CWE
+  entry that describes your vulnerability. We recommend going to
+  https://cwe.mitre.org/data/definitions/699.html for the Software Development
+  view of the vulnerabilities. We also recommend the tool
+  http://www.cwevis.org/viz to help see how the classifications work.
+
+  If you have anything to note about why you classified it this way, write
+  something in CWE_note. This field is optional.
+
+  Just the number here is fine. No need for name or CWE prefix. If more than one
+  apply here, then choose the best one and mention the others in CWE_note.
+CWE:
+CWE_note:
+nickname_instructions: |
+  A catchy name for this vulnerability that would draw attention it. If the
+  report mentions a nickname, use that. Must be under 30 characters.
+  Optional.
+nickname:
