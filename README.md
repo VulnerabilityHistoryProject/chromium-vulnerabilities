@@ -1,20 +1,18 @@
 # chromium-vulnerabilities
 Data for [vulnerabilityhistory.org](http://vulnerabilityhistory.org)
 
-# Travis Build [![Build Status](https://travis-ci.org/andymeneely/chromium-vulnerabilities.svg?branch=master)](https://travis-ci.org/andymeneely/chromium-vulnerabilities)
+# The Build ![YML & Editorial Checkers](https://github.com/VulnerabilityHistoryProject/chromium-vulnerabilities/workflows/YML%20&%20Editorial%20Checkers/badge.svg)
 
-Every push and pull request is run against our integrity checkers on Travis. Click on the above tag to see the status of the build.
+Every push and pull request is run against our integrity checkers on GitHub actions. Click on the above tag to see the status of the build.
 
 # For SWEN 331 Students
-
-Please see the assignments folder for information about your project.
 
 Would you like to run the tests locally before pushing to your pull request? Here's what you do:
 
   1. You'll need Ruby 2.4+
   2. Run `gem install bundler` (if you don't already have bundler)
   3. `cd` to the root of this repo, run `bundle install`
-  4. Run `rspec` from the root of the repo to run all the tests. You'll see similar output as you get on Travis. Thousands of green dots is good.
+  4. Run `rspec` from the root of the repo to run all the tests. You'll see similar output as you get on GitHub Actions. Thousands of green dots is good.
 
 # Load the tmp/ folder with the git source
 
@@ -23,6 +21,8 @@ mkdir tmp
 cd tmp
 git clone https://chromium.googlesource.com/chromium/src
 ```
+
+Note: this will take a while. The Chromium repo is BIG. It may be a good idea to use one of Meneely's research servers for this (ask him if you don't know what those are).
 
 # List all Fix Commits
 
