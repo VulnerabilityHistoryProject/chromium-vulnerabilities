@@ -83,16 +83,7 @@ By default, this script checks the `tmp/src` directory. If you need, say, `v8`, 
 
 # Generate "Weeklies" Git Log Reports
 
-Make sure you have the Chromium repo cloned in `tmp/src`. From the root of the repo, run:
-
-```
-$ scripts/generate_weeklies.rb --skip-existing
-```
-
-Or for a clean build, you can delete all weeklies and start over.
-
-For a list of options it supports, run `scripts/generate_weeklies.rb`
-
+Use VHP shepherd tools
 
 # Get the Releases data
 
