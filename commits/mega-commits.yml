@@ -39,3 +39,7 @@
   note:  |
     **Note from VHP curators**: this commit is not fully imported into VHP.
     They were switching to standard integer types in chrome/
+- commit: 7497635a7cfdae2866d2aa7a3bd2894c895b8360
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    They imported a lot of android specific code that was added to many folders.
