@@ -31,3 +31,8 @@
   note: |
     **Note from VHP curators**: this commit is not fully imported into VHP.
     They were moving Source/WebCore to Source/core. Nothing particularly interesting with this commit.
+- commit: 7d791652c7ede4209a2014d885148e2713f49bce
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    They moved browser/cocoa to browser/ui/cocoa
+    
