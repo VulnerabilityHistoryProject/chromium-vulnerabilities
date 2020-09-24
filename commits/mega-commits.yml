@@ -53,3 +53,8 @@
   note:  |
     **Note from VHP curators**: this commit is not fully imported into VHP.
     They had updated sqlite to 3.7.3.
+- commit: eba7abc84aec970ce85a25cf7b655e424918a3e0
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    Extract Modules from WebCore. This CL moves Source/WebCore/Modules to Source/modules. This CL tries to
+    minimize the change to the GYP files.
