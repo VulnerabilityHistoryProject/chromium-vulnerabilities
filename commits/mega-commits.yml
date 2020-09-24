@@ -31,3 +31,34 @@
   note: |
     **Note from VHP curators**: this commit is not fully imported into VHP.
     They were moving Source/WebCore to Source/core. Nothing particularly interesting with this commit.
+- commit: 7d791652c7ede4209a2014d885148e2713f49bce
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    They moved browser/cocoa to browser/ui/cocoa
+- commit: 2729e442b1172c5094503a03fe356c8580bb919d
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    They were switching to standard integer types in chrome/
+- commit: 7497635a7cfdae2866d2aa7a3bd2894c895b8360
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    They imported a lot of android specific code that was added to many folders.
+- commit: 49f8882b47d5da2b5b689b1df188c70a8034044d
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    Moving GraphcisContext and dependencies from core to platform. All font-related classes have been moved to fonts.
+    Image related classes have still to be moved to images. Scroll related classes have been moved to scroll. Some Skia 
+    classes have been moved to graphics/skia. Some other code cleanup was done.
+- commit: b104b771c129e5f5eb68bfa06ca6a2fc243b00d3
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    They had updated sqlite to 3.7.3.
+- commit: eba7abc84aec970ce85a25cf7b655e424918a3e0
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    Extract Modules from WebCore. This moves Source/WebCore/Modules to Source/modules.
+- commit: 71331253d6537b9409518dec2368388c5d73cb94
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    This focuses on modules/ to rename methods that are named foo() and that return a Foo*, which 
+    will have collisions when foo() is renamed to Foo() in chromium style.
