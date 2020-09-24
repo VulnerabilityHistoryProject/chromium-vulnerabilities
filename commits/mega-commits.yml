@@ -43,3 +43,9 @@
   note:  |
     **Note from VHP curators**: this commit is not fully imported into VHP.
     They imported a lot of android specific code that was added to many folders.
+- commit: 49f8882b47d5da2b5b689b1df188c70a8034044d
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    Moving GraphcisContext and dependencies from core to platform. All font-related classes have been moved to fonts.
+    Image related classes have still to be moved to images. Scroll related classes have been moved to scroll. Some Skia 
+    classes have been moved to graphics/skia. Some other code cleanup was done.
