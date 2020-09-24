@@ -57,10 +57,6 @@
   note:  |
     **Note from VHP curators**: this commit is not fully imported into VHP.
     Extract Modules from WebCore. This moves Source/WebCore/Modules to Source/modules.
-- commit: 07fa7abcaf0cc4a2426bbbd18864a7772ffa3f96
-  note:  |
-    **Note from VHP curators**: this commit is not fully imported into VHP.
-    Move Source/WebCore to Source/core.
 - commit: 71331253d6537b9409518dec2368388c5d73cb94
   note:  |
     **Note from VHP curators**: this commit is not fully imported into VHP.
