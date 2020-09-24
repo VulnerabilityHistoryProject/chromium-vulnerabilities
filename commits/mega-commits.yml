@@ -49,3 +49,7 @@
     Moving GraphcisContext and dependencies from core to platform. All font-related classes have been moved to fonts.
     Image related classes have still to be moved to images. Scroll related classes have been moved to scroll. Some Skia 
     classes have been moved to graphics/skia. Some other code cleanup was done.
+- commit: b104b771c129e5f5eb68bfa06ca6a2fc243b00d3
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    They had updated sqlite to 3.7.3.
