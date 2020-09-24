@@ -35,4 +35,7 @@
   note:  |
     **Note from VHP curators**: this commit is not fully imported into VHP.
     They moved browser/cocoa to browser/ui/cocoa
-    
+- commit: 2729e442b1172c5094503a03fe356c8580bb919d
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    They were switching to standard integer types in chrome/
