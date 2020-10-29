@@ -15,7 +15,7 @@ curated_instructions: |
   integrity checks on this file to make sure you fill everything out properly.
   If you are a student, we cannot accept your work as finished unless curated is
   set to true.
-curated: false
+curation_level: 0
 reported_instructions: |
   What date was the vulnerability reported to the security team? Look at the
   security bulletins and bug reports. It is not necessarily the same day that the
