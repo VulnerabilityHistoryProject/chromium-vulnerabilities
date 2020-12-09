@@ -3,7 +3,7 @@ require 'yaml'
 require 'active_support'
 require 'active_support/core_ext'
 require_relative 'script_helpers'
-# Currently, our "curated: true" flag is not totally accurate.
+# Currently, our "curation_level: 1" flag is not totally accurate.
 # Let's just find CVEs that need to be curated with:
 #  (a) an empty description, and
 #  (b) at least one fix commit.
