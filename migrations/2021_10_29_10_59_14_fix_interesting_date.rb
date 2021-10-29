@@ -54,7 +54,7 @@ ymls.each do |yml_file|
   # h = YAML.load yml_str
 
   File.open(yml_file, 'w+') do |f|
-    f.write yml_str.gsub(/\n    date: (.+)\n/, "\n    date: '\\1'\n")
+    f.write yml_str.gsub(/\n      date: (.+)\n/, "\n      date: '\\1'\n")
   end
 
   # Do stuff to your hash here.
