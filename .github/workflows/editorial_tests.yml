@@ -2,7 +2,12 @@
 # For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
 
 name: YML & Editorial Checkers
-on: push
+on: 
+  push:
+    branches: [master, dev]
+  pull_request:
+    branches: [master, dev]
+
 jobs:
   yml_editorial_checkers:
     runs-on: ubuntu-latest
