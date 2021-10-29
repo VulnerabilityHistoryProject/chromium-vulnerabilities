@@ -47,7 +47,7 @@
   note:  |
     **Note from VHP curators**: this commit is not fully imported into VHP.
     Moving GraphcisContext and dependencies from core to platform. All font-related classes have been moved to fonts.
-    Image related classes have still to be moved to images. Scroll related classes have been moved to scroll. Some Skia 
+    Image related classes have still to be moved to images. Scroll related classes have been moved to scroll. Some Skia
     classes have been moved to graphics/skia. Some other code cleanup was done.
 - commit: b104b771c129e5f5eb68bfa06ca6a2fc243b00d3
   note:  |
@@ -60,5 +60,9 @@
 - commit: 71331253d6537b9409518dec2368388c5d73cb94
   note:  |
     **Note from VHP curators**: this commit is not fully imported into VHP.
-    This focuses on modules/ to rename methods that are named foo() and that return a Foo*, which 
+    This focuses on modules/ to rename methods that are named foo() and that return a Foo*, which
     will have collisions when foo() is renamed to Foo() in chromium style.
+- commit: 07fa7abcaf0cc4a2426bbbd18864a7772ffa3f96
+  note:  |
+    **Note from VHP curators**: this commit is not fully imported into VHP.
+    It was essentially moving Source/WebCore to Source/core.
