@@ -1,4 +1,5 @@
 # chromium-vulnerabilities
+
 Data for [vulnerabilityhistory.org](http://vulnerabilityhistory.org)
 
 # Travis Build [![Build Status](https://travis-ci.org/andymeneely/chromium-vulnerabilities.svg?branch=master)](https://travis-ci.org/andymeneely/chromium-vulnerabilities)
@@ -11,10 +12,10 @@ Please see the assignments folder for information about your project.
 
 Would you like to run the tests locally before pushing to your pull request? Here's what you do:
 
-  1. You'll need Ruby 2.4+
-  2. Run `gem install bundler` (if you don't already have bundler)
-  3. `cd` to the root of this repo, run `bundle install`
-  4. Run `rspec` from the root of the repo to run all the tests. You'll see similar output as you get on Travis. Thousands of green dots is good.
+1. You'll need Ruby 2.4+
+2. Run `gem install bundler` (if you don't already have bundler)
+3. `cd` to the root of this repo, run `bundle install`
+4. Run `rspec` from the root of the repo to run all the tests. You'll see similar output as you get on Travis. Thousands of green dots is good.
 
 # Load the tmp/ folder with the git source
 
@@ -38,6 +39,7 @@ rake cve:fixes
 cd tmp
 git clone https://chromium.googlesource.com/chromium/src
 ```
+
 (takes a very long time!)
 
 # Scrape a GoogleBlog page for CVE's
@@ -48,7 +50,7 @@ Be in the root of this repository, and run:
 python scripts/get_cves_from_url.py https://chromereleases.googleblog.com/some/blog/post
 ```
 
-This will scrape the page source for lines beginning with `[$bounty] [bug_id] priority CVE-2017-12345: description.` and create a new CVE in `cves/` for each match.
+This will scrape the page source for lines beginning with `[$bounty] [bug_id] priority CVE-2017-12345: description.` and create a new CVE in `cves/` for each match. Look for blog posts titled "Stable Channel Update for Desktop".
 
 # Populate gitlog.json with a single SHA
 
@@ -80,7 +82,6 @@ So if a commit is already in gitlog.json then we won't look it up in the GitLog.
 
 By default, this script checks the `tmp/src` directory. If you need, say, `v8`, there's an option for that.
 
-
 # Generate "Weeklies" Git Log Reports
 
 Make sure you have the Chromium repo cloned in `tmp/src`. From the root of the repo, run:
@@ -92,7 +93,6 @@ $ scripts/generate_weeklies.rb --skip-existing
 Or for a clean build, you can delete all weeklies and start over.
 
 For a list of options it supports, run `scripts/generate_weeklies.rb`
-
 
 # Get the Releases data
 
@@ -113,21 +113,24 @@ Here's how you merge in student data once the assignment is finished.
 4. Run `rails data:chromium` locally. When it says "Loading data version " and then a git hash, make sure that matches up with the latest merge you just made (so you know you are pulling the latest chromium-vulnerabilities data). Alternatively, you can do `rails data:clear data:chromium:load_only` which goes quicker.
 5. If all is well, then do any spot-checks of their data to make sure everything got tagged just fine.
 6. If all is not well:
-  * You may need to merge their changes with any of your changes. This might be on GitHub itself, or locally.
-  * You may need to correct their YML structure to make it compatible with the loader. Make the change locally and push back to `dev` to fix it and re-run.
-  * If things fail on an exception, you can always put in this snippet somewhere to figure out what file failed and use byebug to figure out the problem:
-  ```
-  begin
-    # code where things when wrong
-  rescue
-    byebug
-  end
-  ```
-  * You can always do `rails data:chromium:nogit` to reload things without hitting GitHub - helpful for quicker debugging.
+
+- You may need to merge their changes with any of your changes. This might be on GitHub itself, or locally.
+- You may need to correct their YML structure to make it compatible with the loader. Make the change locally and push back to `dev` to fix it and re-run.
+- If things fail on an exception, you can always put in this snippet somewhere to figure out what file failed and use byebug to figure out the problem:
+
+```
+begin
+  # code where things when wrong
+rescue
+  byebug
+end
+```
+
+- You can always do `rails data:chromium:nogit` to reload things without hitting GitHub - helpful for quicker debugging.
 
 # After Merging in New CVEs
 
 After we merge in a bunch of PRs, here's a checklist of what needs updating, and in what order:
 
-  * Add mentioned commits (default options should be good enough)
-  * Generate weeklies (skip existing)
+- Add mentioned commits (default options should be good enough)
+- Generate weeklies (skip existing)
